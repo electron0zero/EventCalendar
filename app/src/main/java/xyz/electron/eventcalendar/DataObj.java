@@ -1,6 +1,5 @@
 package xyz.electron.eventcalendar;
 
-
 import java.util.List;
 
 public class DataObj {

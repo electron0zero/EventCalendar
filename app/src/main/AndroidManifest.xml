@@ -19,6 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--our Content Provider-->
+
+        <provider
+            android:authorities="xyz.electron.eventcalendar.provider"
+            android:name=".provider.MyProvider"/>
+
     </application>
 
 </manifest>
