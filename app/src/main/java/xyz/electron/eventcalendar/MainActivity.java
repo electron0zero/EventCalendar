@@ -1,5 +1,6 @@
 package xyz.electron.eventcalendar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        launchMyService();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -97,5 +100,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // Call launchMyService() in the activity
+    // to startup the service
+    public void launchMyService() {
+        // Construct our Intent specifying the Service
+        Intent i = new Intent(this, MyService.class);
+        // Add extras to the bundle
+        // i.putExtra("foo", "bar");
+        // Start the service
+        startService(i);
     }
 }
