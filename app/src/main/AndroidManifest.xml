@@ -26,7 +26,9 @@
 
         <provider
             android:authorities="xyz.electron.eventcalendar.provider"
-            android:name=".provider.MyProvider"/>
+            android:name=".provider.MyProvider"
+            android:exported="false"
+            android:syncable="true"/>
 
         <service android:name=".MyService"/>
 

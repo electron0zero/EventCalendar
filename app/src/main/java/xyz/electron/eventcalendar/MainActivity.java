@@ -1,6 +1,8 @@
 package xyz.electron.eventcalendar;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import org.json.JSONObject;
+
+import java.sql.Array;
+import java.util.ArrayList;
+
+import xyz.electron.eventcalendar.provider.DBHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +53,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // View adaptor thing
+
+        ListView listView = (ListView) findViewById(R.id.eventListView);
+
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * from schTable", null);
+
+        EventsCursorAdapter eventsCursorAdapter = new EventsCursorAdapter(this, cursor);
+
+        listView.setAdapter(eventsCursorAdapter);
+
     }
 
     @Override
@@ -112,4 +136,25 @@ public class MainActivity extends AppCompatActivity
         // Start the service
         startService(i);
     }
+
+    public ArrayList<DataObj.EventScheduleBean> buildArrayListFromSchCP(){
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * from schTable", null);
+
+        ArrayList<DataObj.EventScheduleBean> events = new ArrayList<DataObj.EventScheduleBean>();
+        if (cursor != null)
+        {
+            if (cursor.moveToFirst()) {
+                for(int i = 0; i < cursor.getCount(); i ++){
+                   String SchObjJSONString = cursor.getString(i);
+                    //convert it to DataObj.EventScheduleBean via GSON
+
+                }
+            }
+            cursor.close();
+        }
+        return events;
+    }
+
 }
