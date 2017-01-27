@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // View adaptor thing
 
+        // View adaptor thing
         ListView listView = (ListView) findViewById(R.id.eventListView);
 
         Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
@@ -148,35 +148,9 @@ public class MainActivity extends AppCompatActivity
     public void launchMyService() {
         // Construct our Intent specifying the Service
         Intent i = new Intent(this, MyService.class);
-        // Add extras to the bundle
         // i.putExtra("foo", "bar");
         // Start the service
         startService(i);
-    }
-
-    public ArrayList<DataObj.EventScheduleBean> buildArrayListFromSchCP(){
-        DBHelper dbHelper = new DBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * from schTable", null);
-
-        ArrayList<DataObj.EventScheduleBean> events = new ArrayList<DataObj.EventScheduleBean>();
-
-        if (cursor != null)
-        {
-            if (cursor.moveToFirst()) {
-                for(int i = 0; i < cursor.getCount(); i ++){
-                   String SchObjJSONString = cursor.getString(i);
-                    //convert it to DataObj.EventScheduleBean via GSON
-                    Gson gson = new Gson();
-                    DataObj.EventScheduleBean eventScheduleBean =
-                            gson.fromJson(SchObjJSONString, DataObj.EventScheduleBean.class);
-                    events.add(eventScheduleBean);
-                }
-            }
-            cursor.close();
-        }
-        Log.d("test", "buildArrayListFromSchCP: " + events);
-        return events;
     }
 
 }
