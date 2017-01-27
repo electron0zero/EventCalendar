@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.electron.eventcalendar">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,16 +22,25 @@
             </intent-filter>
         </activity>
 
-        <!--our Content Provider-->
+        <!-- our Content Provider -->
 
         <provider
-            android:authorities="xyz.electron.eventcalendar.provider"
             android:name=".provider.MyProvider"
+            android:authorities="xyz.electron.eventcalendar.provider"
             android:exported="false"
-            android:syncable="true"/>
+            android:syncable="true" />
 
-        <service android:name=".MyService"/>
+        <service android:name=".MyService" />
 
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="xyz.electron.eventcalendar.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

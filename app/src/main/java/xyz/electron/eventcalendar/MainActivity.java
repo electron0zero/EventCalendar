@@ -1,5 +1,6 @@
 package xyz.electron.eventcalendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -25,7 +28,9 @@ import org.json.JSONObject;
 import java.sql.Array;
 import java.util.ArrayList;
 
+import xyz.electron.eventcalendar.provider.Contract;
 import xyz.electron.eventcalendar.provider.DBHelper;
+import xyz.electron.eventcalendar.provider.MyProvider;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,14 +66,20 @@ public class MainActivity extends AppCompatActivity
 
         ListView listView = (ListView) findViewById(R.id.eventListView);
 
-        DBHelper dbHelper = new DBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * from schTable", null);
+        Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
 
         EventsCursorAdapter eventsCursorAdapter = new EventsCursorAdapter(this, cursor);
 
         listView.setAdapter(eventsCursorAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapter,View view, int position, long id){
+                //open details activity
+                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
+                cur.moveToPosition(position);
+                Toast.makeText(MainActivity.this, position +  " Meooooow " + id, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
