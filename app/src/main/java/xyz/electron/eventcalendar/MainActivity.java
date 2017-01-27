@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -143,17 +146,22 @@ public class MainActivity extends AppCompatActivity
         Cursor cursor = db.rawQuery("SELECT * from schTable", null);
 
         ArrayList<DataObj.EventScheduleBean> events = new ArrayList<DataObj.EventScheduleBean>();
+
         if (cursor != null)
         {
             if (cursor.moveToFirst()) {
                 for(int i = 0; i < cursor.getCount(); i ++){
                    String SchObjJSONString = cursor.getString(i);
                     //convert it to DataObj.EventScheduleBean via GSON
-
+                    Gson gson = new Gson();
+                    DataObj.EventScheduleBean eventScheduleBean =
+                            gson.fromJson(SchObjJSONString, DataObj.EventScheduleBean.class);
+                    events.add(eventScheduleBean);
                 }
             }
             cursor.close();
         }
+        Log.d("test", "buildArrayListFromSchCP: " + events);
         return events;
     }
 

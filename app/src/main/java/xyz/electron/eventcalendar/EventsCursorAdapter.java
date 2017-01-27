@@ -7,7 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class EventsCursorAdapter extends CursorAdapter{
 
@@ -28,10 +36,22 @@ public class EventsCursorAdapter extends CursorAdapter{
     public void bindView(View view, Context context, Cursor cursor) {
 
         // Find fields to populate in inflated template
+        ImageView eventImage = (ImageView) view.findViewById(R.id.event_image);
         TextView eventName = (TextView) view.findViewById(R.id.event_name);
-        // Extract properties from cursor
-        String eventObj = cursor.getString(cursor.getColumnIndexOrThrow("schEventObj"));
+        TextView eventDate = (TextView) view.findViewById(R.id.event_date);
+        TextView eventTime = (TextView) view.findViewById(R.id.event_time);
+         // Extract properties from cursor
+        String eventObjJSON = cursor.getString(cursor.getColumnIndexOrThrow("schEventObj"));
+
+        //convert it to DataObj.EventScheduleBean via GSON
+        Gson gson = new Gson();
+        DataObj.EventScheduleBean eventScheduleBean =
+                            gson.fromJson(eventObjJSON, DataObj.EventScheduleBean.class);
+
         // Populate fields with extracted properties
-        eventName.setText(eventObj.toString());
+        Glide.with(context).load(eventScheduleBean.getImage()).into(eventImage);
+        eventName.setText(eventScheduleBean.getName());
+        eventDate.setText(eventScheduleBean.getDate());
+        eventTime.setText(eventScheduleBean.getTime());
     }
 }
