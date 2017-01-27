@@ -77,6 +77,14 @@ public class MainActivity extends AppCompatActivity
                 //open details activity
                 Cursor cur = (Cursor) adapter.getItemAtPosition(position);
                 cur.moveToPosition(position);
+
+                String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+
+                intent.putExtra("eventObjJSON", eventObjJSON);
+
+                startActivity(intent);
+
                 Toast.makeText(MainActivity.this, position +  " Meooooow " + id, Toast.LENGTH_SHORT).show();
             }
         });

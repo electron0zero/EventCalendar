@@ -40,6 +40,7 @@ public class EventsCursorAdapter extends CursorAdapter{
         TextView eventName = (TextView) view.findViewById(R.id.event_name);
         TextView eventDate = (TextView) view.findViewById(R.id.event_date);
         TextView eventTime = (TextView) view.findViewById(R.id.event_time);
+
          // Extract properties from cursor
         String eventObjJSON = cursor.getString(cursor.getColumnIndexOrThrow("schEventObj"));
 
