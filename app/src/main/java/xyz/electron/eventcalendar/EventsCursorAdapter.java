@@ -13,10 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
 public class EventsCursorAdapter extends CursorAdapter{
 
     public EventsCursorAdapter(Context context, Cursor c) {

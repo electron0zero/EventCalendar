@@ -40,7 +40,7 @@ public class MyService extends IntentService {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://gist.githubusercontent.com/electron0zero/88783beb4d666eb2cc56d4dd669e887b/raw/99e6ca10a530a3f4000446f2cdb635134f4300e9/IGN_test_JSON")
+                .url("https://gist.githubusercontent.com/electron0zero/88783beb4d666eb2cc56d4dd669e887b/raw/5dca7c71c2e22b27ce9ae8ce0ab3f6814a8498b6/IGN_test_JSON")
                 .build();
         try {
             Response response = client.newCall(request).execute();

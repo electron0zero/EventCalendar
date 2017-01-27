@@ -1,6 +1,5 @@
 package xyz.electron.eventcalendar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,14 +22,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.sql.Array;
 import java.util.ArrayList;
 
 import xyz.electron.eventcalendar.provider.Contract;
 import xyz.electron.eventcalendar.provider.DBHelper;
-import xyz.electron.eventcalendar.provider.MyProvider;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
