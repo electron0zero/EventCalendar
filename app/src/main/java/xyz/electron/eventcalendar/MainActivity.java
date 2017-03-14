@@ -1,8 +1,11 @@
 package xyz.electron.eventcalendar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        // TODO: launch only if we have internet connection
         launchMyService();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -137,11 +140,29 @@ public class MainActivity extends AppCompatActivity
     // Call launchMyService() in the activity
     // to startup the service
     public void launchMyService() {
-        // Construct our Intent specifying the Service
-        Intent i = new Intent(this, MyService.class);
-        // i.putExtra("foo", "bar");
-        // Start the service
-        startService(i);
+        // make sure we have internet before starting service
+        if (isNetworkAvailable()) {
+            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
+//            Log.v("Main", "You are online!!!!");
+            Intent i = new Intent(this, MyService.class);
+            // i.putExtra("foo", "bar");
+            // Start the service
+            startService(i);
+        } else {
+            Toast.makeText(this,"Can not Refresh, " +
+                    "Check Internet Connection and Try Again",Toast.LENGTH_LONG).show();
+//            Log.v("Main", "You are not online!!!!");
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        boolean isConnected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        isConnected = activeNetworkInfo != null &&
+                activeNetworkInfo.isConnectedOrConnecting();
+        Log.d("main", "isNetworkAvailable: " + isConnected);
+        return isConnected;
     }
 
 }

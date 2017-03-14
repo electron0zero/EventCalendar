@@ -38,7 +38,7 @@ public class MyService extends IntentService {
         String responseBody = null;
 
         // Query Network
-
+        // TODO: 10-02-17  check for internet before making an request.
         // should be a singleton
         OkHttpClient client = new OkHttpClient();
 
