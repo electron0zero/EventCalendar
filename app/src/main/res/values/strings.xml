@@ -97,4 +97,5 @@
     </string>
     <string name="title_activity_schedule">Schedule</string>
     <string name="title_activity_sponsors">Sponsors</string>
+    <string name="title_activity_about">About</string>
 </resources>
