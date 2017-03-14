@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-public class EventsCursorAdapter extends CursorAdapter{
+public class ScheduleCursorAdapter extends CursorAdapter{
 
-    public EventsCursorAdapter(Context context, Cursor c) {
+    public ScheduleCursorAdapter(Context context, Cursor c) {
         super(context, c);
     }
 

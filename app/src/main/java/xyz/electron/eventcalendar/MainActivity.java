@@ -3,13 +3,10 @@ package xyz.electron.eventcalendar;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,12 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-
 import xyz.electron.eventcalendar.provider.Contract;
-import xyz.electron.eventcalendar.provider.DBHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,9 +50,9 @@ public class MainActivity extends AppCompatActivity
 
         Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
 
-        EventsCursorAdapter eventsCursorAdapter = new EventsCursorAdapter(this, cursor);
+        ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(this, cursor);
 
-        listView.setAdapter(eventsCursorAdapter);
+        listView.setAdapter(scheduleCursorAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapter,View view, int position, long id){
