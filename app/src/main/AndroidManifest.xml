@@ -50,15 +50,6 @@
                 android:value="xyz.electron.eventcalendar.MainActivity" />
         </activity>
         <activity
-            android:name=".ScheduleActivity"
-            android:label="@string/title_activity_schedule"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.electron.eventcalendar.MainActivity" />
-        </activity>
-        <activity
             android:name=".SponsorsActivity"
             android:label="@string/title_activity_sponsors"
             android:parentActivityName=".MainActivity"

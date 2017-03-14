@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity
 
                 String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-
                 intent.putExtra("eventObjJSON", eventObjJSON);
-
                 startActivity(intent);
 
                 Toast.makeText(MainActivity.this, position +  " Meooooow " + id, Toast.LENGTH_SHORT).show();
@@ -112,7 +110,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -120,12 +117,24 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_schedule) {
             // Handle the schedule action
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_sponsors) {
             // handle sponsors action
+            Intent intent = new Intent(this, SponsorsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_map) {
             // Handle Map Action
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_about) {
             // Handle About Action
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
