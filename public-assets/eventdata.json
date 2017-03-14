@@ -1,7 +1,7 @@
 {
     "eventMetadata": {
         "event_name": "My Best event",
-        "splashImage": "url of splash image",
+        "iconUrl": "url of icon image",
         "posterUrl" : "url of poster",
         "update_number": "0"
     },
