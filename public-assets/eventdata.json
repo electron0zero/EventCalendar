@@ -1,0 +1,371 @@
+{
+    "eventMetadata": {
+        "event_name": "My Best event",
+        "splashImage": "url of splash image",
+        "posterUrl" : "url of poster",
+        "update_number": "0"
+    },
+    "eventSchedule": [
+        {
+            "Name": "activity1",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity2",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity3",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity4",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity5",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity6",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity7",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity8",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity9",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151500,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL",
+                "contact": "registration_contact",
+                "fees": "fees"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        },
+        {
+            "Name": "activity10",
+            "date": "10-12-2017",
+            "time": "10:15",
+            "image": "https://i.imgur.com/4AiXzf8.jpg",
+            "details": "an paragraph about the event",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "anything extra about event, requirement, dress Code etc.",
+            "event_location": "70.151551,15.891515",
+            "register": {
+                "isRequired": "true",
+                "url": "reg_form_URL"
+            },
+            "activitySponsors": [
+                {
+                    "name": "sponsor Name 1",
+                    "image": "http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png",
+                    "url": "url of sponsor"
+                },
+                {
+                    "name": "sponsor Name 2",
+                    "image": "https://i.imgur.com/NiTuE1J.jpg",
+                    "url": "url of sponsor"
+                }
+            ]
+        }
+    ],
+    "eventSponsors": [
+        {
+            "name": "sponsor Name 1",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 2",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 3",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 4",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 5",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 6",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 7",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 8",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 9",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "Title sponsor"
+        },
+        {
+            "name": "sponsor Name 10",
+            "image": "https://i.imgur.com/sFNj4bs.jpg",
+            "url": "link-to-sponsor's website",
+            "type": "gold sponsor"
+        }
+    ],
+    "eventMap": {
+        "location": "latitude, longitude",
+        "radius": "60"
+    },
+    "eventAbout": {
+        "info": "an paragraph about the event",
+        "organiser": "organiser of event",
+        "organiser_contact_phone": "+91 6111666262",
+        "organiser_contact_email": "example@example.com",
+        "address_of_event": "address of event"
+    }
+}
