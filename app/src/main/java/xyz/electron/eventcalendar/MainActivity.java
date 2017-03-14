@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -127,8 +128,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_map) {
             // Handle Map Action
-            Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
+            // map point based on latitude/longitude
+            // z param is zoom level
+            // TODO: Take location from shared pref.
+            // Magic number just for testing
+             Uri location = Uri.parse("geo:27.9613945,76.4017789?z=20");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+            startActivity(mapIntent);
 
         } else if (id == R.id.nav_about) {
             // Handle About Action
