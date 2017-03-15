@@ -31,6 +31,7 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // get Shared preference
+        // TODO: handle case when we get Nothing(null/None) in metadata and about
         mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
         metadata = mSettings.getString("metadata", "Not Found");
         about = mSettings.getString("about", "Not Found");

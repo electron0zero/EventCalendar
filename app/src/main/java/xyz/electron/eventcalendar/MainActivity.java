@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,9 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.Objects;
@@ -40,17 +44,41 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        launchMyService();
+        mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main)
         navigationView.setNavigationItemSelectedListener(this);
 
+        // init Nav Drawer with data from Shared Pref
+        // get metadata JSON object from Shared pref.
+        String metadata = mSettings.getString("metadata", "");
+        View headerView = navigationView.getHeaderView(0);
+        if (!Objects.equals(metadata, "")) {
+            //we got metadata JSON Object use it and launch map
+            // convert it to DataObj via GSON
+            Gson gson = new Gson();
+            DataObj.EventMetadataBean eventMetadataBean =
+                    gson.fromJson(metadata, DataObj.EventMetadataBean.class);
+
+            // get reference to items in Nav bar
+            ImageView nav_poster = (ImageView) headerView.findViewById(R.id.nav_head_poster);
+            ImageView nav_icon = (ImageView) headerView.findViewById(R.id.nav_head_icon);
+            TextView nav_eventName = (TextView) headerView.findViewById(R.id.nav_head_EventName);
+
+            // populate it
+             Glide.with(getApplicationContext()).load(eventMetadataBean.getPosterUrl()).into(nav_poster);
+             Glide.with(getApplicationContext()).load(eventMetadataBean.getIconUrl()).into(nav_icon);
+             nav_eventName.setText(eventMetadataBean.getEvent_name());
+
+        }
 
         // View adaptor thing
         ListView listView = (ListView) findViewById(R.id.eventListView);
@@ -75,6 +103,11 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, position +  " Meooooow " + id, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Service to fetch and Sync data from Remote server
+        // TODO: refresh only when requested
+        // TODO: 16-03-17 add icon on top to refresh along with swipeDownToRefresh
+        launchMyService();
 
     }
 
@@ -129,7 +162,6 @@ public class MainActivity extends AppCompatActivity
             if (id == R.id.nav_map) {
                 // Handle Map Action
                 // get Shared preference
-                mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
                 String map = mSettings.getString("map", "");
                 if (!Objects.equals(map, "")) {
                     //we got map JSON Object use it and launch map
