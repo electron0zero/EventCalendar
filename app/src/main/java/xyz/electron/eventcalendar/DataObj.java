@@ -67,7 +67,7 @@ public class DataObj {
          */
 
         private String event_name;
-        private String splashImage;
+        private String iconUrl;
         private String posterUrl;
         private String update_number;
 
@@ -79,12 +79,12 @@ public class DataObj {
             this.event_name = event_name;
         }
 
-        public String getSplashImage() {
-            return splashImage;
+        public String getIconUrl() {
+            return iconUrl;
         }
 
-        public void setSplashImage(String splashImage) {
-            this.splashImage = splashImage;
+        public void setIconUrl(String iconUrl) {
+            this.iconUrl = iconUrl;
         }
 
         public String getPosterUrl() {

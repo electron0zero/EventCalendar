@@ -52,7 +52,7 @@ public class MyService extends IntentService {
 
             responseBody = response.body().string();
 
-            Log.d("test", "onHandleIntent: " + responseBody);
+            // Log.d("test", "onHandleIntent: " + responseBody);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,6 +73,7 @@ public class MyService extends IntentService {
         // eventMetadata
         JSONObject metadata = null;
         try {
+            // save metadata to shared pref
             metadata = respo.getJSONObject("eventMetadata");
             // We need an Editor object to make preference changes.
             // All objects are from android.context.Context
@@ -84,12 +85,12 @@ public class MyService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // save metadata to shared pref
         Log.d("test", "onHandleIntent: " + metadata.toString());
 
         // eventMap
         JSONObject map = null;
         try {
+            // save map to shared pref
             map = respo.getJSONObject("eventMap");
             // We need an Editor object to make preference changes.
             // All objects are from android.context.Context
@@ -101,12 +102,12 @@ public class MyService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // save map to shared pref
         Log.d("test", "onHandleIntent: " + map.toString());
 
         // eventAbout
         JSONObject about = null;
         try {
+            // save about to shared pref
             about = respo.getJSONObject("eventAbout");
             // We need an Editor object to make preference changes.
             // All objects are from android.context.Context
@@ -119,7 +120,6 @@ public class MyService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // save about to shared pref
         Log.d("test", "onHandleIntent: " + about.toString());
 
         // eventSchedule
@@ -141,12 +141,12 @@ public class MyService extends IntentService {
                 // update each item in ContentProvider
                 mNewUri = getContentResolver().insert(Contract.SchEntry.CONTENT_URI,
                         mContentValues);
-                Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
+                // Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        Log.d("test", "onHandleIntent: " + schedule.toString());
+        // Log.d("test", "onHandleIntent: " + schedule.toString());
 
         JSONArray sponsors = null;
         try {
@@ -171,13 +171,12 @@ public class MyService extends IntentService {
 
                 mNewUri = getContentResolver().insert(Contract.SpoEntry.CONTENT_URI,
                         mContentValues);
-                Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
+                // Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        Log.d("test", "onHandleIntent: " + sponsors.toString());
-
+        // Log.d("test", "onHandleIntent: " + sponsors.toString());
         // Parse data and Load that into ContentProvider done
     }
 }
