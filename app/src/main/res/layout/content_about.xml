@@ -15,8 +15,13 @@
 
         <ImageView
             android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/event_icon" />
+
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/event_icon"/>
+            android:id="@+id/event_poster" />
 
         <TextView
             android:id="@+id/event_name"

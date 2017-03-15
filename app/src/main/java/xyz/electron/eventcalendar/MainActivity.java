@@ -2,6 +2,7 @@ package xyz.electron.eventcalendar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,10 +22,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.util.Objects;
+
 import xyz.electron.eventcalendar.provider.Contract;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    SharedPreferences mSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // TODO: launch only if we have internet connection
+
         launchMyService();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,27 +88,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -118,21 +125,34 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SponsorsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_map) {
-            // Handle Map Action
-            // map point based on latitude/longitude
-            // z param is zoom level
-            // TODO: Take location from shared pref.
-            // Magic number just for testing
-             Uri location = Uri.parse("geo:27.9613945,76.4017789?z=20");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-            startActivity(mapIntent);
+        } else {
+            if (id == R.id.nav_map) {
+                // Handle Map Action
+                // get Shared preference
+                mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
+                String map = mSettings.getString("map", "");
+                if (!Objects.equals(map, "")) {
+                    //we got map JSON Object use it and launch map
+                    // convert it to DataObj via GSON
+                    Gson gson = new Gson();
+                    DataObj.EventMapBean eventMapBean =
+                            gson.fromJson(map, DataObj.EventMapBean.class);
+                    String zoom = "20";
+                    // map point based on latitude/longitude
+                    // z param is zoom level.
+                    String loc = "geo:" + eventMapBean.getLocation() +"?z=" + zoom;
+                    Uri location = Uri.parse(loc);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                    startActivity(mapIntent);
+                } else {
+                    Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+                }
+            } else if (id == R.id.nav_about) {
+                // Handle About Action
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
 
-        } else if (id == R.id.nav_about) {
-            // Handle About Action
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -140,8 +160,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    // Call launchMyService() in the activity
-    // to startup the service
+    // Call launchMyService() to start MyService
     public void launchMyService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {

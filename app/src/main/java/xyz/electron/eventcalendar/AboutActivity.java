@@ -32,10 +32,10 @@ public class AboutActivity extends AppCompatActivity {
 
         // get Shared preference
         mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
-         metadata = mSettings.getString("metadata", "Not Found");
-         about = mSettings.getString("about", "Not Found");
-         // Log.d("test", metadata);
-         // Log.d("test", about);
+        metadata = mSettings.getString("metadata", "Not Found");
+        about = mSettings.getString("about", "Not Found");
+        // Log.d("test", metadata);
+        // Log.d("test", about);
 
         // convert it to DataObj via GSON
         Gson gson = new Gson();
@@ -46,6 +46,7 @@ public class AboutActivity extends AppCompatActivity {
 
         // get Views
         ImageView event_icon = (ImageView) findViewById(R.id.event_icon);
+        ImageView event_poster = (ImageView) findViewById(R.id.event_poster);
         TextView event_name = (TextView) findViewById(R.id.event_name);
         TextView event_info = (TextView) findViewById(R.id.eventAbout_info);
         TextView event_org = (TextView) findViewById(R.id.eventAbout_org);
@@ -55,6 +56,7 @@ public class AboutActivity extends AppCompatActivity {
 
         // populate it
         Glide.with(getApplicationContext()).load(eventMetadataBean.getIconUrl()).into(event_icon);
+        Glide.with(getApplicationContext()).load(eventMetadataBean.getPosterUrl()).into(event_poster);
         event_name.setText(eventMetadataBean.getEvent_name());
         event_info.setText(eventAboutBean.getInfo());
         event_org.setText(eventAboutBean.getOrganiser());

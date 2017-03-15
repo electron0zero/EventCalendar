@@ -358,7 +358,7 @@
         }
     ],
     "eventMap": {
-        "location": "latitude, longitude",
+        "location": "27.9614358,76.4019588",
         "radius": "60"
     },
     "eventAbout": {
