@@ -1,11 +1,17 @@
 package xyz.electron.eventcalendar;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import xyz.electron.eventcalendar.provider.Contract;
 
 public class SponsorsActivity extends AppCompatActivity {
 
@@ -15,16 +21,38 @@ public class SponsorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sponsors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        // View adaptor thing
+        ListView listView = (ListView) findViewById(R.id.sponsorsListView);
+
+        Cursor cursor = getContentResolver().query(Contract.SpoEntry.CONTENT_URI, null, null, null, null);
+
+        SponsorsCursorAdapter sponsorsCursorAdapter = new SponsorsCursorAdapter(this, cursor);
+
+        listView.setAdapter(sponsorsCursorAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id){
+                //open sponsor website in browser
+                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
+                cur.moveToPosition(position);
+
+                String spoObjJSON = cur.getString(cur.getColumnIndexOrThrow("spoDataObj"));
+
+//                startActivity(intent);
+                Toast.makeText(SponsorsActivity.this, spoObjJSON, Toast.LENGTH_LONG).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    //helper function to handle urls
+    // TODO: add CTT : https://guides.codepath.com/android/Chrome-Custom-Tabs
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 
 }
