@@ -5,6 +5,6 @@
     android:minHeight="40dp"
     android:minWidth="250dp"
     android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="vertical"
-    android:updatePeriodMillis="86400000"
-    android:widgetCategory="home_screen|keyguard"></appwidget-provider>
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen|keyguard" />
