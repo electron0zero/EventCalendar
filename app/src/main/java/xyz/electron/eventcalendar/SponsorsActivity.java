@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import xyz.electron.eventcalendar.provider.Contract;
 
 public class SponsorsActivity extends AppCompatActivity {
@@ -38,11 +40,14 @@ public class SponsorsActivity extends AppCompatActivity {
                 //open sponsor website in browser
                 Cursor cur = (Cursor) adapter.getItemAtPosition(position);
                 cur.moveToPosition(position);
-
                 String spoObjJSON = cur.getString(cur.getColumnIndexOrThrow("spoDataObj"));
-
-//                startActivity(intent);
-                Toast.makeText(SponsorsActivity.this, spoObjJSON, Toast.LENGTH_LONG).show();
+                // convert it to DataObj via GSON
+                Gson gson = new Gson();
+                DataObj.EventSponsorsBean eventSponsorsBean  =
+                        gson.fromJson(spoObjJSON, DataObj.EventSponsorsBean.class);
+                goToUrl(eventSponsorsBean.getUrl());
+                 Toast.makeText(SponsorsActivity.this, eventSponsorsBean.getUrl(),
+                         Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -50,8 +55,8 @@ public class SponsorsActivity extends AppCompatActivity {
     //helper function to handle urls
     // TODO: add CTT : https://guides.codepath.com/android/Chrome-Custom-Tabs
     private void goToUrl (String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        Uri openUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, openUrl);
         startActivity(launchBrowser);
     }
 
