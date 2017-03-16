@@ -52,8 +52,7 @@ public class SponsorsActivity extends AppCompatActivity {
         });
     }
 
-    //helper function to handle urls
-    // TODO: add CTT : https://guides.codepath.com/android/Chrome-Custom-Tabs
+    //helper function to open urls
     private void goToUrl (String url) {
         Uri openUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, openUrl);
