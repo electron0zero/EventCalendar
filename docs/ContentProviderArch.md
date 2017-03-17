@@ -6,7 +6,7 @@ paths :
         auth/spo       // have sponsors info
         auth/spo/1     // single sponsors JSON item saved as text
         
-Handle matchers
+Handle matches
 
 
 Use Shared Preferences for Saving Metadata, Map, About JSON objects.

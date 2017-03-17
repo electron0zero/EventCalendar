@@ -8,9 +8,6 @@ import android.widget.RemoteViewsService;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xyz.electron.eventcalendar.DataObj;
 import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.provider.Contract;
@@ -18,7 +15,6 @@ import xyz.electron.eventcalendar.provider.Contract;
 
 public class EventCalendarRemoteViewsFactory implements
         RemoteViewsService.RemoteViewsFactory {
-    // TODO: 17-03-17 Rename and refactor Widget class names
 
     private Context mContext;
     private Cursor mCursor;
@@ -61,7 +57,6 @@ public class EventCalendarRemoteViewsFactory implements
 
     @Override
     public RemoteViews getViewAt(int position) {
-        // TODO: 17-03-17 Handle This
         // Get the data for this position from the content provider
         String scheduleJSON = "";
         if (mCursor.moveToPosition(position)) {
@@ -78,7 +73,7 @@ public class EventCalendarRemoteViewsFactory implements
         rv.setTextViewText(R.id.widget_event_date, eventScheduleBean.getDate());
         rv.setTextViewText(R.id.widget_event_time, eventScheduleBean.getTime());
 
-        // TODO: Set the click intent
+        // TODO: Set the click Handler, Open Details Activity on Click
 
         return rv;
     }
