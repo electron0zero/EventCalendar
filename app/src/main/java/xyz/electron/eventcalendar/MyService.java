@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
@@ -44,6 +45,7 @@ public class MyService extends IntentService {
 
     @Override
     public void onDestroy() {
+        sendMessage();
         super.onDestroy();
     }
 
@@ -192,5 +194,13 @@ public class MyService extends IntentService {
         }
         // Log.d("test", "onHandleIntent: " + sponsors.toString());
         // Parse data and Load that into ContentProvider done
+    }
+
+    private void sendMessage() {
+        Log.d("sender", "Broadcasting message");
+        Intent intent = new Intent("EventCalendar-MyService-Destroyed");
+        // You can also include some extra data.
+        intent.putExtra("message", "This is my message!");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

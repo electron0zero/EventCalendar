@@ -1,13 +1,16 @@
 package xyz.electron.eventcalendar;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity
     // TODO: 17-03-17 Refactor class Names and Stuff
     SharedPreferences mSettings;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    NavigationView navigationView;
+//    private BroadcastReceiver mMessageReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
 //        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main)
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -121,7 +126,35 @@ public class MainActivity extends AppCompatActivity
         });
 
         // TODO: get data on first start or tell user to refresh via empty view
+        // Register to receive messages.
+        // We are registering an observer (mMessageReceiver) to receive Intents
+        // with actions named "custom-event-name".
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("EventCalendar-MyService-Destroyed"));
 
+    }
+
+// Our handler for received Intents. This will be called whenever an Intent
+// with an action named "EventCalendar-MyService-Destroyed" is broadcasted.
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String message = intent.getStringExtra("message");
+            Log.d("receiver", "Got message: " + message);
+            mSwipeRefreshLayout.setRefreshing(false);
+            navigationView.invalidate();
+            Log.d("test","Recreate");
+            // Recreate the activity to load new data in NavigationView
+            MainActivity.this.recreate();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
     }
 
     @Override
@@ -228,9 +261,6 @@ public class MainActivity extends AppCompatActivity
                     "Check Internet Connection and Try Again",Toast.LENGTH_LONG).show();
 //            Log.v("Main", "You are not online!!!!");
         }
-        // TODO: 17-03-17 use a broadcast receiverr to call this function
-        // when we finished with service (send localBroadcast in service's onDestroy())
-        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private boolean isNetworkAvailable() {
