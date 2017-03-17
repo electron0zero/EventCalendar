@@ -7,6 +7,6 @@ public class EventCalendarWidgetService extends RemoteViewsService{
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         // return RemoteViewFactory
-        return new EventCalendarWidgetDataProvider(this, intent);
+        return new EventCalendarRemoteViewsFactory(this, intent);
     }
 }

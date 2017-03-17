@@ -14,7 +14,7 @@ import java.util.List;
 import xyz.electron.eventcalendar.provider.Contract;
 
 
-public class EventCalendarWidgetDataProvider implements
+public class EventCalendarRemoteViewsFactory implements
         RemoteViewsService.RemoteViewsFactory {
     // TODO: 17-03-17 Rename and refactor Widget class names
 
@@ -23,7 +23,7 @@ public class EventCalendarWidgetDataProvider implements
     private int mAppWidgetId;
 
 
-    public EventCalendarWidgetDataProvider(Context context, Intent intent) {
+    public EventCalendarRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
