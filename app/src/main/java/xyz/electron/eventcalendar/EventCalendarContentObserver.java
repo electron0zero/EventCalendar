@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.database.ContentObserver;
 import android.os.Handler;
 
-public class ScheduleDataProviderObserver extends ContentObserver {
+public class EventCalendarContentObserver extends ContentObserver {
 
     private AppWidgetManager mAppWidgetManager;
     private ComponentName mComponentName;
@@ -14,7 +14,7 @@ public class ScheduleDataProviderObserver extends ContentObserver {
      *
      * @param handler The handler to run {@link #onChange} on, or null if none.
      */
-    public ScheduleDataProviderObserver(AppWidgetManager appWidgetManager,
+    public EventCalendarContentObserver(AppWidgetManager appWidgetManager,
                                         ComponentName componentName, Handler handler) {
         super(handler);
         mAppWidgetManager = appWidgetManager;

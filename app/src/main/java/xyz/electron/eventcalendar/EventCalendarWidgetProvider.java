@@ -23,7 +23,7 @@ public class EventCalendarWidgetProvider extends AppWidgetProvider {
 
     private static HandlerThread sWorkerThread;
     private static Handler sWorkerQueue;
-    private static ScheduleDataProviderObserver sDataObserver;
+    private static EventCalendarContentObserver sDataObserver;
 
     public EventCalendarWidgetProvider() {
         sWorkerThread = new HandlerThread("EventCalendarWidgetHandler");
@@ -49,7 +49,7 @@ public class EventCalendarWidgetProvider extends AppWidgetProvider {
         if (sDataObserver == null) {
             final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
             final ComponentName cn = new ComponentName(context, EventCalendarWidgetProvider.class);
-            sDataObserver = new ScheduleDataProviderObserver(mgr, cn, sWorkerQueue);
+            sDataObserver = new EventCalendarContentObserver(mgr, cn, sWorkerQueue);
             r.registerContentObserver(Contract.SchEntry.CONTENT_URI, true, sDataObserver);
         }
     }
