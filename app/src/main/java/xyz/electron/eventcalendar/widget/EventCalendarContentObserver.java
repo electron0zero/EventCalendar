@@ -1,9 +1,11 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.database.ContentObserver;
 import android.os.Handler;
+
+import xyz.electron.eventcalendar.R;
 
 public class EventCalendarContentObserver extends ContentObserver {
 

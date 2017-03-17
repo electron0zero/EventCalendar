@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.provider.Contract;
 
 

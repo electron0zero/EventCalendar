@@ -68,7 +68,7 @@
                 android:value="xyz.electron.eventcalendar.MainActivity" />
         </activity>
 
-        <receiver android:name=".EventCalendarWidgetProvider">
+        <receiver android:name=".widget.EventCalendarWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -77,7 +77,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/event_calendar_widget_info" />
         </receiver>
-        <service android:name=".EventCalendarRemoteViewsService"
+        <service android:name=".widget.EventCalendarRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 

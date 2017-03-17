@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

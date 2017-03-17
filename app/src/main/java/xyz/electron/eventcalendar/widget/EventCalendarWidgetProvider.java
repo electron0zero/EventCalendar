@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.widget.RemoteViews;
 
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.provider.Contract;
 
 /**
