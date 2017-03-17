@@ -8,7 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     // TODO: 17-03-17 Refactor class Names and Stuff
     SharedPreferences mSettings;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -79,6 +82,20 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        // get SwipeToRefresh View
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_main_str);
+        // Setup refresh listener which triggers new data loading
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call mSwipeRefreshLayout.setRefreshing(false)
+                // once the work has completed successfully.
+                launchMyService();
+            }
+        });
+
+
         // View adaptor thing
         ListView listView = (ListView) findViewById(R.id.eventListView);
 
@@ -103,10 +120,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Service to fetch and Sync data from Remote server
-        // TODO: refresh only when requested
-        // TODO: 16-03-17 add icon on top to refresh along with swipeDownToRefresh
-        launchMyService();
+        // TODO: get data on first start or tell user to refresh via empty view
 
     }
 
@@ -120,27 +134,35 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+
+                Log.i("main", "Refresh menu item selected");
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mSwipeRefreshLayout.setRefreshing(true);
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                launchMyService();
+                //mSwipeRefreshLayout.setRefreshing(false);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -191,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    // Call launchMyService() to start MyService
+    // launchMyService() starts MyService that fetches and updates new data
     public void launchMyService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {
@@ -206,6 +228,9 @@ public class MainActivity extends AppCompatActivity
                     "Check Internet Connection and Try Again",Toast.LENGTH_LONG).show();
 //            Log.v("Main", "You are not online!!!!");
         }
+        // TODO: 17-03-17 use a broadcast receiverr to call this function
+        // when we finished with service (send localBroadcast in service's onDestroy())
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private boolean isNetworkAvailable() {
