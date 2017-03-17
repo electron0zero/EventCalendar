@@ -35,6 +35,7 @@ import xyz.electron.eventcalendar.provider.Contract;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // TODO: 17-03-17 Refactor class Names and Stuff
     SharedPreferences mSettings;
 
     @Override

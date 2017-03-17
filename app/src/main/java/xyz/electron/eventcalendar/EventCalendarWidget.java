@@ -1,44 +1,59 @@
 package xyz.electron.eventcalendar;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
+
+import xyz.electron.eventcalendar.provider.Contract;
+import xyz.electron.eventcalendar.provider.MyProvider;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class EventCalendarWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    public static String CLICK_ACTION = "xyz.electron.eventcalendar.widget.CLICK";
 
-        // CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.event_calendar_widget);
-        //views.setTextViewText(R.id.appwidget_text, widgetText);
+    private static HandlerThread sWorkerThread;
+    private static Handler sWorkerQueue;
+    private static ScheduleDataProviderObserver sDataObserver;
 
-        // Set up the collection
-        setRemoteAdapter(context, views);
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+    public EventCalendarWidget() {
+        sWorkerThread = new HandlerThread("EventCalendarWidgetHandler");
+        sWorkerThread.start();
+        sWorkerQueue = new Handler(sWorkerThread.getLooper());
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+        // Update each of the widgets with the remote adapter
+        for (int i = 0; i < appWidgetIds.length; ++i) {
+            RemoteViews layout = buildLayout(context, appWidgetIds[i]);
+            appWidgetManager.updateAppWidget(appWidgetIds[i], layout);
         }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
+        final ContentResolver r = context.getContentResolver();
+        if (sDataObserver == null) {
+            final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+            final ComponentName cn = new ComponentName(context, EventCalendarWidget.class);
+            sDataObserver = new ScheduleDataProviderObserver(mgr, cn, sWorkerQueue);
+            r.registerContentObserver(Contract.SchEntry.CONTENT_URI, true, sDataObserver);
+        }
     }
 
     @Override
@@ -46,14 +61,39 @@ public class EventCalendarWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    /**
-     * Sets the remote adapter used to fill in the list items
-     *
-     * @param views RemoteViews to set the RemoteAdapter
-     */
-    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(R.id.widget_list,
-                new Intent(context, EventCalendarWidgetService.class));
+    @Override
+    public void onReceive(Context ctx, Intent intent) {
+//        final String action = intent.getAction();
+//        if (action.equals(CLICK_ACTION)) {
+//            final String symbol = intent.getStringExtra(DetailGraphActivity.SELECTED_SYMBOL);
+//
+//            Intent i = new Intent(ctx, DetailGraphActivity.class);
+//            i.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+//            i.putExtra(DetailGraphActivity.SELECTED_SYMBOL, symbol);
+//            ctx.startActivity(i);
+//        }
+        super.onReceive(ctx, intent);
     }
+
+    private RemoteViews buildLayout(Context context, int appWidgetId) {
+        RemoteViews rv;
+
+        final Intent intent = new Intent(context, EventCalendarWidgetService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        rv = new RemoteViews(context.getPackageName(), R.layout.event_calendar_widget);
+        rv.setRemoteAdapter(R.id.widget_list, intent);
+
+        final Intent onClickIntent = new Intent(context, EventCalendarWidget.class);
+        onClickIntent.setAction(EventCalendarWidget.CLICK_ACTION);
+        onClickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        onClickIntent.setData(Uri.parse(onClickIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        final PendingIntent onClickPendingIntent = PendingIntent.getBroadcast(context, 0,
+                onClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        rv.setPendingIntentTemplate(R.id.widget_list, onClickPendingIntent);
+
+        return rv;
+    }
+
 }
 
