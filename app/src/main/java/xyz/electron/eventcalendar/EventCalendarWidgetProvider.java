@@ -76,7 +76,7 @@ public class EventCalendarWidgetProvider extends AppWidgetProvider {
     private RemoteViews buildLayout(Context context, int appWidgetId) {
         RemoteViews rv;
 
-        final Intent intent = new Intent(context, EventCalendarWidgetService.class);
+        final Intent intent = new Intent(context, EventCalendarRemoteViewsService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         rv = new RemoteViews(context.getPackageName(), R.layout.event_calendar_widget);
