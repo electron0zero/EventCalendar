@@ -74,7 +74,9 @@ public class MyService extends IntentService {
         // parse JSON
         JSONObject respo = null;
         try {
-            respo = new JSONObject(responseBody);
+            if(responseBody != null){
+                respo = new JSONObject(responseBody);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
