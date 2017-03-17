@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity
 
         // View adaptor thing
         ListView listView = (ListView) findViewById(R.id.eventListView);
+        listView.setEmptyView(findViewById(android.R.id.empty));
 
         Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
-
         ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(this, cursor);
 
         listView.setAdapter(scheduleCursorAdapter);
