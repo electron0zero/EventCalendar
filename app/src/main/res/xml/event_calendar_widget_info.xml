@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/event_calendar_widget"
     android:initialLayout="@layout/event_calendar_widget"
     android:minHeight="40dp"
-    android:minWidth="100dp"
+    android:minWidth="200dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"

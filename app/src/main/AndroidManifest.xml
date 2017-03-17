@@ -68,7 +68,7 @@
                 android:value="xyz.electron.eventcalendar.MainActivity" />
         </activity>
 
-        <receiver android:name=".EventCalendarWidget">
+        <receiver android:name=".EventCalendarWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

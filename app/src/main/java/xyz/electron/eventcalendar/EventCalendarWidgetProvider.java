@@ -10,16 +10,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import xyz.electron.eventcalendar.provider.Contract;
-import xyz.electron.eventcalendar.provider.MyProvider;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class EventCalendarWidget extends AppWidgetProvider {
+public class EventCalendarWidgetProvider extends AppWidgetProvider {
 
     public static String CLICK_ACTION = "xyz.electron.eventcalendar.widget.CLICK";
 
@@ -27,7 +25,7 @@ public class EventCalendarWidget extends AppWidgetProvider {
     private static Handler sWorkerQueue;
     private static ScheduleDataProviderObserver sDataObserver;
 
-    public EventCalendarWidget() {
+    public EventCalendarWidgetProvider() {
         sWorkerThread = new HandlerThread("EventCalendarWidgetHandler");
         sWorkerThread.start();
         sWorkerQueue = new Handler(sWorkerThread.getLooper());
@@ -50,7 +48,7 @@ public class EventCalendarWidget extends AppWidgetProvider {
         final ContentResolver r = context.getContentResolver();
         if (sDataObserver == null) {
             final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-            final ComponentName cn = new ComponentName(context, EventCalendarWidget.class);
+            final ComponentName cn = new ComponentName(context, EventCalendarWidgetProvider.class);
             sDataObserver = new ScheduleDataProviderObserver(mgr, cn, sWorkerQueue);
             r.registerContentObserver(Contract.SchEntry.CONTENT_URI, true, sDataObserver);
         }
@@ -84,8 +82,8 @@ public class EventCalendarWidget extends AppWidgetProvider {
         rv = new RemoteViews(context.getPackageName(), R.layout.event_calendar_widget);
         rv.setRemoteAdapter(R.id.widget_list, intent);
 
-        final Intent onClickIntent = new Intent(context, EventCalendarWidget.class);
-        onClickIntent.setAction(EventCalendarWidget.CLICK_ACTION);
+        final Intent onClickIntent = new Intent(context, EventCalendarWidgetProvider.class);
+        onClickIntent.setAction(EventCalendarWidgetProvider.CLICK_ACTION);
         onClickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         onClickIntent.setData(Uri.parse(onClickIntent.toUri(Intent.URI_INTENT_SCHEME)));
         final PendingIntent onClickPendingIntent = PendingIntent.getBroadcast(context, 0,
