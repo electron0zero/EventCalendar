@@ -200,7 +200,7 @@ public class MyService extends IntentService {
         Log.d("sender", "Broadcasting message");
         Intent intent = new Intent("EventCalendar-MyService-Destroyed");
         // You can also include some extra data.
-        intent.putExtra("message", "This is my message!");
+//        intent.putExtra("message", "This is my message!");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

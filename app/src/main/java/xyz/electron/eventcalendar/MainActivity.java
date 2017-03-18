@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // TODO: get data on first start or tell user to refresh via empty view
         // Register to receive messages.
         // We are registering an observer (mMessageReceiver) to receive Intents
         // with actions named "custom-event-name".
@@ -134,14 +133,30 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-// Our handler for received Intents. This will be called whenever an Intent
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mSettings.getBoolean("firstrun", true)) {
+            // refresh it
+            // Signal SwipeRefreshLayout to start the progress indicator
+            mSwipeRefreshLayout.setRefreshing(true);
+            // Start the refresh background task.
+            // This method calls setRefreshing(false) when it's finished.
+            launchMyService();
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit Settings
+            mSettings.edit().putBoolean("firstrun", false).apply();
+        }
+    }
+
+    // Our handler for received Intents. This will be called whenever an Intent
 // with an action named "EventCalendar-MyService-Destroyed" is broadcasted.
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            String message = intent.getStringExtra("message");
-            Log.d("receiver", "Got message: " + message);
+//            String message = intent.getStringExtra("message");
+//            Log.d("receiver", "Got message: " + message);
             mSwipeRefreshLayout.setRefreshing(false);
             navigationView.invalidate();
             Log.d("test","Recreate");
@@ -250,7 +265,7 @@ public class MainActivity extends AppCompatActivity
     public void launchMyService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {
-            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
 //            Log.v("Main", "You are online!!!!");
             Intent i = new Intent(this, MyService.class);
             // i.putExtra("foo", "bar");
@@ -259,6 +274,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             Toast.makeText(this,"Can not Refresh, " +
                     "Check Internet Connection and Try Again",Toast.LENGTH_LONG).show();
+            mSwipeRefreshLayout.setRefreshing(false);
 //            Log.v("Main", "You are not online!!!!");
         }
     }
