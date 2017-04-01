@@ -358,8 +358,11 @@
         }
     ],
     "eventMap": {
-        "location": "27.9614358,76.4019588",
-        "radius": "60"
+        "latitude": "27.9614358",
+        "longitude": "76.4019588",
+        "radiusInMeters": "60",
+        "timeForNotificationInSec": "1",
+        "NotificationMessage": "Hey There, Thanks for coming to event. Call 1800-00-EVENT for help"
     },
     "eventAbout": {
         "info": "an paragraph about the event",
