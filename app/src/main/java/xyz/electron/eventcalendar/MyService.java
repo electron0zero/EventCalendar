@@ -58,7 +58,7 @@ public class MyService extends IntentService {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://rawgit.com/electron0zero/EventCalendar/master/public-assets/eventdata.json")
+                .url(getString(R.string.data_json_file_url))
                 .build();
         try {
             Response response = client.newCall(request).execute();

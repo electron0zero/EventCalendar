@@ -74,6 +74,19 @@
         </receiver>
         <service android:name=".widget.EventCalendarRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <!--API KEYS-->
+        <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="@string/awareness_api_key" />
+        <!-- places/location declaration -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/awareness_api_key" />
+        <!-- Beacon snapshots/fences declaration -->
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="@string/awareness_api_key" />
     </application>
 
 </manifest>

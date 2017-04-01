@@ -5,10 +5,10 @@ import java.util.List;
 public class DataObj {
 
     /**
-     * eventMetadata : {"event_name":"My Best event","splashImage":"url of splash image","posterUrl":"url of poster","update_number":"0"}
-     * eventSchedule : [{"Name":"activity1","date":"10-12-2017","time":"10:15","image":"https://image_url_of_activity_image.png","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"},{"name":"sponsor Name 2","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"}]},{"Name":"activity2","date":"10-12-2017","time":"10:15","image":"https://image_url_of_activity_image.png","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151551,15.891515","register":{"isRequired":"true","url":"reg_form_URL"},"activitySponsors":[{"name":"sponsor Name 1","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"},{"name":"sponsor Name 2","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"}]}]
-     * eventSponsors : [{"name":"sponsor Name 1","image":"https://url-to-image-of_sponsor.png","url":"link-to-sponsor's website","type":"Title sponsor"},{"name":"sponsor Name 2","image":"https://url-to-image-of_sponsor.png","url":"link-to-sponsor's website","type":"gold sponsor"}]
-     * eventMap : {"location":"latitude, longitude","radius":"60"}
+     * eventMetadata : {"event_name":"My Best event","iconUrl":"http://roman.nurik.net/media/material_icon_gutenberg.png","posterUrl":"https://placeimg.com/640/480/arch/sepia","update_number":"0"}
+     * eventSchedule : [{"Name":"activity1","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity2","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity3","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity4","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity5","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity6","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity7","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity8","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity9","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151500,15.891515","register":{"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]},{"Name":"activity10","date":"10-12-2017","time":"10:15","image":"https://i.imgur.com/4AiXzf8.jpg","details":"an paragraph about the event","contact_phone":"+91 96513131313","contact_email":"example@example.com","spacial_note":"anything extra about event, requirement, dress Code etc.","event_location":"70.151551,15.891515","register":{"isRequired":"true","url":"reg_form_URL"},"activitySponsors":[{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]}]
+     * eventSponsors : [{"name":"sponsor Name 1","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 2","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 3","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 4","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 5","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 6","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 7","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 8","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 9","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"Title sponsor"},{"name":"sponsor Name 10","image":"https://i.imgur.com/sFNj4bs.jpg","url":"https://www.google.co.in/","type":"gold sponsor"}]
+     * eventMap : {"latitude":"27.9614358","longitude":"76.4019588","radiusInMeters":"60","timeForNotificationInSec":"1","NotificationMessage":"Hey There, Thanks for coming to event. Call 1800-00-EVENT for help"}
      * eventAbout : {"info":"an paragraph about the event","organiser":"organiser of event","organiser_contact_phone":"+91 6111666262","organiser_contact_email":"example@example.com","address_of_event":"address of event"}
      */
 
@@ -61,8 +61,8 @@ public class DataObj {
     public static class EventMetadataBean {
         /**
          * event_name : My Best event
-         * splashImage : url of splash image
-         * posterUrl : url of poster
+         * iconUrl : http://roman.nurik.net/media/material_icon_gutenberg.png
+         * posterUrl : https://placeimg.com/640/480/arch/sepia
          * update_number : 0
          */
 
@@ -106,27 +106,57 @@ public class DataObj {
 
     public static class EventMapBean {
         /**
-         * location : latitude, longitude
-         * radius : 60
+         * latitude : 27.9614358
+         * longitude : 76.4019588
+         * radiusInMeters : 60
+         * timeForNotificationInSec : 1
+         * NotificationMessage : Hey There, Thanks for coming to event. Call 1800-00-EVENT for help
          */
 
-        private String location;
-        private String radius;
+        private String latitude;
+        private String longitude;
+        private String radiusInMeters;
+        private String timeForNotificationInSec;
+        private String NotificationMessage;
 
-        public String getLocation() {
-            return location;
+        public String getLatitude() {
+            return latitude;
         }
 
-        public void setLocation(String location) {
-            this.location = location;
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
         }
 
-        public String getRadius() {
-            return radius;
+        public String getLongitude() {
+            return longitude;
         }
 
-        public void setRadius(String radius) {
-            this.radius = radius;
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
+
+        public String getRadiusInMeters() {
+            return radiusInMeters;
+        }
+
+        public void setRadiusInMeters(String radiusInMeters) {
+            this.radiusInMeters = radiusInMeters;
+        }
+
+        public String getTimeForNotificationInSec() {
+            return timeForNotificationInSec;
+        }
+
+        public void setTimeForNotificationInSec(String timeForNotificationInSec) {
+            this.timeForNotificationInSec = timeForNotificationInSec;
+        }
+
+        public String getNotificationMessage() {
+            return NotificationMessage;
+        }
+
+        public void setNotificationMessage(String NotificationMessage) {
+            this.NotificationMessage = NotificationMessage;
         }
     }
 
@@ -191,14 +221,14 @@ public class DataObj {
          * Name : activity1
          * date : 10-12-2017
          * time : 10:15
-         * image : https://image_url_of_activity_image.png
+         * image : https://i.imgur.com/4AiXzf8.jpg
          * details : an paragraph about the event
          * contact_phone : +91 96513131313
          * contact_email : example@example.com
          * spacial_note : anything extra about event, requirement, dress Code etc.
          * event_location : 70.151500,15.891515
          * register : {"isRequired":"true","url":"reg_form_URL","contact":"registration_contact","fees":"fees"}
-         * activitySponsors : [{"name":"sponsor Name 1","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"},{"name":"sponsor Name 2","image":"https://image_url_of_sponsor_image.png","url":"url of sponsor"}]
+         * activitySponsors : [{"name":"sponsor Name 1","image":"http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png","url":"https://www.google.co.in/"},{"name":"sponsor Name 2","image":"https://i.imgur.com/NiTuE1J.jpg","url":"https://www.google.co.in/"}]
          */
 
         private String Name;
@@ -350,8 +380,8 @@ public class DataObj {
         public static class ActivitySponsorsBean {
             /**
              * name : sponsor Name 1
-             * image : https://image_url_of_sponsor_image.png
-             * url : url of sponsor
+             * image : http://www.clker.com/cliparts/a/Z/q/o/I/p/uncle-sam-hi.png
+             * url : https://www.google.co.in/
              */
 
             private String name;
@@ -387,8 +417,8 @@ public class DataObj {
     public static class EventSponsorsBean {
         /**
          * name : sponsor Name 1
-         * image : https://url-to-image-of_sponsor.png
-         * url : link-to-sponsor's website
+         * image : https://i.imgur.com/sFNj4bs.jpg
+         * url : https://www.google.co.in/
          * type : Title sponsor
          */
 
