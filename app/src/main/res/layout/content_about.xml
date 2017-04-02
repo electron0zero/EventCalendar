@@ -6,64 +6,117 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="xyz.electron.eventcalendar.AboutActivity"
-    tools:showIn="@layout/activity_about">
+    tools:showIn="@layout/activity_about"
+    android:background="#eeeeee">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/event_icon" />
-
-        <ImageView
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/event_poster" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp">
 
-        <TextView
-            android:id="@+id/event_name"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/event_poster"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_local_atm_black_24dp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp">
 
-        <TextView
-            android:id="@+id/eventAbout_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <ImageView
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:layout_margin="8dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:id="@+id/event_icon" />
 
-        <TextView
-            android:id="@+id/eventAbout_org"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="center"
+                    android:text="TextView" />
 
-        <TextView
-            android:id="@+id/eventAbout_org_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/eventAbout_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:text="TextView" />
 
-        <TextView
-            android:id="@+id/eventAbout_org_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/eventAbout_org"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_business_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:layout_weight="1"
+                    android:text="TextView" />
 
-        <TextView
-            android:id="@+id/eventAbout_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/eventAbout_org_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_phone_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:autoLink="phone"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/eventAbout_org_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:layout_weight="1"
+                    android:autoLink="email"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/eventAbout_address"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/ic_map_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoLink="map"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 

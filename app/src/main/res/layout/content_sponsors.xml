@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="xyz.electron.eventcalendar.SponsorsActivity"
-    tools:showIn="@layout/activity_sponsors">
+    tools:showIn="@layout/activity_sponsors"
+    android:background="#eeeeee">
 
     <ListView
         android:layout_width="0dp"
