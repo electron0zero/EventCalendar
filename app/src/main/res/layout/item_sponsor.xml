@@ -15,7 +15,7 @@
             android:id="@+id/sponsors_image"
             android:layout_width="100sp"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_info_outline_black_24dp" />
 
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:singleLine="true"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:text="Sponsor Name" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:text="Sponsor Type" />
 
             <TextView
@@ -47,7 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textSize="24sp"
+                android:textSize="20sp"
+                android:autoLink="web"
+                android:textColorLink="@color/colorAccent"
                 android:text="Sponsor URL" />
 
         </LinearLayout>

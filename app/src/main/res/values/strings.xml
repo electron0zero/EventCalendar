@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">Activity Details</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -101,6 +101,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
     <!--URL of JSON Data file-->
-    <string name="data_json_file_url">https://rawgit.com/electron0zero/EventCalendar/master/public-assets/eventdata.json</string>
+    <string name="data_json_file_url">https://api.myjson.com/bins/eb22r</string>
+
 </resources>

@@ -34,29 +34,7 @@ public class SponsorsActivity extends AppCompatActivity {
         SponsorsCursorAdapter sponsorsCursorAdapter = new SponsorsCursorAdapter(this, cursor);
 
         listView.setAdapter(sponsorsCursorAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id){
-                //open sponsor website in browser
-                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
-                cur.moveToPosition(position);
-                String spoObjJSON = cur.getString(cur.getColumnIndexOrThrow("spoDataObj"));
-                // convert it to DataObj via GSON
-                Gson gson = new Gson();
-                DataObj.EventSponsorsBean eventSponsorsBean  =
-                        gson.fromJson(spoObjJSON, DataObj.EventSponsorsBean.class);
-                goToUrl(eventSponsorsBean.getUrl());
-                 Toast.makeText(SponsorsActivity.this, eventSponsorsBean.getUrl(),
-                         Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
-    //helper function to open urls
-    private void goToUrl (String url) {
-        Uri openUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, openUrl);
-        startActivity(launchBrowser);
-    }
 
 }

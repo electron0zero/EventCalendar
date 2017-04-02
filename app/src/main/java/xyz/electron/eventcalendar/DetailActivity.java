@@ -1,7 +1,9 @@
 package xyz.electron.eventcalendar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -55,6 +57,13 @@ public class DetailActivity extends AppCompatActivity {
 
         // RegisterBean populated
         DataObj.EventScheduleBean.RegisterBean registerBean = eventScheduleBean.getRegister();
+
+        TextView reg_required = (TextView) findViewById(R.id.event_detail_reg_title_required);
+        if (Boolean.valueOf(registerBean.getIsRequired())) {
+            reg_required.setText("Registration Required");
+        } else {
+            reg_required.setText("Registration Not Required");
+        }
 
         TextView reg_url = (TextView) findViewById(R.id.event_detail_reg_url);
         reg_url.setText(registerBean.getUrl());

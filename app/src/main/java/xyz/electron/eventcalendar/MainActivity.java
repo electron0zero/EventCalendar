@@ -27,6 +27,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +54,8 @@ import com.google.gson.Gson;
 import xyz.electron.eventcalendar.DataObj.EventMapBean;
 import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
 import xyz.electron.eventcalendar.provider.Contract;
+
+import static xyz.electron.eventcalendar.Helpers.mapThis;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -271,12 +274,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_map:
                 // Handle Map Action
                 String zoom = "20";
-                // map point based on latitude/longitude, z param is zoom level.
-                String loc = "geo:" + map.getLatitude() + map.getLongitude() +"?z=" + zoom;
-                Uri location = Uri.parse(loc);
-                intent = new Intent(Intent.ACTION_VIEW, location);
-                // TODO: 02-04-17 handle case when there is no App to handle geo: queries
-                startActivity(intent);
+
+                mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
                 break;
 
             case R.id.nav_about:
