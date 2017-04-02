@@ -17,10 +17,10 @@
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
             "event_location": "70.151500,15.891515",
             "register": {
-                "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "isRequired": "false",
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "example@example.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -46,10 +46,10 @@
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
             "event_location": "70.151500,15.891515",
             "register": {
-                "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "isRequired": "false",
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "+91 6926161615",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -75,10 +75,10 @@
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
             "event_location": "70.151500,15.891515",
             "register": {
-                "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "isRequired": "false",
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "+91-6926161615",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -102,12 +102,12 @@
             "contact_phone": "+91 96513131313",
             "contact_email": "example@example.com",
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
+            "event_location": "70.151500, 15.891515",
             "register": {
                 "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "https://www.google.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -134,9 +134,9 @@
             "event_location": "70.151500,15.891515",
             "register": {
                 "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "https://www.google.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -163,9 +163,9 @@
             "event_location": "70.151500,15.891515",
             "register": {
                 "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "test@test.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -192,9 +192,9 @@
             "event_location": "70.151500,15.891515",
             "register": {
                 "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "test@test.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -221,9 +221,9 @@
             "event_location": "70.151500,15.891515",
             "register": {
                 "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "example@example.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -249,10 +249,10 @@
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
             "event_location": "70.151500,15.891515",
             "register": {
-                "isRequired": "true",
-                "url": "reg_form_URL",
-                "contact": "registration_contact",
-                "fees": "fees"
+                "isRequired": "false",
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "example@example.com",
+                "fees": "$5"
             },
             "activitySponsors": [
                 {
@@ -278,8 +278,11 @@
             "spacial_note": "anything extra about event, requirement, dress Code etc.",
             "event_location": "70.151551,15.891515",
             "register": {
-                "isRequired": "true",
-                "url": "reg_form_URL"
+                "isRequired": "False",
+                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "contact": "example@example.com",
+                "fees": "Free"
+
             },
             "activitySponsors": [
                 {
@@ -313,48 +316,6 @@
             "image": "https://i.imgur.com/sFNj4bs.jpg",
             "url": "https://www.google.co.in/",
             "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 4",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 5",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 6",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 7",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 8",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 9",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
-        },
-        {
-            "name": "sponsor Name 10",
-            "image": "https://i.imgur.com/sFNj4bs.jpg",
-            "url": "https://www.google.co.in/",
-            "type": "gold sponsor"
         }
     ],
     "eventMap": {
