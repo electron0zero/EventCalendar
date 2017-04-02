@@ -1,6 +1,7 @@
 package xyz.electron.eventcalendar;
 
 import android.Manifest;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +28,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,19 +38,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.fence.AwarenessFence;
+import com.google.android.gms.awareness.fence.FenceState;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.awareness.fence.LocationFence;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
-
-import java.util.Objects;
-
 import xyz.electron.eventcalendar.provider.Contract;
 import xyz.electron.eventcalendar.DataObj.EventScheduleBean;
 import xyz.electron.eventcalendar.DataObj.EventSponsorsBean;
@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences mSettings;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     NavigationView navigationView;
+
+    boolean firstRun = true;
+
     // DataObj Beans, call initDataObj before using it
     EventSponsorsBean sponsors;
     EventAboutBean about;
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
     private EventFenceBroadcastReceiver mEventFenceBroadcastReceiver;
-    private PendingIntent mFencePendingIntent;
 
     private final static int REQUEST_PERMISSION_RESULT_CODE = 1337;
     public final static String ACTION_FENCE = "action_fence";
@@ -90,29 +92,31 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
-        // init mSettings before initDataObj
-        initDataObj();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main)
         navigationView.setNavigationItemSelectedListener(this);
+        // get SwipeToRefresh View
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_main_str);
 
-        // init Nav Drawer with data from Shared Pref
-        initNavDrawer();
+        if(isFirstRun()){
+            Log.d(TAG, "onCreate: First Run");
+            launchMyService();
 
-        // init SwipeToRefresh Functionality
-        initSwipeToRefresh();
-
-        // init Schedule List View
-        initSchedule();
-
+        } else {
+            // init SwipeToRefresh Functionality
+            initSwipeToRefresh();
+            initDataObj();
+            initNavDrawer();
+            // init Schedule List View
+            initSchedule();
+            launchMyService();
+        }
         // Register to receive messages.
         // We are registering an observer (mMessageReceiver) to receive Intents
         // with actions named "custom-event-name".
@@ -152,7 +156,12 @@ public class MainActivity extends AppCompatActivity
 
         // unregister Broadcast receivers
         if(mEventFenceBroadcastReceiver != null) {
-            unregisterReceiver(mEventFenceBroadcastReceiver);
+            try {
+                unregisterReceiver(mEventFenceBroadcastReceiver);
+            } catch(IllegalArgumentException e) {
+                e.printStackTrace();
+                Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
+            }
         }
 
         Log.d(TAG, "onPause: Fence Destroyed");
@@ -162,17 +171,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (mSettings.getBoolean("firstrun", true)) {
-            // refresh it
-            // Signal SwipeRefreshLayout to start the progress indicator
-            mSwipeRefreshLayout.setRefreshing(true);
-            // Start the refresh background task.
-            // This method calls setRefreshing(false) when it's finished.
-            launchMyService();
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit Settings
-            mSettings.edit().putBoolean("firstrun", false).apply();
-        }
+    }
+
+    // returns true if it's first run
+    private boolean isFirstRun(){
+        return mSettings.getBoolean("firstrun", true);
+    }
+
+    // sets a SharedPref "firstrun" to false, used after first run is complete
+    private void setFirstRun(){
+        mSettings.edit().putBoolean("firstrun", false).apply();
+        Log.d(TAG, "setFirstRun: Setting first run to false");
     }
 
     // Our handler for received Intents. This will be called whenever an Intent
@@ -180,12 +189,23 @@ public class MainActivity extends AppCompatActivity
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            // we have data do something with it.
+            if(isFirstRun()){
+                setFirstRun();
+                Log.d(TAG, "onReceive: do stuff after we have data on first run");
+                // init SwipeToRefresh Functionality
+                initSwipeToRefresh();
+                initDataObj();
+                initNavDrawer();
+                // init Schedule List View
+                initSchedule();
+                // Recreate the activity to load new data in NavigationView
+                Log.d("test","Recreate");
+                // TODO: 02-04-17 Fix this Hack by recreating full NavView on PrefChanged
+                MainActivity.this.recreate();
+            }
             mSwipeRefreshLayout.setRefreshing(false);
             navigationView.invalidate();
-            // Recreate the activity to load new data in NavigationView
-            Log.d("test","Recreate");
-            // TODO: 02-04-17 Fix this Hack for reloading NavigationView content on Data Update
-            MainActivity.this.recreate();
         }
     };
 
@@ -287,6 +307,7 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, MyService.class);
             // i.putExtra("foo", "bar");
             // Start the service
+            mSwipeRefreshLayout.setRefreshing(true);
             startService(i);
         } else {
             Toast.makeText(this,"Can not Refresh, " +
@@ -346,8 +367,17 @@ public class MainActivity extends AppCompatActivity
 
     private void createFence() {
         checkLocationPermission();
-
-        AwarenessFence eventFence = LocationFence.in(76.4028, 27.9638, 100000, 1000 );
+        Double lat = Double.valueOf(map.getLatitude());
+        Double lng = Double.valueOf(map.getLongitude());
+        Double rad = Double.valueOf(map.getRadiusInMeters());
+        Long dtime = Long.valueOf(map.getTimeForNotificationInSec()) * 1000;
+        Log.e(TAG, "=========== Fence Params ===========");
+        Log.d(TAG, "createFence: lat = " + lat.toString());
+        Log.d(TAG, "createFence: lng = " + lng.toString());
+        Log.d(TAG, "createFence: radius = " + rad.toString());
+        Log.d(TAG, "createFence: time = " + dtime.toString());
+        Log.e(TAG, "====================================");
+        AwarenessFence eventFence = LocationFence.in(lat, lng, rad, dtime);
 
         Intent intent = new Intent(ACTION_FENCE);
         PendingIntent fencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
@@ -388,11 +418,10 @@ public class MainActivity extends AppCompatActivity
         Glide.with(getApplicationContext()).load(metadata.getPosterUrl()).into(nav_poster);
         Glide.with(getApplicationContext()).load(metadata.getIconUrl()).into(nav_icon);
         nav_eventName.setText(metadata.getEvent_name());
+        // TODO: 02-04-17 Fix the click handlers when fixing Reload thing
     }
 
     public void initSwipeToRefresh(){
-        // get SwipeToRefresh View
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_main_str);
         // Setup refresh listener which triggers new data loading
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -438,9 +467,12 @@ public class MainActivity extends AppCompatActivity
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "onConnected: API connected");
         // create fence
-        createFence();
+        if(!isFirstRun()){
+            createFence();
+        }
         // show last know location
         checkLocationPermission();
+        // TODO: 02-04-17 Request location update before this
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
             if (mLastLocation != null) {
@@ -448,8 +480,8 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "onConnected: lng = " + String.valueOf(mLastLocation.getLongitude()));
             } else {
                 Log.e(TAG, "onConnected: Last location is null");
+                Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
             }
-
     }
 
     @Override
@@ -460,6 +492,39 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed: API connection failed");
+    }
+
+    //  createNotification(56, R.drawable.ic_launcher, "New Message",
+//      "There is a new message from Bob!");
+    private void createNotification(int nId, String title, String body) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                this).setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(body);
+
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(nId, mBuilder.build());
+    }
+
+    public class EventFenceBroadcastReceiver extends BroadcastReceiver {
+        private final String TAG = "EventFence";
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(TextUtils.equals(ACTION_FENCE, intent.getAction())) {
+                FenceState fenceState = FenceState.extract(intent);
+
+                if( TextUtils.equals(KEY_INSIDE_EVENT_VENUE, fenceState.getFenceKey() ) ) {
+                    if( fenceState.getCurrentState() == FenceState.TRUE ) {
+                        Log.e(TAG, "Fence API Broadcast received");
+                        createNotification(1337, metadata.getEvent_name(), map.getNotificationMessage());
+                    }
+                }
+            }
+        }
     }
 
 }

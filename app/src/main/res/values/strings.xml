@@ -102,5 +102,5 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <!--URL of JSON Data file-->
-    <string name="data_json_file_url">https://raw.githubusercontent.com/electron0zero/EventCalendar/master/public-assets/eventdata.json</string>
+    <string name="data_json_file_url">https://rawgit.com/electron0zero/EventCalendar/master/public-assets/eventdata.json</string>
 </resources>
