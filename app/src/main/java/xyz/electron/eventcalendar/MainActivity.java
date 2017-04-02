@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.fence.AwarenessFence;
@@ -48,12 +49,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
-import xyz.electron.eventcalendar.provider.Contract;
-import xyz.electron.eventcalendar.DataObj.EventScheduleBean;
-import xyz.electron.eventcalendar.DataObj.EventSponsorsBean;
-import xyz.electron.eventcalendar.DataObj.EventAboutBean;
+
 import xyz.electron.eventcalendar.DataObj.EventMapBean;
 import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
+import xyz.electron.eventcalendar.provider.Contract;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -66,14 +65,9 @@ public class MainActivity extends AppCompatActivity
     private SwipeRefreshLayout mSwipeRefreshLayout;
     NavigationView navigationView;
 
-    boolean firstRun = true;
-
     // DataObj Beans, call initDataObj before using it
-    EventSponsorsBean sponsors;
-    EventAboutBean about;
     EventMapBean map;
     EventMetadataBean metadata;
-    EventScheduleBean schedule;
 
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
@@ -89,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.title_activity_main);
         setSupportActionBar(toolbar);
         // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
@@ -497,6 +492,7 @@ public class MainActivity extends AppCompatActivity
     //  createNotification(56, R.drawable.ic_launcher, "New Message",
 //      "There is a new message from Bob!");
     private void createNotification(int nId, String title, String body) {
+        // TODO: do not show Notif multiple times, can be tracked by an var set on start and end of activity
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
