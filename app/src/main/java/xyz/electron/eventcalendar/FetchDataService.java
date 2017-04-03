@@ -22,7 +22,7 @@ import okhttp3.Response;
 import xyz.electron.eventcalendar.provider.Contract;
 
 
-public class MyService extends IntentService {
+public class FetchDataService extends IntentService {
 
     public static final String PREFS_NAME = "MyPrefsFile";
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -32,7 +32,7 @@ public class MyService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      */
-    public MyService() {
+    public FetchDataService() {
         // Used to name the worker thread, important only for debugging.
         super("MyServiceThread");
     }
@@ -198,7 +198,7 @@ public class MyService extends IntentService {
 
     private void sendMessage() {
         Log.d("sender", "Broadcasting message");
-        Intent intent = new Intent("EventCalendar-MyService-Destroyed");
+        Intent intent = new Intent("EventCalendar-FetchDataService-Destroyed");
         // You can also include some extra data.
 //        intent.putExtra("message", "This is my message!");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

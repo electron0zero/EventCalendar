@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 
-public class MyProvider extends ContentProvider {
+public class EventProvider extends ContentProvider {
 
     // Use an int for each URI we will run, this represents the different queries
     private static final int SCH = 100;
