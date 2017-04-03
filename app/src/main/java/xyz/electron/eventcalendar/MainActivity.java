@@ -55,6 +55,7 @@ import xyz.electron.eventcalendar.DataObj.EventSponsorsBean;
 import xyz.electron.eventcalendar.DataObj.EventMapBean;
 import xyz.electron.eventcalendar.DataObj.EventAboutBean;
 
+import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
 import static xyz.electron.eventcalendar.Helpers.mapThis;
 

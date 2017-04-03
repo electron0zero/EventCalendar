@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+
+import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.R;
 
 
 public class SponsorsCursorAdapter extends CursorAdapter {

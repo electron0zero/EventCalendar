@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.R;
 
 
 public class ActivitySponsorsAdapter extends ArrayAdapter {

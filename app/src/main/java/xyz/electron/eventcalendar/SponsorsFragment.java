@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import xyz.electron.eventcalendar.adapters.SponsorsCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
 
 public class SponsorsFragment extends Fragment {

@@ -1,9 +1,7 @@
 package xyz.electron.eventcalendar;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.List;
+
+import xyz.electron.eventcalendar.adapters.ActivitySponsorsAdapter;
 
 public class DetailActivity extends AppCompatActivity {
 
