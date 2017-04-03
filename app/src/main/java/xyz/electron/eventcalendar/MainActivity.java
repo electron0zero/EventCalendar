@@ -102,19 +102,6 @@ public class MainActivity extends AppCompatActivity
         // get SwipeToRefresh View
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_main_str);
 
-        if(isFirstRun()){
-            Log.d(TAG, "onCreate: First Run");
-            launchMyService();
-
-        } else {
-            // init SwipeToRefresh Functionality
-            initSwipeToRefresh();
-            initDataObj();
-            initNavDrawer();
-            // init Schedule List View
-            initSchedule();
-            launchMyService();
-        }
         // Register to receive messages.
         // We are registering an observer (mMessageReceiver) to receive Intents
         // with actions named "custom-event-name".
@@ -129,6 +116,20 @@ public class MainActivity extends AppCompatActivity
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
+
+        if(isFirstRun()){
+            Log.d(TAG, "onCreate: First Run");
+            launchMyService();
+
+        } else {
+            // init SwipeToRefresh Functionality
+            initSwipeToRefresh();
+            initDataObj();
+            initNavDrawer();
+            // init Schedule List View
+            initSchedule();
+            createFence();
+        }
 
     }
 
@@ -146,23 +147,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        Awareness.FenceApi.updateFences(
-                mGoogleApiClient,
-                new FenceUpdateRequest.Builder()
-                        .removeFence(KEY_INSIDE_EVENT_VENUE)
-                        .build());
-
-        // unregister Broadcast receivers
-        if(mEventFenceBroadcastReceiver != null) {
-            try {
-                unregisterReceiver(mEventFenceBroadcastReceiver);
-            } catch(IllegalArgumentException e) {
-                e.printStackTrace();
-                Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
-            }
-        }
-
-        Log.d(TAG, "onPause: Fence Destroyed");
+        unregisterFenceBroadcast();
         super.onPause();
     }
 
@@ -197,11 +182,14 @@ public class MainActivity extends AppCompatActivity
                 initNavDrawer();
                 // init Schedule List View
                 initSchedule();
-                // Recreate the activity to load new data in NavigationView
-                Log.d("test","Recreate");
-                // TODO: 02-04-17 Fix this Hack by recreating full NavView on PrefChanged
-                MainActivity.this.recreate();
+                createFence();
             }
+            // Recreate the activity to load new data in NavigationView
+            Log.d("test","Recreate");
+            // TODO: 02-04-17 Fix this Hack by recreating full NavView on PrefChanged
+            MainActivity.this.recreate();
+            // create fence
+            //createFence();
             mSwipeRefreshLayout.setRefreshing(false);
             navigationView.invalidate();
         }
@@ -361,6 +349,19 @@ public class MainActivity extends AppCompatActivity
 
     private void createFence() {
         checkLocationPermission();
+        // show last know location
+        // TODO: 02-04-17 Request location update before this
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+            if (mLastLocation != null) {
+                Log.d(TAG, "current Location: lat = " + String.valueOf(mLastLocation.getLatitude()));
+                Log.d(TAG, "current Location: lng = " + String.valueOf(mLastLocation.getLongitude()));
+            } else {
+                Log.e(TAG, "onConnected: Last location is null");
+                Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
+            }
+
+        // fence registration stuff
         Double lat = Double.valueOf(map.getLatitude());
         Double lng = Double.valueOf(map.getLongitude());
         Double rad = Double.valueOf(map.getRadiusInMeters());
@@ -376,14 +377,40 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(ACTION_FENCE);
         PendingIntent fencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
+        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        builder.addFence(KEY_INSIDE_EVENT_VENUE, eventFence, fencePendingIntent);
+        registerFenceBroadcast();
+        Awareness.FenceApi.updateFences(mGoogleApiClient, builder.build() );
+        Log.d(TAG, "createFence: Fence Created");
+    }
+
+    private void removeFence(){
+        Awareness.FenceApi.updateFences(
+                mGoogleApiClient,
+                new FenceUpdateRequest.Builder()
+                        .removeFence(KEY_INSIDE_EVENT_VENUE)
+                        .build());
+        unregisterFenceBroadcast();
+        Log.d(TAG, "removeFence: Fence Destroyed");
+    }
+
+    private void registerFenceBroadcast(){
+        Log.d(TAG, "registerFenceBroadcast: Registered Fence Boradcast");
         mEventFenceBroadcastReceiver = new EventFenceBroadcastReceiver();
         registerReceiver(mEventFenceBroadcastReceiver, new IntentFilter(ACTION_FENCE));
 
-        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
-        builder.addFence(KEY_INSIDE_EVENT_VENUE, eventFence, fencePendingIntent);
+    }
 
-        Awareness.FenceApi.updateFences(mGoogleApiClient, builder.build() );
-        Log.d(TAG, "createFence: Fence Created");
+    private void unregisterFenceBroadcast(){
+        // unregister Broadcast receivers
+        try {
+            unregisterReceiver(mEventFenceBroadcastReceiver);
+            mEventFenceBroadcastReceiver = null;
+            Log.d(TAG, "unregisterFenceBroadcast: fence broadcast unregistered");
+        } catch(IllegalArgumentException e) {
+            e.printStackTrace();
+            Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
+        }
     }
 
     public void initDataObj(){
@@ -450,8 +477,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("eventObjJSON", eventObjJSON);
                 startActivity(intent);
-
-                Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -460,26 +486,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "onConnected: API connected");
-        // create fence
-        if(!isFirstRun()){
-            createFence();
-        }
-        // show last know location
-        checkLocationPermission();
-        // TODO: 02-04-17 Request location update before this
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-            if (mLastLocation != null) {
-                Log.d(TAG, "onConnected: lat = " + String.valueOf(mLastLocation.getLatitude()));
-                Log.d(TAG, "onConnected: lng = " + String.valueOf(mLastLocation.getLongitude()));
-            } else {
-                Log.e(TAG, "onConnected: Last location is null");
-                Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
-            }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
+        removeFence();
         Log.d(TAG, "onConnectionSuspended: API connection suspended");
     }
 
