@@ -20,6 +20,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_about" />
+    <fragment android:name="xyz.electron.eventcalendar.AboutFragment"
+        android:id="@+id/about_fragment"
+        android:layout_weight="1"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/content_about" />
 
 </android.support.design.widget.CoordinatorLayout>
