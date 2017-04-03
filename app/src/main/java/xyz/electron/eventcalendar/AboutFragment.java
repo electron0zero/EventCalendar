@@ -1,7 +1,6 @@
 package xyz.electron.eventcalendar;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,7 +48,6 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView: About Fragment");
 
         View rootView = inflater.inflate(R.layout.content_about, container, false);
@@ -66,7 +64,7 @@ public class AboutFragment extends Fragment {
 
         // get Shared preference
         // TODO: handle case when we get Nothing(null/None) in metadata and about
-        mSettings = getActivity().getSharedPreferences(MyService.PREFS_NAME, 0);
+        mSettings = getActivity().getSharedPreferences(FetchDataService.PREFS_NAME, 0);
         metadata = mSettings.getString("metadata", "Not Found");
         about = mSettings.getString("about", "Not Found");
         // Log.d("test", metadata);

@@ -28,12 +28,12 @@
         <!-- our Content Provider -->
 
         <provider
-            android:name=".provider.MyProvider"
+            android:name=".provider.EventProvider"
             android:authorities="xyz.electron.eventcalendar.provider"
             android:exported="true"
             android:syncable="true" />
 
-        <service android:name=".MyService" />
+        <service android:name=".FetchDataService" />
 
         <activity
             android:name=".DetailActivity"

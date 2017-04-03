@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +26,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,10 +49,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
-import xyz.electron.eventcalendar.DataObj.EventMapBean;
 import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
-import xyz.electron.eventcalendar.provider.Contract;
+import xyz.electron.eventcalendar.DataObj.EventScheduleBean;
+import xyz.electron.eventcalendar.DataObj.EventSponsorsBean;
+import xyz.electron.eventcalendar.DataObj.EventMapBean;
+import xyz.electron.eventcalendar.DataObj.EventAboutBean;
 
+import xyz.electron.eventcalendar.provider.Contract;
 import static xyz.electron.eventcalendar.Helpers.mapThis;
 
 public class MainActivity extends AppCompatActivity
@@ -68,9 +69,12 @@ public class MainActivity extends AppCompatActivity
     private SwipeRefreshLayout mSwipeRefreshLayout;
     NavigationView navigationView;
 
-    // DataObj Beans, call initDataObj before using it
-    EventMapBean map;
+    // DataObj Beans, call initDataObj to initialize
     EventMetadataBean metadata;
+    EventScheduleBean schedule;
+    EventSponsorsBean sponsors;
+    EventMapBean map;
+    EventAboutBean about;
 
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(R.string.title_activity_main);
         setSupportActionBar(toolbar);
         // TODO: 17-03-17 re-factor all the constants in a file
-        mSettings = getSharedPreferences(MyService.PREFS_NAME, 0);
+        mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -106,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         // We are registering an observer (mMessageReceiver) to receive Intents
         // with actions named "custom-event-name".
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("EventCalendar-MyService-Destroyed"));
+                new IntentFilter("EventCalendar-FetchDataService-Destroyed"));
 
         // Create an instance of GoogleAPIClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -168,7 +172,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     // Our handler for received Intents. This will be called whenever an Intent
-    // with an action named "EventCalendar-MyService-Destroyed" is broadcasted.
+    // with an action named "EventCalendar-FetchDataService-Destroyed" is broadcasted.
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -280,13 +284,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     // HELPER METHODS
-    // launchMyService() starts MyService that fetches and updates new data
+    // launchMyService() starts FetchDataService that fetches and updates new data
     public void launchMyService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {
 //            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
 //            Log.v("Main", "You are online!!!!");
-            Intent i = new Intent(this, MyService.class);
+            Intent i = new Intent(this, FetchDataService.class);
             // i.putExtra("foo", "bar");
             // Start the service
             mSwipeRefreshLayout.setRefreshing(true);
@@ -418,6 +422,8 @@ public class MainActivity extends AppCompatActivity
         // get JSON Objects from Storage
         String metadataJSON = mSettings.getString("metadata", "");
         String mapJSON = mSettings.getString("map", "");
+        String aboutJSON = mSettings.getString("about", "");
+
         // create Gson instance
         Gson gson = new Gson();
 
@@ -450,7 +456,7 @@ public class MainActivity extends AppCompatActivity
                 // Your code to refresh the list here.
                 // Make sure you call mSwipeRefreshLayout.setRefreshing(false)
                 // once the work has completed successfully.
-                // MyService Will send a Broadcast when it will get all the data
+                // FetchDataService Will send a Broadcast when it will get all the data
                 launchMyService();
             }
         });
@@ -499,8 +505,6 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onConnectionFailed: API connection failed");
     }
 
-    //  createNotification(56, R.drawable.ic_launcher, "New Message",
-//      "There is a new message from Bob!");
     private void createNotification(int nId, String title, String body) {
         // TODO: do not show Notif multiple times, can be tracked by an var set on start and end of activity
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
