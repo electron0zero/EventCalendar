@@ -1,8 +1,11 @@
-<ListView android:id="@+id/eventListView"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventListView"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-</ListView>
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:horizontalSpacing="16dp"
+    android:verticalSpacing="16dp"
+    android:numColumns="@integer/grid_num_columns"
+    android:background="#eeeeee"/>
 

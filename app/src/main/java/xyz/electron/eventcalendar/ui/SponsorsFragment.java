@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import xyz.electron.eventcalendar.R;
@@ -21,7 +22,7 @@ public class SponsorsFragment extends Fragment {
     Cursor cursor;
     SponsorsCursorAdapter sponsorsCursorAdapter;
     // Views
-    ListView listView;
+    GridView gridView;
 
     public SponsorsFragment() {
         // Required empty public constructor
@@ -35,14 +36,15 @@ public class SponsorsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.content_sponsors, container, false);
         // View adaptor thing
-        listView = (ListView) rootView.findViewById(R.id.sponsorsListView);
+        gridView = (GridView) rootView.findViewById(R.id.sponsorsListView);
 
         cursor = getActivity().getContentResolver().query(Contract.SpoEntry.CONTENT_URI, null, null, null, null);
         sponsorsCursorAdapter = new SponsorsCursorAdapter(getContext(), cursor);
 
-        listView.setAdapter(sponsorsCursorAdapter);
+        gridView.setAdapter(sponsorsCursorAdapter);
 
         return rootView;
     }
+
 
 }

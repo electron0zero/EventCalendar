@@ -103,6 +103,7 @@
     <string name="add_widget">Add widget</string>
 
     <!--URL of JSON Data file-->
-    <string name="data_json_file_url">https://api.myjson.com/bins/eb22r</string>
+    <string name="data_json_file_url">https://api.myjson.com/bins/h5m7f</string>
+    <string name="event_sponsors">Event Sponsors</string>
 
 </resources>

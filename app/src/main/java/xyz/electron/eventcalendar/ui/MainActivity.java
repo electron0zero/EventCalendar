@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
 
         initDataObj();
         initNavigationView();
-        launchFetchDataService();
+//        launchFetchDataService();
     }
 
     @Override

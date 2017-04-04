@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="xyz.electron.eventcalendar.SponsorsActivity"
-    tools:showIn="@layout/activity_sponsors"
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <ListView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sponsorsListView"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
-    </ListView>
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:horizontalSpacing="16dp"
+        android:verticalSpacing="16dp"
+        android:numColumns="@integer/grid_num_columns" />
 
 </LinearLayout>

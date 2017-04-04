@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import xyz.electron.eventcalendar.R;
@@ -36,13 +37,13 @@ public class ScheduleFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.content_schedule, container, false);
         // View adaptor thing
-        ListView listView = (ListView) rootView.findViewById(R.id.eventListView);
+        GridView gridView = (GridView) rootView.findViewById(R.id.eventListView);
 
         Cursor cursor = getActivity().getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
         ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), cursor);
 
-        listView.setAdapter(scheduleCursorAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setAdapter(scheduleCursorAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 //open details activity

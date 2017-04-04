@@ -3,8 +3,13 @@ package xyz.electron.eventcalendar.others;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Helpers {
 
@@ -45,5 +50,16 @@ public class Helpers {
             Toast.makeText(context, "No Activity Found to Open Maps," +
                     " Install a App that can Open Maps", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public static String getRandomColor(){
+
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.addAll(Arrays.asList("#8bc34a", "#4caf50", "#cddc39", "#ff9800",
+                "#ffc107", "#ffeb3b", "#8bc34a", "#009688", "#00bcd4", "#03a9f4",
+                "#673ab7", "#3f51b5", "#f44336", "#e91e63", "#9c27b0"));
+        String random = arrayList.get(new Random().nextInt(arrayList.size()));
+        return random;
     }
 }
