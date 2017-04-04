@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    // TODO: 17-03-17 Refactor class Names and Stuff
     private final String TAG = "MainActivity";
     SharedPreferences mSettings;
     Toolbar toolbar;
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.title_activity_main);
+        toolbar.setTitle(R.string.title_fragment_schedule);
         setSupportActionBar(toolbar);
 
         Fragment fragment = null;
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
 
-        // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -240,22 +238,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_schedule) {
             fragmentClass = ScheduleFragment.class;
-            titleId = R.string.title_activity_main;
+            titleId = R.string.title_fragment_schedule;
         } else if (id == R.id.nav_sponsors) {
             fragmentClass = SponsorsFragment.class;
-            titleId = R.string.title_activity_sponsors;
+            titleId = R.string.title_fragment_sponsors;
         } else if (id == R.id.nav_map) {
             // Open Maps on new activity
             String zoom = "20";
             if (map != null) {
                 mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
             } else {
-                // TODO: 04-04-17 Snack bar with no data warning
                 Toast.makeText(this, "No Map Data", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_about) {
             fragmentClass = AboutFragment.class;
-            titleId = R.string.title_activity_about;
+            titleId = R.string.title_fragment_about;
         }
 
         try {
@@ -282,10 +279,8 @@ public class MainActivity extends AppCompatActivity
     public void launchFetchDataService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {
-//            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
-//            Log.v("Main", "You are online!!!!");
             Intent i = new Intent(this, FetchDataService.class);
-            // i.putExtra("foo", "bar");
+
             // Start the service
             mSwipeRefreshLayout.setRefreshing(true);
             startService(i);
@@ -349,7 +344,6 @@ public class MainActivity extends AppCompatActivity
         if (map != null) {
             checkLocationPermission();
             // show last know location
-            // TODO: 02-04-17 Request location update before this
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
             if (mLastLocation != null) {
@@ -414,7 +408,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initDataObj() {
-        // TODO: 02-04-17 check data integrity(CorrectJSON format) and handle it gracefully
         // get JSON Objects from Storage
         String metadataJSON = mSettings.getString("metadata", "");
         String mapJSON = mSettings.getString("map", "");
@@ -435,7 +428,6 @@ public class MainActivity extends AppCompatActivity
         // init Nav Drawer with data from Shared Pref
         headerView = navigationView.getHeaderView(0);
 
-        // TODO: 02-04-17 clean it with view binding libs like ButterKnife
         ImageView nav_poster = (ImageView) headerView.findViewById(R.id.nav_head_poster);
         ImageView nav_icon = (ImageView) headerView.findViewById(R.id.nav_head_icon);
         TextView nav_eventName = (TextView) headerView.findViewById(R.id.nav_head_EventName);
@@ -457,7 +449,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void createNotification(int nId, String title, String body) {
-        // TODO: do not show Notification multiple times
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)

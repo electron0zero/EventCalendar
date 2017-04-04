@@ -12,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -30,7 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_local_atm_black_24dp" />
+                android:src="@drawable/ic_local_atm_black_24dp"
+                android:contentDescription="@string/activity_detail_image" />
 
         </android.support.v7.widget.CardView>
 
@@ -54,7 +55,6 @@
                     android:id="@+id/event_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="activity1 Name"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textSize="24sp"
@@ -64,29 +64,26 @@
                     android:id="@+id/event_detail_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
                     android:drawablePadding="8dp"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="10-10-2015"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/event_detail_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                    android:drawableStart="@drawable/ic_access_time_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="10:30 PM"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/event_detail_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_description_black_24dp"
+                    android:drawableStart="@drawable/ic_description_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="an paragraph about the event"
                     android:textSize="20sp" />
 
                 <TextView
@@ -94,9 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="phone"
-                    android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+                    android:drawableStart="@drawable/ic_contact_phone_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="+91 96513131313"
                     android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
@@ -106,9 +102,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="email"
-                    android:drawableLeft="@drawable/ic_contact_mail_black_24dp"
+                    android:drawableStart="@drawable/ic_contact_mail_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="example@example.com"
                     android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
@@ -116,18 +111,16 @@
                     android:id="@+id/event_detail_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_note_black_24dp"
+                    android:drawableStart="@drawable/ic_note_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="anything extra about event, requirement, dress Code etc."
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/event_detail_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                    android:drawableStart="@drawable/ic_location_on_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="70.151500, 15.891515"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -150,12 +143,10 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/event_detail_reg_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="Event Registration"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textSize="24sp"
@@ -165,9 +156,8 @@
                     android:id="@+id/event_detail_reg_title_required"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+                    android:drawableStart="@drawable/ic_mode_edit_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="Registration"
                     android:textSize="20sp" />
 
                 <TextView
@@ -175,9 +165,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:drawableLeft="@drawable/ic_public_black_24dp"
+                    android:drawableStart="@drawable/ic_public_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="reg_form_URL"
                     android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
@@ -186,9 +175,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="all"
-                    android:drawableLeft="@drawable/ic_contacts_black_24dp"
+                    android:drawableStart="@drawable/ic_contacts_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="registration_contact"
                     android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
@@ -196,9 +184,8 @@
                     android:id="@+id/event_detail_reg_fees"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_local_atm_black_24dp"
+                    android:drawableStart="@drawable/ic_local_atm_black_24dp"
                     android:drawablePadding="8dp"
-                    android:text="fees"
                     android:textSize="20sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>

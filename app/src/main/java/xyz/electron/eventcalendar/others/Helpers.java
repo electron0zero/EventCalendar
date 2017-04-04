@@ -3,7 +3,6 @@ package xyz.electron.eventcalendar.others;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -42,11 +41,11 @@ public class Helpers {
         String loc = "geo:" + lat +","+ lng +"?z=" + zoom;
         Uri location = Uri.parse(loc);
         Intent intent = new Intent(Intent.ACTION_VIEW, location);
-        // TODO: 02-04-17 handle case when there is no App to handle geo: queries
         try{
             context.startActivity(intent);
         } catch (ActivityNotFoundException e){
             e.printStackTrace();
+
             Toast.makeText(context, "No Activity Found to Open Maps," +
                     " Install a App that can Open Maps", Toast.LENGTH_LONG).show();
         }
@@ -59,7 +58,6 @@ public class Helpers {
         arrayList.addAll(Arrays.asList("#8bc34a", "#4caf50", "#cddc39", "#ff9800",
                 "#ffc107", "#ffeb3b", "#8bc34a", "#009688", "#00bcd4", "#03a9f4",
                 "#673ab7", "#3f51b5", "#f44336", "#e91e63", "#9c27b0"));
-        String random = arrayList.get(new Random().nextInt(arrayList.size()));
-        return random;
+        return arrayList.get(new Random().nextInt(arrayList.size()));
     }
 }

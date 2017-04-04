@@ -2,9 +2,6 @@ package xyz.electron.eventcalendar.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,6 @@ import com.google.gson.Gson;
 
 import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
-import xyz.electron.eventcalendar.others.Helpers;
 
 
 public class SponsorsCursorAdapter extends CursorAdapter {

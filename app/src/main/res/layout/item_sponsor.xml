@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_sponsor_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#eeeeee"
@@ -20,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="200sp"
             android:scaleType="centerCrop"
-            android:src="@color/colorPrimary" />
+            android:src="@color/colorPrimary"
+            android:contentDescription="@string/image_of_sponsor" />
 
 
         <TextView
@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="Sponsor Name"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="24sp"
@@ -38,7 +37,6 @@
             android:id="@+id/sponsors_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sponsor Type"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="20sp" />
@@ -48,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="web"
-            android:text="Sponsor URL"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"

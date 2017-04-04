@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/event_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="2dp"
@@ -19,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="200sp"
             android:scaleType="centerCrop"
-            android:src="@color/colorPrimary" />
+            android:src="@color/colorPrimary"
+            android:contentDescription="@string/event_poster" />
 
         <TextView
             android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="Event Name fawfawf"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="24sp"
@@ -45,9 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:drawableStart="@drawable/ic_date_range_black_24dp"
                 android:drawablePadding="8dp"
-                android:text="10-10-2015"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -56,10 +54,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:drawableStart="@drawable/ic_access_time_black_24dp"
                 android:drawablePadding="8dp"
-                android:text="10:30 PM"
                 android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:textAlignment="center"
                 android:textSize="20sp" />
         </LinearLayout>

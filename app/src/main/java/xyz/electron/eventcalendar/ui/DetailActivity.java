@@ -62,9 +62,9 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView reg_required = (TextView) findViewById(R.id.event_detail_reg_title_required);
         if (Boolean.valueOf(registerBean.getIsRequired())) {
-            reg_required.setText("Registration Required");
+            reg_required.setText(R.string.registration_required);
         } else {
-            reg_required.setText("Registration Not Required");
+            reg_required.setText(R.string.registration_not_required);
         }
 
         TextView reg_url = (TextView) findViewById(R.id.event_detail_reg_url);
