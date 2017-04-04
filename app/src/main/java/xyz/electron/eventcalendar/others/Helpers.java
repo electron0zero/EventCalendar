@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.others;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;

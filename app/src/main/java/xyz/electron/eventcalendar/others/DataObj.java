@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.others;
 
 import java.util.List;
 

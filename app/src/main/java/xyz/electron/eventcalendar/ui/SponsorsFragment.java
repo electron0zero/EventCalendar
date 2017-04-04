@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.ui;
 
 
 import android.database.Cursor;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.SponsorsCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
 

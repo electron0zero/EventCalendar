@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.ui;
 
 
 import android.content.SharedPreferences;
@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
-import xyz.electron.eventcalendar.DataObj.EventAboutBean;
+import xyz.electron.eventcalendar.others.DataObj.EventMetadataBean;
+import xyz.electron.eventcalendar.others.DataObj.EventAboutBean;
+import xyz.electron.eventcalendar.others.FetchDataService;
+import xyz.electron.eventcalendar.R;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;

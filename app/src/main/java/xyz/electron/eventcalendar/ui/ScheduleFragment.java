@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.ui;
 
 
 import android.content.Intent;
@@ -7,16 +7,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
+import xyz.electron.eventcalendar.ui.DetailActivity;
 
 public class ScheduleFragment extends Fragment {
 
@@ -35,7 +34,7 @@ public class ScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: Schedule Fragment");
 
-        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        View rootView = inflater.inflate(R.layout.content_schedule, container, false);
         // View adaptor thing
         ListView listView = (ListView) rootView.findViewById(R.id.eventListView);
 

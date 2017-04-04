@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.ui;
 
 import android.Manifest;
 import android.app.NotificationManager;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,12 +31,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,12 +48,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
-import xyz.electron.eventcalendar.DataObj.EventMapBean;
-import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
-import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
-import xyz.electron.eventcalendar.provider.Contract;
+import xyz.electron.eventcalendar.others.DataObj.EventMapBean;
+import xyz.electron.eventcalendar.others.DataObj.EventMetadataBean;
+import xyz.electron.eventcalendar.others.FetchDataService;
+import xyz.electron.eventcalendar.R;
 
-import static xyz.electron.eventcalendar.Helpers.mapThis;
+import static xyz.electron.eventcalendar.others.Helpers.mapThis;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -150,7 +146,7 @@ public class MainActivity extends AppCompatActivity
 
         initDataObj();
         initNavigationView();
-
+        launchFetchDataService();
     }
 
     @Override

@@ -8,7 +8,7 @@ import android.widget.RemoteViewsService;
 
 import com.google.gson.Gson;
 
-import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.provider.Contract;
 
@@ -67,7 +67,7 @@ public class EventCalendarRemoteViewsFactory implements
                 gson.fromJson(scheduleJSON, DataObj.EventScheduleBean.class);
 
         // Fill data in UI
-        final int itemId = R.layout.item_widget_event;
+        final int itemId = R.layout.widget_item_event;
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), itemId);
         rv.setTextViewText(R.id.widget_event_name, eventScheduleBean.getName());
         rv.setTextViewText(R.id.widget_event_date, eventScheduleBean.getDate());

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
 
 

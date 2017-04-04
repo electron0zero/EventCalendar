@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import xyz.electron.eventcalendar.others.DataObj;
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.ActivitySponsorsAdapter;
 
 public class DetailActivity extends AppCompatActivity {

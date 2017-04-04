@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import xyz.electron.eventcalendar.DataObj;
+import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
 
 public class ScheduleCursorAdapter extends CursorAdapter{

@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.others;
 
 import android.content.Context;
 import android.util.AttributeSet;

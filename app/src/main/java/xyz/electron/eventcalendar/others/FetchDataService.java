@@ -1,4 +1,4 @@
-package xyz.electron.eventcalendar;
+package xyz.electron.eventcalendar.others;
 
 import android.app.IntentService;
 import android.content.ContentValues;
@@ -19,6 +19,7 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.provider.Contract;
 
 
