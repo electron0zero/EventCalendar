@@ -1,22 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_to_refresh_layout_schedule"
+<ListView android:id="@+id/eventListView"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="xyz.electron.eventcalendar.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+</ListView>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventListView"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
-
-    </ListView>
-
-</android.support.v4.widget.SwipeRefreshLayout>

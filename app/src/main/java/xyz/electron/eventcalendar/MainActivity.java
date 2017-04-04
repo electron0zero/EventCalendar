@@ -18,6 +18,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -30,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity
     // TODO: 17-03-17 Refactor class Names and Stuff
     private final String TAG = "MainActivity";
     SharedPreferences mSettings;
+    Toolbar toolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     NavigationView navigationView;
     View headerView;
@@ -85,11 +89,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_activity_main);
         setSupportActionBar(toolbar);
+
+        Fragment fragment = null;
+        Class fragmentClass = ScheduleFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
 
         // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
@@ -100,28 +115,6 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        // View adaptor thing
-        ListView listView = (ListView) findViewById(R.id.eventListView);
-        listView.setEmptyView(findViewById(android.R.id.empty));
-
-        Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
-        ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(this, cursor);
-
-        listView.setAdapter(scheduleCursorAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                //open details activity
-                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
-                cur.moveToPosition(position);
-
-                String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("eventObjJSON", eventObjJSON);
-                startActivity(intent);
-                // Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // get SwipeToRefresh View
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout_schedule);
@@ -136,7 +129,6 @@ public class MainActivity extends AppCompatActivity
                 launchFetchDataService();
             }
         });
-
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -179,11 +171,6 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
 
     // Our handler for received Intents. This will be called whenever an Intent
     // with an action named "EventCalendar-FetchDataService-Destroyed" is broadcasted.
@@ -196,7 +183,6 @@ public class MainActivity extends AppCompatActivity
             initDataObj();
             initNavigationView();
             // init Schedule List View
-            createFence();
         }
     };
 
@@ -224,6 +210,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -233,7 +220,7 @@ public class MainActivity extends AppCompatActivity
 
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                Log.i("main", "Refresh menu item selected");
+                Log.i("menu_schedule", "Refresh menu item selected");
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mSwipeRefreshLayout.setRefreshing(true);
                 // Start the refresh background task.
@@ -250,34 +237,42 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         Log.e(TAG, "onNavigationItemSelected: Menu Item Selected");
         // Handle navigation view item clicks here.
-        Intent intent;
-        switch (item.getItemId()) {
+        int id = item.getItemId();
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        int titleId = R.string.app_name;
 
-            case R.id.nav_schedule:
-                // Handle the schedule action
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
+        if (id == R.id.nav_schedule) {
+            fragmentClass = ScheduleFragment.class;
+            titleId = R.string.title_activity_main;
+        } else if (id == R.id.nav_sponsors) {
+            fragmentClass = SponsorsFragment.class;
+            titleId = R.string.title_activity_sponsors;
+        } else if (id == R.id.nav_map) {
+            // Open Maps on new activity
+            String zoom = "20";
+            if (map != null) {
+                mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
+            } else {
+                // TODO: 04-04-17 Snack bar with no data warning
+                Toast.makeText(this, "No Map Data", Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.nav_about) {
+            fragmentClass = AboutFragment.class;
+            titleId = R.string.title_activity_about;
+        }
 
-            case R.id.nav_sponsors:
-                // handle sponsors action
-                intent = new Intent(this, SponsorsActivity.class);
-                startActivity(intent);
-                return true;
-
-            case R.id.nav_map:
-                // Handle Map Action
-                String zoom = "20";
-                if (map != null) {
-                    mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
-                }
-                return true;
-
-            case R.id.nav_about:
-                // Handle About Action
-                intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                return true;
+        try {
+            if (fragmentClass != null) {
+                fragment = (Fragment) fragmentClass.newInstance();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (fragmentClass != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
+            toolbar.setTitle(titleId);
         }
 
         // close drawer when an item is selected
@@ -312,7 +307,7 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         isConnected = activeNetworkInfo != null &&
                 activeNetworkInfo.isConnectedOrConnecting();
-        Log.d("main", "isNetworkAvailable: " + isConnected);
+        Log.d("menu_schedule", "isNetworkAvailable: " + isConnected);
         return isConnected;
     }
 
@@ -497,6 +492,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onConnectionFailed: API connection failed");
     }
 
+    // Awareness API Fence Broadcast receiver
     public class EventFenceBroadcastReceiver extends BroadcastReceiver {
         private final String TAG = "EventFence";
 

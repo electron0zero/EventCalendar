@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/nav_head_poster"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200sp"
         android:scaleType="centerCrop"
         android:src="@color/colorAccent"/>
     <LinearLayout
