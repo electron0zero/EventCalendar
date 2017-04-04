@@ -69,8 +69,8 @@ public class AboutFragment extends Fragment {
         // get Shared preference
         // TODO: handle case when not valid JSON as data
         mSettings = getActivity().getSharedPreferences(FetchDataService.PREFS_NAME, 0);
-        metadataJSON = mSettings.getString("metadataJSON", null);
-        aboutJSON = mSettings.getString("aboutJSON", null);
+        metadataJSON = mSettings.getString("metadata", null);
+        aboutJSON = mSettings.getString("about", null);
         // Log.d("test", metadataJSON);
         // Log.d("test", aboutJSON);
 
