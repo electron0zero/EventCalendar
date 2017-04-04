@@ -22,4 +22,12 @@
 
     <include layout="@layout/content_main" />
 
+    <!--<fragment android:name="xyz.electron.eventcalendar.ScheduleFragment"-->
+        <!--android:id="@+id/schedule_fragment"-->
+        <!--android:layout_marginTop="?actionBarSize"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--tools:layout="@layout/content_main" />-->
+
 </android.support.design.widget.CoordinatorLayout>

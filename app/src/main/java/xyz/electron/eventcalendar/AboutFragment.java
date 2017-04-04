@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
+import xyz.electron.eventcalendar.DataObj.EventAboutBean;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
@@ -21,8 +24,9 @@ import com.google.gson.Gson;
 public class AboutFragment extends Fragment {
     private final String TAG = "AboutFragment";
     SharedPreferences mSettings;
-    String metadata;
-    String about;
+
+    String metadataJSON = null;
+    String aboutJSON = null;
 
     // Views
     ImageView event_icon;
@@ -63,29 +67,29 @@ public class AboutFragment extends Fragment {
 
 
         // get Shared preference
-        // TODO: handle case when we get Nothing(null/None) in metadata and about
+        // TODO: handle case when not valid JSON as data
         mSettings = getActivity().getSharedPreferences(FetchDataService.PREFS_NAME, 0);
-        metadata = mSettings.getString("metadata", "Not Found");
-        about = mSettings.getString("about", "Not Found");
-        // Log.d("test", metadata);
-        // Log.d("test", about);
+        metadataJSON = mSettings.getString("metadataJSON", null);
+        aboutJSON = mSettings.getString("aboutJSON", null);
+        // Log.d("test", metadataJSON);
+        // Log.d("test", aboutJSON);
 
-        // convert it to DataObj via GSON
         Gson gson = new Gson();
-        DataObj.EventMetadataBean eventMetadataBean =
-                gson.fromJson(metadata, DataObj.EventMetadataBean.class);
-        DataObj.EventAboutBean eventAboutBean =
-                gson.fromJson(about, DataObj.EventAboutBean.class);
 
-        // populate it
-        Glide.with(getContext()).load(eventMetadataBean.getIconUrl()).into(event_icon);
-        Glide.with(getContext()).load(eventMetadataBean.getPosterUrl()).into(event_poster);
-        event_name.setText(eventMetadataBean.getEvent_name());
-        event_info.setText(eventAboutBean.getInfo());
-        event_org.setText(eventAboutBean.getOrganiser());
-        event_org_phone.setText(eventAboutBean.getOrganiser_contact_phone());
-        event_org_email.setText(eventAboutBean.getOrganiser_contact_email());
-        event_address.setText(eventAboutBean.getAddress_of_event());
+        if(metadataJSON != null){
+            EventMetadataBean metadata = gson.fromJson(metadataJSON, EventMetadataBean.class);
+
+            Glide.with(getContext()).load(metadata.getIconUrl()).into(event_icon);
+            Glide.with(getContext()).load(metadata.getPosterUrl()).into(event_poster);
+            event_name.setText(metadata.getEvent_name());
+        }
+
+        if (aboutJSON != null){
+            EventAboutBean about = gson.fromJson(aboutJSON, EventAboutBean.class);
+
+            event_org_email.setText(about.getOrganiser_contact_email());
+            event_address.setText(about.getAddress_of_event());
+        }
 
         return rootView;
     }

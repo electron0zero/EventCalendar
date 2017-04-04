@@ -49,14 +49,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
-import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
-import xyz.electron.eventcalendar.DataObj.EventScheduleBean;
-import xyz.electron.eventcalendar.DataObj.EventSponsorsBean;
 import xyz.electron.eventcalendar.DataObj.EventMapBean;
-import xyz.electron.eventcalendar.DataObj.EventAboutBean;
-
+import xyz.electron.eventcalendar.DataObj.EventMetadataBean;
 import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
+
 import static xyz.electron.eventcalendar.Helpers.mapThis;
 
 public class MainActivity extends AppCompatActivity
@@ -69,13 +66,12 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences mSettings;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     NavigationView navigationView;
+    View headerView;
 
     // DataObj Beans, call initDataObj to initialize
-    EventMetadataBean metadata;
-    EventScheduleBean schedule;
-    EventSponsorsBean sponsors;
-    EventMapBean map;
-    EventAboutBean about;
+    EventMetadataBean metadata = null;
+    EventMapBean map = null;
+
 
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
@@ -90,9 +86,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_activity_main);
         setSupportActionBar(toolbar);
+
         // TODO: 17-03-17 re-factor all the constants in a file
         mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
 
@@ -102,10 +100,46 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        // View adaptor thing
+        ListView listView = (ListView) findViewById(R.id.eventListView);
+        listView.setEmptyView(findViewById(android.R.id.empty));
+
+        Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
+        ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(this, cursor);
+
+        listView.setAdapter(scheduleCursorAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                //open details activity
+                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
+                cur.moveToPosition(position);
+
+                String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("eventObjJSON", eventObjJSON);
+                startActivity(intent);
+                // Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // get SwipeToRefresh View
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.content_main_str);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout_schedule);
+        // Setup refresh listener which triggers new data loading
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call mSwipeRefreshLayout.setRefreshing(false)
+                // once the work has completed successfully.
+                // FetchDataService Will send a Broadcast when it will get all the data
+                launchFetchDataService();
+            }
+        });
+
+
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Register to receive messages.
         // We are registering an observer (mMessageReceiver) to receive Intents
@@ -122,19 +156,8 @@ public class MainActivity extends AppCompatActivity
                 .build();
         mGoogleApiClient.connect();
 
-        if(isFirstRun()){
-            Log.d(TAG, "onCreate: First Run");
-            launchMyService();
-
-        } else {
-            // init SwipeToRefresh Functionality
-            initSwipeToRefresh();
-            initDataObj();
-            initNavDrawer();
-            // init Schedule List View
-            initSchedule();
-            createFence();
-        }
+        initDataObj();
+        initNavigationView();
 
     }
 
@@ -161,16 +184,6 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
     }
 
-    // returns true if it's first run
-    private boolean isFirstRun(){
-        return mSettings.getBoolean("firstrun", true);
-    }
-
-    // sets a SharedPref "firstrun" to false, used after first run is complete
-    private void setFirstRun(){
-        mSettings.edit().putBoolean("firstrun", false).apply();
-        Log.d(TAG, "setFirstRun: Setting first run to false");
-    }
 
     // Our handler for received Intents. This will be called whenever an Intent
     // with an action named "EventCalendar-FetchDataService-Destroyed" is broadcasted.
@@ -178,25 +191,12 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             // we have data do something with it.
-            if(isFirstRun()){
-                setFirstRun();
-                Log.d(TAG, "onReceive: do stuff after we have data on first run");
-                // init SwipeToRefresh Functionality
-                initSwipeToRefresh();
-                initDataObj();
-                initNavDrawer();
-                // init Schedule List View
-                initSchedule();
-                createFence();
-            }
-            // Recreate the activity to load new data in NavigationView
-            Log.d("test","Recreate");
-            // TODO: 02-04-17 Fix this Hack by recreating full NavView on PrefChanged
-            MainActivity.this.recreate();
-            // create fence
-            //createFence();
+            Log.d(TAG, "onReceive: do stuff, we have new data");
             mSwipeRefreshLayout.setRefreshing(false);
-            navigationView.invalidate();
+            initDataObj();
+            initNavigationView();
+            // init Schedule List View
+            createFence();
         }
     };
 
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity
                 mSwipeRefreshLayout.setRefreshing(true);
                 // Start the refresh background task.
                 // This method calls setRefreshing(false) when it's finished.
-                launchMyService();
+                launchFetchDataService();
                 //mSwipeRefreshLayout.setRefreshing(false);
                 return true;
         }
@@ -248,34 +248,36 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Log.e(TAG, "onNavigationItemSelected: Menu Item Selected");
         // Handle navigation view item clicks here.
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.nav_schedule:
                 // Handle the schedule action
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                break;
+                return true;
 
             case R.id.nav_sponsors:
                 // handle sponsors action
                 intent = new Intent(this, SponsorsActivity.class);
                 startActivity(intent);
-                break;
+                return true;
 
             case R.id.nav_map:
                 // Handle Map Action
                 String zoom = "20";
-
-                mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
-                break;
+                if (map != null) {
+                    mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
+                }
+                return true;
 
             case R.id.nav_about:
                 // Handle About Action
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
-                break;
+                return true;
         }
 
         // close drawer when an item is selected
@@ -285,8 +287,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     // HELPER METHODS
-    // launchMyService() starts FetchDataService that fetches and updates new data
-    public void launchMyService() {
+    // launchFetchDataService() starts FetchDataService that fetches and updates new data
+    public void launchFetchDataService() {
         // make sure we have internet before starting service
         if (isNetworkAvailable()) {
 //            Toast.makeText(this,"Refreshing...", Toast.LENGTH_LONG).show();
@@ -297,8 +299,8 @@ public class MainActivity extends AppCompatActivity
             mSwipeRefreshLayout.setRefreshing(true);
             startService(i);
         } else {
-            Toast.makeText(this,"Can not Refresh, " +
-                    "Check Internet Connection and Try Again",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Can not Refresh, " +
+                    "Check Internet Connection and Try Again", Toast.LENGTH_LONG).show();
             mSwipeRefreshLayout.setRefreshing(false);
 //            Log.v("Main", "You are not online!!!!");
         }
@@ -325,15 +327,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private boolean hasLocationPermission() {
-        return ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION )
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestLocationPermission() {
         ActivityCompat.requestPermissions(
                 MainActivity.this,
-                new String[]{ Manifest.permission.ACCESS_FINE_LOCATION },
-                REQUEST_PERMISSION_RESULT_CODE );
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_PERMISSION_RESULT_CODE);
     }
 
     @Override
@@ -353,11 +355,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void createFence() {
-        checkLocationPermission();
-        // show last know location
-        // TODO: 02-04-17 Request location update before this
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        if (map != null) {
+            checkLocationPermission();
+            // show last know location
+            // TODO: 02-04-17 Request location update before this
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
             if (mLastLocation != null) {
                 Log.d(TAG, "current Location: lat = " + String.valueOf(mLastLocation.getLatitude()));
                 Log.d(TAG, "current Location: lng = " + String.valueOf(mLastLocation.getLongitude()));
@@ -365,31 +368,32 @@ public class MainActivity extends AppCompatActivity
                 Log.e(TAG, "onConnected: Last location is null");
                 Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
             }
+            // fence registration stuff
+            Double lat = Double.valueOf(map.getLatitude());
+            Double lng = Double.valueOf(map.getLongitude());
+            Double rad = Double.valueOf(map.getRadiusInMeters());
+            Long dtime = Long.valueOf(map.getTimeForNotificationInSec()) * 1000;
+            Log.e(TAG, "=========== Fence Params ===========");
+            Log.d(TAG, "createFence: lat = " + lat.toString());
+            Log.d(TAG, "createFence: lng = " + lng.toString());
+            Log.d(TAG, "createFence: radius = " + rad.toString());
+            Log.d(TAG, "createFence: time = " + dtime.toString());
+            Log.e(TAG, "====================================");
+            AwarenessFence eventFence = LocationFence.in(lat, lng, rad, dtime);
 
-        // fence registration stuff
-        Double lat = Double.valueOf(map.getLatitude());
-        Double lng = Double.valueOf(map.getLongitude());
-        Double rad = Double.valueOf(map.getRadiusInMeters());
-        Long dtime = Long.valueOf(map.getTimeForNotificationInSec()) * 1000;
-        Log.e(TAG, "=========== Fence Params ===========");
-        Log.d(TAG, "createFence: lat = " + lat.toString());
-        Log.d(TAG, "createFence: lng = " + lng.toString());
-        Log.d(TAG, "createFence: radius = " + rad.toString());
-        Log.d(TAG, "createFence: time = " + dtime.toString());
-        Log.e(TAG, "====================================");
-        AwarenessFence eventFence = LocationFence.in(lat, lng, rad, dtime);
+            Intent intent = new Intent(ACTION_FENCE);
+            PendingIntent fencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
-        Intent intent = new Intent(ACTION_FENCE);
-        PendingIntent fencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+            FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+            builder.addFence(KEY_INSIDE_EVENT_VENUE, eventFence, fencePendingIntent);
+            registerFenceBroadcast();
+            Awareness.FenceApi.updateFences(mGoogleApiClient, builder.build());
+            Log.d(TAG, "createFence: Fence Created");
 
-        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
-        builder.addFence(KEY_INSIDE_EVENT_VENUE, eventFence, fencePendingIntent);
-        registerFenceBroadcast();
-        Awareness.FenceApi.updateFences(mGoogleApiClient, builder.build() );
-        Log.d(TAG, "createFence: Fence Created");
+        }
     }
 
-    private void removeFence(){
+    private void removeFence() {
         Awareness.FenceApi.updateFences(
                 mGoogleApiClient,
                 new FenceUpdateRequest.Builder()
@@ -399,94 +403,81 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "removeFence: Fence Destroyed");
     }
 
-    private void registerFenceBroadcast(){
-        Log.d(TAG, "registerFenceBroadcast: Registered Fence Boradcast");
+    private void registerFenceBroadcast() {
+        Log.d(TAG, "registerFenceBroadcast: Registered Fence Broadcast");
         mEventFenceBroadcastReceiver = new EventFenceBroadcastReceiver();
         registerReceiver(mEventFenceBroadcastReceiver, new IntentFilter(ACTION_FENCE));
 
     }
 
-    private void unregisterFenceBroadcast(){
+    private void unregisterFenceBroadcast() {
         // unregister Broadcast receivers
         try {
             unregisterReceiver(mEventFenceBroadcastReceiver);
             mEventFenceBroadcastReceiver = null;
             Log.d(TAG, "unregisterFenceBroadcast: fence broadcast unregistered");
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
         }
     }
 
-    public void initDataObj(){
+    public void initDataObj() {
         // TODO: 02-04-17 check data integrity(CorrectJSON format) and handle it gracefully
         // get JSON Objects from Storage
         String metadataJSON = mSettings.getString("metadata", "");
         String mapJSON = mSettings.getString("map", "");
-        String aboutJSON = mSettings.getString("about", "");
 
         // create Gson instance
         Gson gson = new Gson();
 
         // init vars
-        metadata = gson.fromJson(metadataJSON, EventMetadataBean.class);
-        map = gson.fromJson(mapJSON, EventMapBean.class);
+        if (metadataJSON != null) {
+            metadata = gson.fromJson(metadataJSON, EventMetadataBean.class);
+        }
+        if (mapJSON != null) {
+            map = gson.fromJson(mapJSON, EventMapBean.class);
+        }
     }
 
-    public void initNavDrawer(){
+    public void initNavigationView() {
         // init Nav Drawer with data from Shared Pref
-        View headerView = navigationView.getHeaderView(0);
-        // get reference to items in Nav bar
+        headerView = navigationView.getHeaderView(0);
+
         // TODO: 02-04-17 clean it with view binding libs like ButterKnife
         ImageView nav_poster = (ImageView) headerView.findViewById(R.id.nav_head_poster);
         ImageView nav_icon = (ImageView) headerView.findViewById(R.id.nav_head_icon);
         TextView nav_eventName = (TextView) headerView.findViewById(R.id.nav_head_EventName);
 
         // populate it
-        Glide.with(getApplicationContext()).load(metadata.getPosterUrl()).into(nav_poster);
-        Glide.with(getApplicationContext()).load(metadata.getIconUrl()).into(nav_icon);
-        nav_eventName.setText(metadata.getEvent_name());
-        // TODO: 02-04-17 Fix the click handlers when fixing Reload thing
+        if (metadata != null) {
+            Glide.with(getApplicationContext()).load(metadata.getPosterUrl()).into(nav_poster);
+            Glide.with(getApplicationContext()).load(metadata.getIconUrl()).into(nav_icon);
+            nav_eventName.setText(metadata.getEvent_name());
+        }
+        navigationView.removeHeaderView(headerView);
+        navigationView.addHeaderView(headerView);
+        // View is brought to front to set Z-index, spend 2 days for this
+        /* Oh my golden time, It was well wasted.
+         I wrote hacks over Hacks,
+         Monkey Patches over Monkey Patches
+         Now I can die in peace */
+        navigationView.bringToFront();
     }
 
-    public void initSwipeToRefresh(){
-        // Setup refresh listener which triggers new data loading
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call mSwipeRefreshLayout.setRefreshing(false)
-                // once the work has completed successfully.
-                // FetchDataService Will send a Broadcast when it will get all the data
-                launchMyService();
-            }
-        });
+    private void createNotification(int nId, String title, String body) {
+        // TODO: do not show Notification multiple times
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                this).setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(body);
 
-    }
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
 
-    private void initSchedule() {
-        // View adaptor thing
-        ListView listView = (ListView) findViewById(R.id.eventListView);
-        listView.setEmptyView(findViewById(android.R.id.empty));
-
-        Cursor cursor = getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
-        ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(this, cursor);
-
-        listView.setAdapter(scheduleCursorAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                //open details activity
-                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
-                cur.moveToPosition(position);
-
-                String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("eventObjJSON", eventObjJSON);
-                startActivity(intent);
-                // Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
-            }
-        });
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(nId, mBuilder.build());
     }
 
     // Google API Callbacks
@@ -506,32 +497,20 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onConnectionFailed: API connection failed");
     }
 
-    private void createNotification(int nId, String title, String body) {
-        // TODO: do not show Notif multiple times, can be tracked by an var set on start and end of activity
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                this).setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(body);
-
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-        mNotificationManager.notify(nId, mBuilder.build());
-    }
-
     public class EventFenceBroadcastReceiver extends BroadcastReceiver {
         private final String TAG = "EventFence";
+
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(TextUtils.equals(ACTION_FENCE, intent.getAction())) {
+            if (TextUtils.equals(ACTION_FENCE, intent.getAction())) {
                 FenceState fenceState = FenceState.extract(intent);
 
-                if( TextUtils.equals(KEY_INSIDE_EVENT_VENUE, fenceState.getFenceKey() ) ) {
-                    if( fenceState.getCurrentState() == FenceState.TRUE ) {
+                if (TextUtils.equals(KEY_INSIDE_EVENT_VENUE, fenceState.getFenceKey())) {
+                    if (fenceState.getCurrentState() == FenceState.TRUE) {
                         Log.e(TAG, "Fence API Broadcast received");
-                        createNotification(1337, metadata.getEvent_name(), map.getNotificationMessage());
+                        if (metadata != null && map != null) {
+                            createNotification(1337, metadata.getEvent_name(), map.getNotificationMessage());
+                        }
                     }
                 }
             }
