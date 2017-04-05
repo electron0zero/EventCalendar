@@ -6,9 +6,9 @@
     <ImageView
         android:id="@+id/nav_head_poster"
         android:layout_width="match_parent"
-        android:layout_height="200sp"
+        android:layout_height="250sp"
         android:scaleType="centerCrop"
-        android:src="@color/colorAccent"
+        android:src="@drawable/placeholder"
         android:contentDescription="@string/poster_of_event" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,18 +19,20 @@
         android:weightSum="1">
         <ImageView
             android:id="@+id/nav_head_icon"
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
-            android:src="@color/cardview_dark_background"
+            android:src="@drawable/placeholder"
+            android:background="@color/colorAccent"
             android:contentDescription="@string/event_icon" />
         <TextView
             android:id="@+id/nav_head_EventName"
+            android:padding="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:background="#000"
-            android:textSize="24sp"
-            android:padding="8sp" />
+            android:text="@string/app_name"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </FrameLayout>

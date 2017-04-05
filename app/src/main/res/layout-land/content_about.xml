@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/event_poster"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_local_atm_black_24dp" />
+                android:src="@drawable/placeholder" />
 
         </android.support.v7.widget.CardView>
 
