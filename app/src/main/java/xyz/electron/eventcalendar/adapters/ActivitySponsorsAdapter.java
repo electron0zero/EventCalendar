@@ -38,7 +38,10 @@ public class ActivitySponsorsAdapter extends ArrayAdapter {
         }
         // Lookup view for data population
         ImageView image = (ImageView) convertView.findViewById(R.id.activity_spo_image);
-        Glide.with(getContext()).load(activitySponsorsBean.getImage()).into(image);
+        Glide.with(getContext())
+                .load(activitySponsorsBean.getImage())
+                .placeholder(R.drawable.placeholder)
+                .into(image);
 
         TextView name = (TextView) convertView.findViewById(R.id.activity_spo_name);
         name.setText(activitySponsorsBean.getName());

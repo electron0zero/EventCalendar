@@ -434,8 +434,14 @@ public class MainActivity extends AppCompatActivity
 
         // populate it
         if (metadata != null) {
-            Glide.with(getApplicationContext()).load(metadata.getPosterUrl()).into(nav_poster);
-            Glide.with(getApplicationContext()).load(metadata.getIconUrl()).into(nav_icon);
+            Glide.with(getApplicationContext())
+                    .load(metadata.getPosterUrl())
+                    .placeholder(R.drawable.placeholder)
+                    .into(nav_poster);
+            Glide.with(getApplicationContext())
+                    .load(metadata.getIconUrl())
+                    .placeholder(R.drawable.placeholder)
+                    .into(nav_icon);
             nav_eventName.setText(metadata.getEvent_name());
         }
         navigationView.removeHeaderView(headerView);

@@ -49,7 +49,10 @@ public class ScheduleCursorAdapter extends CursorAdapter{
                             gson.fromJson(eventObjJSON, DataObj.EventScheduleBean.class);
 
         // Populate fields with extracted properties
-        Glide.with(context).load(eventScheduleBean.getImage()).into(eventImage);
+        Glide.with(context)
+                .load(eventScheduleBean.getImage())
+                .placeholder(R.drawable.placeholder)
+                .into(eventImage);
         eventName.setText(eventScheduleBean.getName());
         eventDate.setText(eventScheduleBean.getDate());
         eventTime.setText(eventScheduleBean.getTime());

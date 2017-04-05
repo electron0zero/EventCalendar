@@ -81,8 +81,14 @@ public class AboutFragment extends Fragment {
         if(metadataJSON != null){
             EventMetadataBean metadata = gson.fromJson(metadataJSON, EventMetadataBean.class);
 
-            Glide.with(getContext()).load(metadata.getIconUrl()).into(event_icon);
-            Glide.with(getContext()).load(metadata.getPosterUrl()).into(event_poster);
+            Glide.with(getContext())
+                    .load(metadata.getIconUrl())
+                    .placeholder(R.drawable.placeholder)
+                    .into(event_icon);
+            Glide.with(getContext())
+                    .load(metadata.getPosterUrl())
+                    .placeholder(R.drawable.placeholder)
+                    .into(event_poster);
             event_name.setText(metadata.getEvent_name());
         }
 

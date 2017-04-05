@@ -49,7 +49,10 @@ public class SponsorsCursorAdapter extends CursorAdapter {
                 gson.fromJson(spoDataObjJSON, DataObj.EventSponsorsBean.class);
 
         // Populate fields with extracted properties
-        Glide.with(context).load(eventSponsorsBean.getImage()).into(sponsorsImage);
+        Glide.with(context)
+                .load(eventSponsorsBean.getImage())
+                .placeholder(R.drawable.placeholder)
+                .into(sponsorsImage);
 
         sponsorsName.setText(eventSponsorsBean.getName());
         sponsorsType.setText(eventSponsorsBean.getType());
