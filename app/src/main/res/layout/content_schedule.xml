@@ -1,5 +1,5 @@
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/eventListView"
+    android:id="@+id/eventGridView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp"

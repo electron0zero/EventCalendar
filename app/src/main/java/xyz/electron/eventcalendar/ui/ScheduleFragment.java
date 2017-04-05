@@ -15,7 +15,6 @@ import android.widget.GridView;
 import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
-import xyz.electron.eventcalendar.ui.DetailActivity;
 
 public class ScheduleFragment extends Fragment {
 
@@ -36,7 +35,7 @@ public class ScheduleFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.content_schedule, container, false);
         // View adaptor thing
-        GridView gridView = (GridView) rootView.findViewById(R.id.eventListView);
+        GridView gridView = (GridView) rootView.findViewById(R.id.eventGridView);
 
         Cursor cursor = getActivity().getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
         ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), cursor);
