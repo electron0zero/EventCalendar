@@ -28,8 +28,8 @@
             <ImageView
                 android:id="@+id/event_detail_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_local_atm_black_24dp"
                 android:contentDescription="@string/activity_detail_image" />
 

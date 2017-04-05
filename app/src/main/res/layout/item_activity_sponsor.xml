@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/activity_spo_image"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_info_outline_black_24dp"

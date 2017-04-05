@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/sponsors_image"
             android:layout_width="match_parent"
-            android:layout_height="200sp"
+            android:layout_height="150sp"
             android:scaleType="centerCrop"
             android:src="@color/colorPrimary"
             android:contentDescription="@string/image_of_sponsor" />
