@@ -36,6 +36,8 @@ public class SponsorsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.content_sponsors, container, false);
         // View adaptor thing
         gridView = (GridView) rootView.findViewById(R.id.sponsorsListView);
+        View emptyView = rootView.findViewById(R.id.empty_sponsors);
+        gridView.setEmptyView(emptyView);
 
         cursor = getActivity().getContentResolver().query(Contract.SpoEntry.CONTENT_URI, null, null, null, null);
         sponsorsCursorAdapter = new SponsorsCursorAdapter(getContext(), cursor);

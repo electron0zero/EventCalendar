@@ -17,4 +17,13 @@
         android:verticalSpacing="16dp"
         android:numColumns="@integer/grid_num_columns" />
 
+    <TextView
+        android:id="@+id/empty_sponsors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:text="Nothing to Show \n Swipe Down to Refresh"
+        android:textSize="36sp" />
 </LinearLayout>

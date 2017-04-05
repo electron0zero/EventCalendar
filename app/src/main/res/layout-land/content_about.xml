@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/about_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="#eeeeee">
+    android:background="#eeeeee"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
         android:layout_marginEnd="120dp"
+        android:layout_marginStart="120dp"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -24,17 +24,16 @@
             card_view:cardElevation="2dp">
 
             <ImageView
+                android:id="@+id/event_poster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/event_poster"
+                android:contentDescription="@string/event_poster"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_local_atm_black_24dp"
-                android:contentDescription="@string/event_poster" />
+                android:src="@drawable/ic_local_atm_black_24dp" />
 
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,65 +46,66 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="8dp">
+
                 <ImageView
+                    android:id="@+id/event_icon"
                     android:layout_width="100sp"
                     android:layout_height="100sp"
-                    android:scaleType="fitCenter"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:id="@+id/event_icon"
-                    android:contentDescription="@string/event_icon" />
+                    android:contentDescription="@string/event_icon"
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/event_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="24sp"
                     android:padding="8dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/eventAbout_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_info_outline_black_24dp"
-                    android:drawablePadding="8dp"/>
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/ic_info_outline_black_24dp" />
 
                 <TextView
                     android:id="@+id/eventAbout_org"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_business_black_24dp"
+                    android:layout_weight="1"
                     android:drawablePadding="8dp"
-                    android:layout_weight="1"/>
+                    android:drawableStart="@drawable/ic_business_black_24dp" />
 
                 <TextView
                     android:id="@+id/eventAbout_org_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_phone_black_24dp"
-                    android:drawablePadding="8dp"
+                    android:layout_weight="1"
                     android:autoLink="phone"
-                    android:layout_weight="1"/>
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/ic_phone_black_24dp" />
 
                 <TextView
                     android:id="@+id/eventAbout_org_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:drawablePadding="8dp"
                     android:layout_weight="1"
-                    android:autoLink="email" />
+                    android:autoLink="email"
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/ic_email_black_24dp" />
 
                 <TextView
                     android:id="@+id/eventAbout_address"
                     android:layout_width="match_parent"
-                    android:drawableStart="@drawable/ic_map_black_24dp"
-                    android:drawablePadding="8dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:autoLink="map"/>
+                    android:autoLink="map"
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/ic_map_black_24dp" />
 
             </LinearLayout>
 

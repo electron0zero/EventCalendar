@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,11 +37,15 @@ public class ScheduleFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.content_schedule, container, false);
         // View adaptor thing
         GridView gridView = (GridView) rootView.findViewById(R.id.eventGridView);
+        View emptyView = rootView.findViewById(R.id.empty_schedule);
+        gridView.setEmptyView(emptyView);
 
         Cursor cursor = getActivity().getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
         ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), cursor);
+        scheduleCursorAdapter.notifyDataSetChanged();
 
         gridView.setAdapter(scheduleCursorAdapter);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
