@@ -5,11 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import xyz.electron.eventcalendar.others.DataObj.EventMetadataBean;
@@ -26,11 +30,13 @@ import com.google.gson.Gson;
 public class AboutFragment extends Fragment {
     private final String TAG = "AboutFragment";
     SharedPreferences mSettings;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     String metadataJSON = null;
     String aboutJSON = null;
 
     // Views
+    NestedScrollView scrollView;
     ImageView event_icon;
     ImageView event_poster;
     TextView event_name;
@@ -98,6 +104,38 @@ public class AboutFragment extends Fragment {
             event_org_email.setText(about.getOrganiser_contact_email());
             event_address.setText(about.getAddress_of_event());
         }
+
+        // get The scrolling View in Fragment
+        scrollView = (NestedScrollView) rootView.findViewById(R.id.about_view);
+
+        // enable by default so user can Refresh even when dragging the screen
+        // dragging means "noScrollChange" Occurred and we are at Top already
+        // and user is still trying to scroll Up
+
+        swipeRefreshLayout.setEnabled(true);
+
+
+        // Fix the problem crated by Grid View not Being Direct child of SwipeRefreshLayout
+        swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
+                .findViewById(R.id.swipe_to_refresh_layout);
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //Log.d("ScrollView","scrollX = "+ scrollX + "scrollY = " + scrollY
+                //       +" oldScrollX = " + oldScrollX + "oldScrollY = " + oldScrollY);
+
+                // Checks if we are on Top and enables the SwipeRefreshLayout
+                if(scrollY == 0){
+                    // Log.d(TAG, "onScrollChange: Y on Zero, Enabled ");
+                    swipeRefreshLayout.setEnabled(true);
+                } else {
+                    // Log.d(TAG, "onScrollChange: Y on Not Zero, Disabled ");
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+
 
         return rootView;
     }

@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity
     EventMetadataBean metadata = null;
     EventMapBean map = null;
 
+    //Fragment Stuff
+    Fragment fragment = null;
+    Class fragmentClass = ScheduleFragment.class;
+    FragmentManager fragmentManager;
 
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
@@ -91,14 +95,12 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(R.string.title_fragment_schedule);
         setSupportActionBar(toolbar);
 
-        Fragment fragment = null;
-        Class fragmentClass = ScheduleFragment.class;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
 
         mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
@@ -111,7 +113,12 @@ public class MainActivity extends AppCompatActivity
 
 
         // get SwipeToRefresh View
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout_schedule);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout);
+        // Disable mSwipeRefreshLayout to tackle the Problem of GridView Not being The direct Child
+        // Hence We can not Scroll Back up in GridViews
+        // We will enable it in Respective Fragments
+        mSwipeRefreshLayout.setEnabled(false);
+
         // Setup refresh listener which triggers new data loading
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -229,11 +236,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Log.e(TAG, "onNavigationItemSelected: Menu Item Selected");
+        Log.d(TAG, "onNavigationItemSelected: Menu Item Selected");
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
-        Class fragmentClass = null;
         int titleId = R.string.app_name;
 
         if (id == R.id.nav_schedule) {
@@ -263,7 +268,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         if (fragmentClass != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
             toolbar.setTitle(titleId);
         }
@@ -358,12 +362,12 @@ public class MainActivity extends AppCompatActivity
             Double lng = Double.valueOf(map.getLongitude());
             Double rad = Double.valueOf(map.getRadiusInMeters());
             Long dtime = Long.valueOf(map.getTimeForNotificationInSec()) * 1000;
-            Log.e(TAG, "=========== Fence Params ===========");
+            Log.d(TAG, "=========== Fence Params ===========");
             Log.d(TAG, "createFence: lat = " + lat.toString());
             Log.d(TAG, "createFence: lng = " + lng.toString());
             Log.d(TAG, "createFence: radius = " + rad.toString());
             Log.d(TAG, "createFence: time = " + dtime.toString());
-            Log.e(TAG, "====================================");
+            Log.d(TAG, "====================================");
             AwarenessFence eventFence = LocationFence.in(lat, lng, rad, dtime);
 
             Intent intent = new Intent(ACTION_FENCE);
@@ -497,7 +501,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (TextUtils.equals(KEY_INSIDE_EVENT_VENUE, fenceState.getFenceKey())) {
                     if (fenceState.getCurrentState() == FenceState.TRUE) {
-                        Log.e(TAG, "Fence API Broadcast received");
+                        Log.d(TAG, "Fence API Broadcast received");
                         if (metadata != null && map != null) {
                             createNotification(1337, metadata.getEvent_name(), map.getNotificationMessage());
                         }
