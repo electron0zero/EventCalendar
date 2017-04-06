@@ -10,7 +10,7 @@
     <string name="title_fragment_about">About</string>
 
     <!--URL of JSON Data file-->
-    <string name="data_json_file_url">https://api.myjson.com/bins/h5m7f</string>
+    <string name="data_json_file_url">https://api.myjson.com/bins/1dy0sz</string>
 
     <!--Strings used in UI-->
     <string name="event_sponsors">Event Sponsors</string>

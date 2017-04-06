@@ -67,6 +67,7 @@ public class AboutFragment extends Fragment {
 
         event_icon = (ImageView) rootView.findViewById(R.id.event_icon);
         event_poster = (ImageView) rootView.findViewById(R.id.event_poster);
+
         event_name = (TextView) rootView.findViewById(R.id.event_name);
         event_info = (TextView) rootView.findViewById(R.id.eventAbout_info);
         event_org = (TextView) rootView.findViewById(R.id.eventAbout_org);
@@ -101,7 +102,9 @@ public class AboutFragment extends Fragment {
 
         if (aboutJSON != null){
             EventAboutBean about = gson.fromJson(aboutJSON, EventAboutBean.class);
-
+            event_info.setText(about.getInfo());
+            event_org.setText(about.getOrganiser());
+            event_org_phone.setText(about.getOrganiser_contact_phone());
             event_org_email.setText(about.getOrganiser_contact_email());
             event_address.setText(about.getAddress_of_event());
         }

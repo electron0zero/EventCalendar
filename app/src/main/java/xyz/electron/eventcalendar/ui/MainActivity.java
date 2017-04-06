@@ -93,26 +93,27 @@ public class MainActivity extends AppCompatActivity
     // Activity LifeCycle Callbacks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         // get value of current Fragment
         if (savedInstanceState != null) {
             CURRENT_FRAGMENT = savedInstanceState.getInt(CURRENT_FRAGMENT_KEY);
         }
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.title_fragment_schedule);
-        setSupportActionBar(toolbar);
 
         if (CURRENT_FRAGMENT == 1) {
             fragmentClass = ScheduleFragment.class;
+            toolbar.setTitle(R.string.title_fragment_schedule);
         } else if (CURRENT_FRAGMENT == 2) {
             fragmentClass = SponsorsFragment.class;
+            toolbar.setTitle(R.string.title_fragment_sponsors);
         } else if (CURRENT_FRAGMENT == 3) {
             fragmentClass = AboutFragment.class;
+            toolbar.setTitle(R.string.title_fragment_about);
         }
+        // set toolbar Title before setSupportActionBar
+        setSupportActionBar(toolbar);
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationView();
         // Fetch data service
         // no need to create fence here, we will one on successful data refresh
-        launchFetchDataService();
+        // launchFetchDataService();
     }
 
     @Override
