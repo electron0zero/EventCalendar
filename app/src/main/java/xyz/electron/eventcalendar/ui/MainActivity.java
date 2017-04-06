@@ -170,9 +170,12 @@ public class MainActivity extends AppCompatActivity
 
         initDataObj();
         initNavigationView();
-        // Fetch data service
-        // no need to create fence here, we will one on successful data refresh
-        // launchFetchDataService();
+
+        // No Saved State, Let's Fetch data
+        if(savedInstanceState == null){
+            // Fetch data service
+             launchFetchDataService();
+        }
     }
 
     @Override
@@ -380,8 +383,8 @@ public class MainActivity extends AppCompatActivity
 
     private void createFence() {
         if (map != null) {
+            // Check if we have permission before setting up fence
             checkLocationPermission();
-
             // Unregister Fence before Registering New Fences
             removeFence();
 
