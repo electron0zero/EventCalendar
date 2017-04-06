@@ -3,8 +3,10 @@ package xyz.electron.eventcalendar.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,22 +70,23 @@ public class DetailActivity extends AppCompatActivity {
         TextView loc = (TextView) findViewById(R.id.event_detail_location);
         loc.setText(eventScheduleBean.getEvent_location());
 
-        // RegisterBean populated
         DataObj.EventScheduleBean.RegisterBean registerBean = eventScheduleBean.getRegister();
 
+        // Registration Card
         TextView reg_required = (TextView) findViewById(R.id.event_detail_reg_title_required);
         if (Boolean.valueOf(registerBean.getIsRequired())) {
             reg_required.setText(R.string.registration_required);
+            TextView reg_url = (TextView) findViewById(R.id.event_detail_reg_url);
+            reg_url.setText(registerBean.getUrl());
+            TextView reg_con = (TextView) findViewById(R.id.event_detail_reg_contact);
+            reg_con.setText(registerBean.getContact());
+            TextView fees = (TextView) findViewById(R.id.event_detail_reg_fees);
+            fees.setText(registerBean.getFees());
         } else {
             reg_required.setText(R.string.registration_not_required);
+            CardView cardView = (CardView) findViewById(R.id.event_detail_reg_card);
+            cardView.setVisibility(View.GONE);
         }
-
-        TextView reg_url = (TextView) findViewById(R.id.event_detail_reg_url);
-        reg_url.setText(registerBean.getUrl());
-        TextView reg_con = (TextView) findViewById(R.id.event_detail_reg_contact);
-        reg_con.setText(registerBean.getContact());
-        TextView fees = (TextView) findViewById(R.id.event_detail_reg_fees);
-        fees.setText(registerBean.getFees());
 
         // Sponsors List View
         List<DataObj.EventScheduleBean.ActivitySponsorsBean> activitySponsors
