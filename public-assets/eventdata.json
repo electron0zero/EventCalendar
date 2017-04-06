@@ -1,335 +1,286 @@
 {
     "eventMetadata": {
-        "event_name": "My Best event",
-        "iconUrl": "http://roman.nurik.net/media/material_icon_gutenberg.png",
+        "event_name": "The Great Droid Event",
+        "iconUrl": "http://i.imgur.com/TRg3VQq.png",
         "posterUrl" : "https://placeimg.com/640/480/arch/sepia",
         "update_number": "0"
     },
     "eventSchedule": [
         {
-            "Name": "activity1",
-            "date": "10-12-2017",
-            "time": "10:15",
+            "Name": "The Dawn of Droid",
+            "date": "07 Mar. 2017",
+            "time": "10:00 AM",
             "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
+            "details": "Initially developed by Android Inc., which Google bought in 2005, Android was unveiled in 2007, along with the founding of the Open Handset Alliance – a consortium of hardware, software, and telecommunication companies devoted to advancing open standards for mobile devices.",
             "contact_phone": "+91 96513131313",
             "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
+            "spacial_note": "This event is about the History of Android aka Droid",
+            "event_location": "The Droid way",
             "register": {
                 "isRequired": "false",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "url": "",
+                "contact": "",
+                "fees": ""
+            },
+            "activitySponsors": [
+                {
+                    "name": "The Droid Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://www.android.com/"
+                }
+            ]
+        },
+        {
+            "Name": "Linux Kernel - The Backbone of Droid",
+            "date": "07 Mar. 2017",
+            "time": "12:30 PM",
+            "image": "https://placeimg.com/640/480/any",
+            "details": "The Linux kernel is a monolithic Unix-like computer operating system kernel. The Linux family of operating systems is based on this kernel and deployed on both traditional computer systems such as personal computers and servers, usually in the form of Linux distributions,[9] and on various embedded devices such as routers, wireless access points, PBXes, set-top boxes, FTA receivers, smart TVs, PVRs and NAS appliances. The Android operating system for tablet computers, smartphones and smartwatches is also based atop the Linux kernel. While the adoption on desktop computers is low, Linux-based operating systems dominate nearly every other segment of computing, from mobile devices to mainframes. As of November 2016, all but two of the world's 500 most powerful supercomputers run Linux (the other two run AIX on IBM POWER7 hardware, that Linux can also run on).",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "Will be talking about the Tux",
+            "event_location": "The Droid Way, Tux Room",
+            "register": {
+                "isRequired": "true",
+                "url": "https://docs.google.com/forms/",
                 "contact": "example@example.com",
-                "fees": "$5"
+                "fees": "Free"
             },
             "activitySponsors": [
                 {
-                    "name": "sponsor Name 1",
+                    "name": "The Tux Inc.",
                     "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
+                    "url": "https://www.kernel.org/"
                 }
             ]
         },
         {
-            "Name": "activity2",
-            "date": "10-12-2017",
-            "time": "10:15",
+            "Name": "Intro to Git - Distributed Version Control System",
+            "date": "07 Mar. 2017",
+            "time": "2:30 PM",
             "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
+            "details": "Git is a version control system (VCS) for tracking changes in computer files and coordinating work on those files among multiple people. It is primarily used for software development, but it can be used to keep track of changes in any files. As a distributed revision control system it is aimed at speed, data integrity, and support for distributed, non-linear workflows.",
             "contact_phone": "+91 96513131313",
             "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
+            "spacial_note": "Familarity of Command line is required",
+            "event_location": "The Droid Way, Git Room",
             "register": {
                 "isRequired": "false",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "+91 6926161615",
-                "fees": "$5"
+                "url": "",
+                "contact": "",
+                "fees": ""
             },
             "activitySponsors": [
                 {
-                    "name": "sponsor Name 1",
+                    "name": "The Droid Inc.",
                     "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
+                    "url": "https://www.android.com/"
                 },
                 {
-                    "name": "sponsor Name 2",
+                    "name": "The Tux Inc.",
                     "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
+                    "url": "https://www.kernel.org/"
+                },
+                {
+                    "name": "The Git Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://git-scm.com/"
                 }
             ]
         },
         {
-            "Name": "activity3",
-            "date": "10-12-2017",
-            "time": "10:15",
+            "Name": "Dive Into Android Source Code",
+            "date": "08 Mar. 2017",
+            "time": "10:00 AM",
             "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
+            "details": "Android is an open source software stack for a wide range of mobile devices and a corresponding open source project led by Google. This site and the Android Open Source Project (AOSP) repository offer the information and source code you need to create custom variants of the Android stack, port devices and accessories to the Android platform, and ensure your devices meet compatibility requirements. We also wanted to make sure there was no central point of failure, where one industry player could restrict or control the innovations of any other. The result is a full, production-quality operating system for consumer products with source code open for customization and porting.",
             "contact_phone": "+91 96513131313",
             "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "false",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "+91-6926161615",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity4",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500, 15.891515",
+            "spacial_note": "Familarity with Make, Linux and Java Can be helpful, but not Required",
+            "event_location": "The Droid Way, AOSP Room",
             "register": {
                 "isRequired": "true",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "https://www.google.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity5",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "true",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "https://www.google.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity6",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "true",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "test@test.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity7",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "true",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "test@test.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity8",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "true",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "example@example.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity9",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151500,15.891515",
-            "register": {
-                "isRequired": "false",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
-                "contact": "example@example.com",
-                "fees": "$5"
-            },
-            "activitySponsors": [
-                {
-                    "name": "sponsor Name 1",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                },
-                {
-                    "name": "sponsor Name 2",
-                    "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
-                }
-            ]
-        },
-        {
-            "Name": "activity10",
-            "date": "10-12-2017",
-            "time": "10:15",
-            "image": "https://placeimg.com/640/480/any",
-            "details": "an paragraph about the event",
-            "contact_phone": "+91 96513131313",
-            "contact_email": "example@example.com",
-            "spacial_note": "anything extra about event, requirement, dress Code etc.",
-            "event_location": "70.151551,15.891515",
-            "register": {
-                "isRequired": "False",
-                "url": "https://www.miketaylr.com/pres/html5/forms2.html",
+                "url": "https://docs.google.com/forms/",
                 "contact": "example@example.com",
                 "fees": "Free"
 
             },
             "activitySponsors": [
                 {
-                    "name": "sponsor Name 1",
+                    "name": "The Droid Inc.",
                     "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
+                    "url": "https://www.android.com/"
                 },
                 {
-                    "name": "sponsor Name 2",
+                    "name": "The Git Inc.",
                     "image": "https://placeimg.com/640/480/any",
-                    "url": "https://www.google.co.in/"
+                    "url": "https://git-scm.com/"
+                }
+            ]
+        },
+        {
+            "Name": "The Droid Framework - Application Layer of Droid",
+            "date": "08 Mar. 2017",
+            "time": "12:30 PM",
+            "image": "https://placeimg.com/640/480/any",
+            "details": "The entire feature-set of the Android OS is available to you through APIs written in the Java language. These APIs form the building blocks you need to create Android apps by simplifying the reuse of core, modular system components and services",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "",
+            "event_location": "The Droid Way, Framework Room",
+            "register": {
+                "isRequired": "true",
+                "url": "https://docs.google.com/forms/",
+                "contact": "example@example.com",
+                "fees": "Free"
+
+            },
+            "activitySponsors": [
+                {
+                    "name": "The Droid Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://www.android.com/"
+                },
+                {
+                    "name": "The Tux Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://www.kernel.org/"
+                },
+                {
+                    "name": "The Git Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://git-scm.com/"
+                }
+            ]
+        },
+        {
+            "Name": "Intro to Material Design",
+            "date": "08 Mar. 2017",
+            "time": "02:00 PM",
+            "image": "https://placeimg.com/640/480/any",
+            "details": "Material Design (code named Quantum Paper) is a design language developed in 2014 by Google. Expanding upon the card motifs that debuted in Google Now, Material Design makes more liberal use of grid-based layouts, responsive animations and transitions, padding, and depth effects such as lighting and shadows.",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "P.S.: You don't have to be Designer to attend it",
+            "event_location": "The Droid Way, Material Design Lab",
+            "register": {
+                "isRequired": "true",
+                "url": "https://docs.google.com/forms/",
+                "contact": "example@example.com",
+                "fees": "Free"
+
+            },
+            "activitySponsors": [
+                {
+                    "name": "The Droid Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://www.android.com/"
+                }
+            ]
+        },
+        {
+            "Name": "Intro To Android Studio",
+            "date": "09 Mar. 2017",
+            "time": "10:00 AM",
+            "image": "https://placeimg.com/640/480/any",
+            "details": "Android Studio is the official integrated development environment (IDE) for the Android platform. It was announced on May 16, 2013 at the Google I/O conference. Android Studio is freely available under the Apache License 2.0. Android Studio was in early access preview stage starting from version 0.1 in May 2013, then entered beta stage starting from version 0.8 which was released in June 2014. The first stable build was released in December 2014, starting from version 1.0. Based on JetBrains' IntelliJ IDEA software, Android Studio is designed specifically for Android development. It is available for download on Windows, macOS and Linux, and replaced Eclipse Android Development Tools (ADT) as Google's primary IDE for native Android application development.",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "Intro to Java is Plus but not required for attending it",
+            "event_location": "The Droid Way, IDE Room",
+            "register": {
+                "isRequired": "false",
+                "url": "",
+                "contact": "",
+                "fees": ""
+            },
+            "activitySponsors": [
+                {
+                    "name": "The IDE Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://developer.android.com/studio/index.html"
+                }
+            ]
+        },
+        {
+            "Name": "The Open Source Initiative",
+            "date": "09 Mar. 2017",
+            "time": "12:30 PM",
+            "image": "https://placeimg.com/640/480/any",
+            "details": "Open source projects provide tremendous opportunities for developers to share and learn through collaboration. Find colleagues for your project or join an existing effort. Contributions aren't limited to code, as projects need a diverse range of skills. Open source software is software that can be freely used, changed, and shared (in modified or unmodified form) by anyone. Open source software is made by many people, and distributed under licenses that comply with the Open Source Definition.",
+            "contact_phone": "+91 96513131313",
+            "contact_email": "example@example.com",
+            "spacial_note": "Come Let's Build Open Source Software",
+            "event_location": "The Droid Way, OSS Room",
+            "register": {
+                "isRequired": "false",
+                "url": "",
+                "contact": "",
+                "fees": ""
+            },
+            "activitySponsors": [
+                {
+                    "name": "The Tux Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://www.kernel.org/"
+                },
+                {
+                    "name": "The Git Inc.",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://git-scm.com/"
+                },
+                {
+                    "name": "The OSS Team",
+                    "image": "https://placeimg.com/640/480/any",
+                    "url": "https://opensource.org/"
                 }
             ]
         }
     ],
     "eventSponsors": [
         {
-            "name": "sponsor Name 1",
+            "name": "The Droid Inc.",
             "image": "https://placeimg.com/640/480/any",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
+            "url": "https://www.android.com/",
+            "type": "Title Sponsor"
         },
         {
-            "name": "sponsor Name 2",
+            "name": "The Big Inc.",
             "image": "https://placeimg.com/640/480/any",
             "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
+            "type": "Event Sponsor"
         },
         {
-            "name": "sponsor Name 3",
+            "name": "The Tux Inc.",
             "image": "https://placeimg.com/640/480/any",
-            "url": "https://www.google.co.in/",
-            "type": "Title sponsor"
+            "url": "https://www.kernel.org/",
+            "type": "Title Sponsor"
+        },
+        {
+            "name": "The Transport Inc.",
+            "image": "https://placeimg.com/640/480/any",
+            "url": "https://www.uber.com/",
+            "type": "Gold Sponsor"
+        },
+        {
+            "name": "The Rocket Inc.",
+            "image": "https://placeimg.com/640/480/any",
+            "url": "http://www.spacex.com/",
+            "type": "Rocket Sponsor"
         }
     ],
     "eventMap": {
         "latitude": "27.9614358",
         "longitude": "76.4019588",
-        "radiusInMeters": "500",
+        "radiusInMeters": "1000",
         "timeForNotificationInSec": "1",
         "NotificationMessage": "Hey There, Thanks for coming to event. Call 1800-00-EVENT for help"
     },
     "eventAbout": {
-        "info": "an paragraph about the event",
-        "organiser": "organiser of event",
+        "info": "Android provides a rich application framework that allows you to build innovative apps and games for mobile devices in a Java language environment. The documents listed in the left navigation provide details about how to build apps using Android's various APIs.",
+        "organiser": "The Dude",
         "organiser_contact_phone": "+91 6111666262",
         "organiser_contact_email": "example@example.com",
-        "address_of_event": "address of event"
+        "address_of_event": "12-3 The Dude Building. Dudeist Street, The Duderino Way. North Pole. Pin - 200147"
     }
 }
