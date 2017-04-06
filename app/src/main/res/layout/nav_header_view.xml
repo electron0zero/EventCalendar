@@ -26,6 +26,7 @@
             android:layout_height="@dimen/nav_head_icon_height"
             android:contentDescription="@string/event_icon"
             android:scaleType="centerCrop"
+            android:background="@color/colorAccent"
             android:src="@drawable/placeholder" />
 
         <TextView
