@@ -39,7 +39,7 @@ public class SponsorsFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.content_sponsors, container, false);
         // View adaptor thing
-        gridView = (GridView) rootView.findViewById(R.id.sponsorsListView);
+        gridView = (GridView) rootView.findViewById(R.id.sponsorsGridView);
         View emptyView = rootView.findViewById(R.id.empty_sponsors);
         gridView.setEmptyView(emptyView);
 
