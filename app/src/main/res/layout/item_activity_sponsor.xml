@@ -3,8 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="2dp">
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,27 +13,26 @@
 
         <ImageView
             android:id="@+id/activity_spo_image"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sponsor_item_image_height"
             android:layout_gravity="center"
+            android:contentDescription="@string/image_of_activity_sponsors"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_info_outline_black_24dp"
-            android:contentDescription="@string/image_of_activity_sponsors" />
+            android:src="@color/blue_grey_500" />
 
         <TextView
             android:id="@+id/activity_spo_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAllCaps="true"
-            android:textSize="24sp" />
+            android:textSize="@dimen/text_size_regular" />
 
         <TextView
             android:id="@+id/activity_spo_url"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:autoLink="web"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

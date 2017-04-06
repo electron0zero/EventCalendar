@@ -1,9 +1,63 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--Text Size-->
+    <dimen name="text_size_huge">112sp</dimen>
+    <dimen name="text_size_extra_extra_big">56sp</dimen>
+    <dimen name="text_size_extra_big">45sp</dimen>
+    <dimen name="text_size_big">34sp</dimen>
+    <dimen name="text_size_regular">24sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
 
-    <!--
-Refer to App Widget Documentation for margin information
-http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
-    -->
+    <!--Grid View-->
     <integer name="grid_num_columns">1</integer>
+    <dimen name="grid_horizontal_spacing">16dp</dimen>
+    <dimen name="grid_vertical_spacing">16dp</dimen>
+
+    <!--Screen edge left(start) and right(end) margins-->
+    <dimen name="edge_start_margin"> 16dp</dimen>
+    <dimen name="edge_end_margin"> 16dp</dimen>
+
+    <!--Layout Margin-->
+    <dimen name="layout_margin">16dp</dimen>
+    <dimen name="layout_margin_start">16dp</dimen>
+    <dimen name="layout_margin_end">16dp</dimen>
+    <dimen name="layout_margin_top">16dp</dimen>
+    <dimen name="layout_margin_bottom">16dp</dimen>
+
+    <!--Padding-->
+    <dimen name="padding">8dp</dimen>
+    <dimen name="padding_end">8dp</dimen>
+    <dimen name="padding_start">8dp</dimen>
+    <dimen name="padding_bottom">8dp</dimen>
+    <dimen name="padding_top">8dp</dimen>
+
+    <!--Card View-->
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!--TextView Drawable-->
+    <dimen name="drawable_padding">8dp</dimen>
+
+    <!--Event Poster-->
+    <dimen name="layout_height_event_poster">400dp</dimen>
+
+    <!--Event Icon-->
+    <dimen name="layout_width_event_icon">100dp</dimen>
+    <dimen name="layout_height_event_icon">100dp</dimen>
+
+    <!--Event Detail Poster-->
+    <dimen name="layout_height_event_detail_image">400dp</dimen>
+
+    <!--Event Item-->
+    <dimen name="event_item_image_height">200dp</dimen>
+
+    <!--Sponsor Item-->
+    <dimen name="sponsor_item_image_height">200dp</dimen>
+
+    <!--Navigation Header View-->
+    <dimen name="nav_head_poster_height">300dp</dimen>
+    <dimen name="nav_head_icon_height">50dp</dimen>
+    <dimen name="nav_head_icon_width">50dp</dimen>
+    <dimen name="nav_head_event_name_height">50dp</dimen>
+
 </resources>

@@ -1,26 +1,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
+    android:layout_marginEnd="@dimen/edge_end_margin"
+    android:layout_marginStart="@dimen/edge_start_margin"
     android:orientation="vertical">
 
     <GridView
         android:id="@+id/eventGridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="16dp"
+        android:horizontalSpacing="@dimen/grid_horizontal_spacing"
         android:numColumns="@integer/grid_num_columns"
-        android:verticalSpacing="16dp" />
+        android:verticalSpacing="@dimen/grid_vertical_spacing" />
 
     <TextView
         android:id="@+id/empty_schedule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="Nothing to Show \n Swipe Down to Refresh"
-        android:textSize="36sp" />
+        android:padding="@dimen/padding"
+        android:text="@string/empty_view_message"
+        android:textSize="@dimen/text_size_big" />
 
 </LinearLayout>

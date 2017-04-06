@@ -3,8 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="2dp">
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,10 +15,10 @@
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/event_item_image_height"
+            android:contentDescription="@string/event_poster"
             android:scaleType="centerCrop"
-            android:src="@color/colorPrimary"
-            android:contentDescription="@string/event_poster" />
+            android:src="@color/blue_grey_500" />
 
         <TextView
             android:id="@+id/event_name"
@@ -26,8 +26,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_regular"
             android:textStyle="bold" />
 
 
@@ -36,29 +35,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="@dimen/padding">
 
             <TextView
                 android:id="@+id/event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:drawablePadding="@dimen/drawable_padding"
                 android:drawableStart="@drawable/ic_date_range_black_24dp"
-                android:drawablePadding="8dp"
+                android:paddingEnd="@dimen/padding_end"
+                android:paddingStart="@dimen/padding_start"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/event_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:drawablePadding="@dimen/drawable_padding"
                 android:drawableStart="@drawable/ic_access_time_black_24dp"
-                android:drawablePadding="8dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:paddingEnd="@dimen/padding_end"
+                android:paddingStart="@dimen/padding_start"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
     </LinearLayout>

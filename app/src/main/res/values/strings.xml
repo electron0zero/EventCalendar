@@ -32,6 +32,7 @@
     <string name="map">Map</string>
     <string name="about">About</string>
     <string name="refresh">Refresh</string>
+    <string name="empty_view_message">Nothing to Show   Swipe Down to Refresh</string>
 
     <!---->
 

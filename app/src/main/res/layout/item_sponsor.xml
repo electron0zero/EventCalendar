@@ -16,10 +16,10 @@
         <ImageView
             android:id="@+id/sponsors_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/sponsor_item_image_height"
+            android:contentDescription="@string/image_of_sponsor"
             android:scaleType="centerCrop"
-            android:src="@color/colorPrimary"
-            android:contentDescription="@string/image_of_sponsor" />
+            android:src="@color/blue_grey_500" />
 
 
         <TextView
@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_regular"
             android:textStyle="bold" />
 
         <TextView
@@ -37,18 +36,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <TextView
             android:id="@+id/sponsors_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
             android:autoLink="web"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_size_medium" />
 
     </LinearLayout>
 
