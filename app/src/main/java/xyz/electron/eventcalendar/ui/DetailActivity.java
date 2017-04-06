@@ -85,7 +85,9 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             reg_required.setText(R.string.registration_not_required);
             CardView cardView = (CardView) findViewById(R.id.event_detail_reg_card);
-            cardView.setVisibility(View.GONE);
+            if(cardView != null){
+                cardView.setVisibility(View.GONE);
+            }
         }
 
         // Sponsors List View

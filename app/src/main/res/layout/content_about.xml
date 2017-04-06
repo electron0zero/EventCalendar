@@ -4,7 +4,6 @@
     android:id="@+id/about_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -49,8 +48,8 @@
 
                 <ImageView
                     android:id="@+id/event_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:contentDescription="@string/event_icon"
                     android:scaleType="fitCenter" />

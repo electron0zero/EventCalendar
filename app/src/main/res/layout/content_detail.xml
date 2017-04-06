@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="xyz.electron.eventcalendar.ui.DetailActivity"
     tools:showIn="@layout/activity_detail">
@@ -24,12 +23,13 @@
             android:layout_marginTop="16dp"
             card_view:cardCornerRadius="2dp"
             card_view:cardElevation="2dp">
+
             <ImageView
                 android:id="@+id/event_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_local_atm_black_24dp"
+                android:src="@drawable/placeholder"
                 android:contentDescription="@string/activity_detail_image" />
 
         </android.support.v7.widget.CardView>
@@ -90,7 +90,6 @@
                     android:autoLink="phone"
                     android:drawableStart="@drawable/ic_contact_phone_black_24dp"
                     android:drawablePadding="8dp"
-                    android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
 
@@ -101,7 +100,6 @@
                     android:autoLink="email"
                     android:drawableStart="@drawable/ic_contact_mail_black_24dp"
                     android:drawablePadding="8dp"
-                    android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
                 <TextView
@@ -166,7 +164,6 @@
                     android:autoLink="web"
                     android:drawableStart="@drawable/ic_public_black_24dp"
                     android:drawablePadding="8dp"
-                    android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
                 <TextView
@@ -176,7 +173,6 @@
                     android:autoLink="all"
                     android:drawableStart="@drawable/ic_contacts_black_24dp"
                     android:drawablePadding="8dp"
-                    android:textColorLink="@color/colorAccent"
                     android:textSize="20sp" />
 
                 <TextView
@@ -192,6 +188,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
