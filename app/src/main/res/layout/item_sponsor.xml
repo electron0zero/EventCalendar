@@ -19,7 +19,7 @@
             android:layout_height="@dimen/sponsor_item_image_height"
             android:contentDescription="@string/image_of_sponsor"
             android:scaleType="centerCrop"
-            android:src="@color/blue_grey_500" />
+            android:src="@color/blue_grey_100" />
 
 
         <TextView

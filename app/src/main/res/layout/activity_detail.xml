@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_grey_500"
+    android:background="@color/blue_grey_100"
     android:fitsSystemWindows="true"
     tools:context="xyz.electron.eventcalendar.ui.DetailActivity">
 

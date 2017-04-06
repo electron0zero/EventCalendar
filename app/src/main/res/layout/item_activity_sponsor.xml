@@ -18,18 +18,18 @@
             android:layout_gravity="center"
             android:contentDescription="@string/image_of_activity_sponsors"
             android:scaleType="centerCrop"
-            android:src="@color/blue_grey_500" />
+            android:src="@color/blue_grey_100" />
 
         <TextView
             android:id="@+id/activity_spo_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="@dimen/text_size_regular" />
 
         <TextView
             android:id="@+id/activity_spo_url"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:autoLink="web"

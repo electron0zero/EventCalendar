@@ -3,8 +3,8 @@
     android:id="@+id/about_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/edge_end_margin"
-    android:layout_marginStart="@dimen/edge_start_margin">
+    android:layout_marginEnd="@dimen/edge_end_margin_about"
+    android:layout_marginStart="@dimen/edge_start_margin_about">
 
     <LinearLayout
         android:layout_width="match_parent"

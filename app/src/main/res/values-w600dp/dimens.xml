@@ -1,0 +1,15 @@
+<resources>
+    <!--Grid View-->
+    <integer name="grid_num_columns">2</integer>
+
+    <!--About Page-->
+    <!--Screen edge left(start) and right(end) margins for about-->
+    <dimen name="edge_start_margin_about">100dp</dimen>
+    <dimen name="edge_end_margin_about">100dp</dimen>
+
+    <!--Event Detail Page-->
+    <!--Screen edge left(start) and right(end) margins for event details-->
+    <dimen name="edge_start_margin_event_details">100dp</dimen>
+    <dimen name="edge_end_margin_event_details">100dp</dimen>
+
+</resources>

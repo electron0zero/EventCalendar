@@ -18,7 +18,7 @@
             android:layout_height="@dimen/event_item_image_height"
             android:contentDescription="@string/event_poster"
             android:scaleType="centerCrop"
-            android:src="@color/blue_grey_500" />
+            android:src="@color/blue_grey_100" />
 
         <TextView
             android:id="@+id/event_name"
