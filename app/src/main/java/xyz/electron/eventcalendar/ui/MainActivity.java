@@ -507,7 +507,7 @@ public class MainActivity extends AppCompatActivity
     private void createNotification(int nId, String title, String body) {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                this).setSmallIcon(R.mipmap.ic_launcher)
+                this).setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(body);
 
