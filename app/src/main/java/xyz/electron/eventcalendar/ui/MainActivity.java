@@ -73,8 +73,12 @@ public class MainActivity extends AppCompatActivity
 
     //Fragment Stuff
     Fragment fragment = null;
-    Class fragmentClass = ScheduleFragment.class;
+    Class fragmentClass = null;
     FragmentManager fragmentManager;
+    // Fragment Constants
+    // 1 == Schedule, 2 == Sponsors, 3 == About
+    String CURRENT_FRAGMENT_KEY = "CURRENT_FRAGMENT";
+    int CURRENT_FRAGMENT = 1;
 
     // Awareness API
     private GoogleApiClient mGoogleApiClient;
@@ -87,6 +91,11 @@ public class MainActivity extends AppCompatActivity
     // Activity LifeCycle Callbacks
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // get value of current Fragment
+        if (savedInstanceState != null) {
+            CURRENT_FRAGMENT = savedInstanceState.getInt(CURRENT_FRAGMENT_KEY);
+        }
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -94,6 +103,14 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_fragment_schedule);
         setSupportActionBar(toolbar);
+
+        if(CURRENT_FRAGMENT == 1){
+            fragmentClass = ScheduleFragment.class;
+        } else if(CURRENT_FRAGMENT == 2) {
+            fragmentClass = SponsorsFragment.class;
+        } else if(CURRENT_FRAGMENT == 3){
+            fragmentClass = AboutFragment.class;
+        }
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -151,6 +168,16 @@ public class MainActivity extends AppCompatActivity
         initDataObj();
         initNavigationView();
 //        launchFetchDataService();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+
+        // Save custom values into the bundle
+        savedInstanceState.putInt(CURRENT_FRAGMENT_KEY, CURRENT_FRAGMENT);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -243,9 +270,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_schedule) {
             fragmentClass = ScheduleFragment.class;
             titleId = R.string.title_fragment_schedule;
+            CURRENT_FRAGMENT = 1;
         } else if (id == R.id.nav_sponsors) {
             fragmentClass = SponsorsFragment.class;
             titleId = R.string.title_fragment_sponsors;
+            CURRENT_FRAGMENT = 2;
         } else if (id == R.id.nav_map) {
             // Open Maps on new activity
             String zoom = "20";
@@ -257,6 +286,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {
             fragmentClass = AboutFragment.class;
             titleId = R.string.title_fragment_about;
+            CURRENT_FRAGMENT = 3;
         }
 
         try {

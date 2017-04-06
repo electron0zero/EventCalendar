@@ -23,7 +23,6 @@
             android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
-            android:background="@color/colorAccent"
             android:contentDescription="@string/event_icon" />
         <TextView
             android:id="@+id/nav_head_EventName"
