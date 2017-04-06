@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_frame, fragment).commit();
 
-        mSettings = getSharedPreferences(FetchDataService.PREFS_NAME, 0);
+        mSettings = getSharedPreferences(FetchDataService.SHARED_PREFERENCES_NAME, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         // We are registering an observer (mMessageReceiver) to receive Intents
         // with actions named "custom-event-name".
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("EventCalendar-FetchDataService-Destroyed"));
+                new IntentFilter(FetchDataService.FETCH_DATASERVICE_DESTROYED_BROADCAST));
 
         // Create an instance of GoogleAPIClient.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity
 
 
     // Our handler for received Intents. This will be called whenever an Intent
-    // with an action named "EventCalendar-FetchDataService-Destroyed" is broadcasted.
+    // with an action named FETCH_DATASERVICE_DESTROYED_BROADCAST is broadcasted.
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

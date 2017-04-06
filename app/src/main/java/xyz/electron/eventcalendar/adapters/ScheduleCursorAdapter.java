@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
+import xyz.electron.eventcalendar.provider.Contract;
 
 public class ScheduleCursorAdapter extends CursorAdapter{
 
@@ -41,7 +42,8 @@ public class ScheduleCursorAdapter extends CursorAdapter{
         TextView eventTime = (TextView) view.findViewById(R.id.event_time);
 
          // Extract properties from cursor
-        String eventObjJSON = cursor.getString(cursor.getColumnIndexOrThrow("schEventObj"));
+        String eventObjJSON = cursor.getString(cursor.
+                getColumnIndexOrThrow(Contract.ScheduleEntry.COLUMN_NAME));
 
         //convert it to DataObj.EventScheduleBean via GSON
         Gson gson = new Gson();

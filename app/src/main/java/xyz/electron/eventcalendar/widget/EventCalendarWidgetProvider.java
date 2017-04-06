@@ -51,7 +51,7 @@ public class EventCalendarWidgetProvider extends AppWidgetProvider {
             final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
             final ComponentName cn = new ComponentName(context, EventCalendarWidgetProvider.class);
             sDataObserver = new EventCalendarContentObserver(mgr, cn, sWorkerQueue);
-            r.registerContentObserver(Contract.SchEntry.CONTENT_URI, true, sDataObserver);
+            r.registerContentObserver(Contract.ScheduleEntry.CONTENT_URI, true, sDataObserver);
         }
     }
 

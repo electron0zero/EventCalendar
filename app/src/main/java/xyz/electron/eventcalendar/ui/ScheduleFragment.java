@@ -41,7 +41,7 @@ public class ScheduleFragment extends Fragment {
         View emptyView = rootView.findViewById(R.id.empty_schedule);
         gridView.setEmptyView(emptyView);
 
-        Cursor cursor = getActivity().getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
+        Cursor cursor = getActivity().getContentResolver().query(Contract.ScheduleEntry.CONTENT_URI, null, null, null, null);
         ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), cursor);
         scheduleCursorAdapter.notifyDataSetChanged();
 
@@ -54,7 +54,8 @@ public class ScheduleFragment extends Fragment {
                 Cursor cur = (Cursor) adapter.getItemAtPosition(position);
                 cur.moveToPosition(position);
 
-                String eventObjJSON = cur.getString(cur.getColumnIndexOrThrow("schEventObj"));
+                String eventObjJSON = cur.getString(cur.
+                        getColumnIndexOrThrow(Contract.ScheduleEntry.COLUMN_NAME));
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("eventObjJSON", eventObjJSON);
                 startActivity(intent);

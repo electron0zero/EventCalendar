@@ -10,7 +10,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // Increment the version when there is a change in the structure of database
     public static final int DATABASE_VERSION = 1;
     // The name of the database in the filesystem, you can choose this to be anything
-    public static final String DATABASE_NAME = "eventCal.db";
+    public static final String DATABASE_NAME = "EventCalendarDB.db";
 
 
     public DBHelper(Context context) {
@@ -19,8 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        addSchTable(db);
-        addSpoTable(db);
+        addScheduleTable(db);
+        addSponsorsTable(db);
     }
 
     @Override
@@ -28,19 +28,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    private void addSchTable(SQLiteDatabase db){
+    private void addScheduleTable(SQLiteDatabase db){
         db.execSQL(
-                "CREATE TABLE " + Contract.SchEntry.TABLE_NAME + " (" +
-                        Contract.SchEntry._ID + " INTEGER PRIMARY KEY, " +
-                        Contract.SchEntry.COLUMN_NAME + " TEXT NOT NULL);"
+                "CREATE TABLE " + Contract.ScheduleEntry.TABLE_NAME + " (" +
+                        Contract.ScheduleEntry._ID + " INTEGER PRIMARY KEY, " +
+                        Contract.ScheduleEntry.COLUMN_NAME + " TEXT NOT NULL);"
         );
     }
 
-    private void addSpoTable(SQLiteDatabase db){
+    private void addSponsorsTable(SQLiteDatabase db){
         db.execSQL(
-                "CREATE TABLE " + Contract.SpoEntry.TABLE_NAME + " (" +
-                        Contract.SpoEntry._ID + " INTEGER PRIMARY KEY, " +
-                        Contract.SpoEntry.COLUMN_NAME + " TEXT NOT NULL);"
+                "CREATE TABLE " + Contract.SponsorsEntry.TABLE_NAME + " (" +
+                        Contract.SponsorsEntry._ID + " INTEGER PRIMARY KEY, " +
+                        Contract.SponsorsEntry.COLUMN_NAME + " TEXT NOT NULL);"
         );
     }
 

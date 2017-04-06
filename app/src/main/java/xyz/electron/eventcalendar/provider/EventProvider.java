@@ -32,10 +32,10 @@ public class EventProvider extends ContentProvider {
         // All paths to the UriMatcher have a corresponding code to return
         // when a match is found (the ints above).
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(content, Contract.PATH_SCH, SCH);
-        matcher.addURI(content, Contract.PATH_SCH + "/#", SCH_ID);
-        matcher.addURI(content, Contract.PATH_SPO, SPO);
-        matcher.addURI(content, Contract.PATH_SPO + "/#", SPO_ID);
+        matcher.addURI(content, Contract.PATH_SCHEDULE, SCH);
+        matcher.addURI(content, Contract.PATH_SCHEDULE + "/#", SCH_ID);
+        matcher.addURI(content, Contract.PATH_SPONSORS, SPO);
+        matcher.addURI(content, Contract.PATH_SPONSORS + "/#", SPO_ID);
 
         return matcher;
     }
@@ -52,13 +52,13 @@ public class EventProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         switch(sUriMatcher.match(uri)){
             case SCH:
-                return Contract.SchEntry.CONTENT_TYPE;
+                return Contract.ScheduleEntry.CONTENT_TYPE;
             case SCH_ID:
-                return Contract.SchEntry.CONTENT_ITEM_TYPE;
+                return Contract.ScheduleEntry.CONTENT_ITEM_TYPE;
             case SPO:
-                return Contract.SpoEntry.CONTENT_TYPE;
+                return Contract.SponsorsEntry.CONTENT_TYPE;
             case SPO_ID:
-                return Contract.SpoEntry.CONTENT_ITEM_TYPE;
+                return Contract.SponsorsEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -77,7 +77,7 @@ public class EventProvider extends ContentProvider {
         switch(sUriMatcher.match(uri)){
             case SCH:
                 retCursor = db.query(
-                        Contract.SchEntry.TABLE_NAME,
+                        Contract.ScheduleEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -89,9 +89,9 @@ public class EventProvider extends ContentProvider {
             case SCH_ID:
                 long _id = ContentUris.parseId(uri);
                 retCursor = db.query(
-                        Contract.SchEntry.TABLE_NAME,
+                        Contract.ScheduleEntry.TABLE_NAME,
                         projection,
-                        Contract.SchEntry._ID + " = ?",
+                        Contract.ScheduleEntry._ID + " = ?",
                         new String[]{String.valueOf(_id)},
                         null,
                         null,
@@ -100,7 +100,7 @@ public class EventProvider extends ContentProvider {
                 break;
             case SPO:
                 retCursor = db.query(
-                        Contract.SpoEntry.TABLE_NAME,
+                        Contract.SponsorsEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -112,9 +112,9 @@ public class EventProvider extends ContentProvider {
             case SPO_ID:
                 _id = ContentUris.parseId(uri);
                 retCursor = db.query(
-                        Contract.SpoEntry.TABLE_NAME,
+                        Contract.SponsorsEntry.TABLE_NAME,
                         projection,
-                        Contract.SpoEntry._ID + " = ?",
+                        Contract.SponsorsEntry._ID + " = ?",
                         new String[]{String.valueOf(_id)},
                         null,
                         null,
@@ -144,17 +144,17 @@ public class EventProvider extends ContentProvider {
 
         switch(sUriMatcher.match(uri)){
             case SCH:
-                _id = db.insert(Contract.SchEntry.TABLE_NAME, null, values);
+                _id = db.insert(Contract.ScheduleEntry.TABLE_NAME, null, values);
                 if(_id > 0){
-                    returnUri =  Contract.SchEntry.buildSchUri(_id);
+                    returnUri =  Contract.ScheduleEntry.buildSchUri(_id);
                 } else{
                     throw new UnsupportedOperationException("Unable to insert rows into: " + uri);
                 }
                 break;
             case SPO:
-                _id = db.insert(Contract.SpoEntry.TABLE_NAME, null, values);
+                _id = db.insert(Contract.SponsorsEntry.TABLE_NAME, null, values);
                 if(_id > 0){
-                    returnUri = Contract.SpoEntry.buildSpoUri(_id);
+                    returnUri = Contract.SponsorsEntry.buildSpoUri(_id);
                 } else{
                     throw new UnsupportedOperationException("Unable to insert rows into: " + uri);
                 }
@@ -178,10 +178,10 @@ public class EventProvider extends ContentProvider {
 
         switch(sUriMatcher.match(uri)){
             case SCH:
-                rows = db.delete(Contract.SchEntry.TABLE_NAME, selection, selectionArgs);
+                rows = db.delete(Contract.ScheduleEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case SPO:
-                rows = db.delete(Contract.SpoEntry.TABLE_NAME, selection, selectionArgs);
+                rows = db.delete(Contract.SponsorsEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -204,10 +204,10 @@ public class EventProvider extends ContentProvider {
 
         switch(sUriMatcher.match(uri)){
             case SCH:
-                rows = db.update(Contract.SchEntry.TABLE_NAME, values, selection, selectionArgs);
+                rows = db.update(Contract.ScheduleEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             case SPO:
-                rows = db.update(Contract.SpoEntry.TABLE_NAME, values, selection, selectionArgs);
+                rows = db.update(Contract.SponsorsEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

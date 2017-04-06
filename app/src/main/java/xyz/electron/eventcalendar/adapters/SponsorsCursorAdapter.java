@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
+import xyz.electron.eventcalendar.provider.Contract;
 
 
 public class SponsorsCursorAdapter extends CursorAdapter {
@@ -41,12 +42,13 @@ public class SponsorsCursorAdapter extends CursorAdapter {
         TextView sponsorsUrl = (TextView) view.findViewById(R.id.sponsors_url);
 
         // Extract properties from cursor
-        String spoDataObjJSON = cursor.getString(cursor.getColumnIndexOrThrow("spoDataObj"));
+        String sponsorsDataObjJSON = cursor.getString(cursor.
+                getColumnIndexOrThrow(Contract.SponsorsEntry.COLUMN_NAME));
 
         //convert it to DataObj.EventScheduleBean via GSON
         Gson gson = new Gson();
         DataObj.EventSponsorsBean eventSponsorsBean =
-                gson.fromJson(spoDataObjJSON, DataObj.EventSponsorsBean.class);
+                gson.fromJson(sponsorsDataObjJSON, DataObj.EventSponsorsBean.class);
 
         // Populate fields with extracted properties
         Glide.with(context)
@@ -57,8 +59,5 @@ public class SponsorsCursorAdapter extends CursorAdapter {
         sponsorsName.setText(eventSponsorsBean.getName());
         sponsorsType.setText(eventSponsorsBean.getType());
         sponsorsUrl.setText(eventSponsorsBean.getUrl());
-
-//        View item = view.findViewById(R.id.activity_sponsor_item);
-//        item.setBackgroundColor(Color.parseColor(Helpers.getRandomColor()));
     }
 }

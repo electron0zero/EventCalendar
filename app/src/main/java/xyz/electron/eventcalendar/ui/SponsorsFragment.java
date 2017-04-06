@@ -43,7 +43,7 @@ public class SponsorsFragment extends Fragment {
         View emptyView = rootView.findViewById(R.id.empty_sponsors);
         gridView.setEmptyView(emptyView);
 
-        cursor = getActivity().getContentResolver().query(Contract.SpoEntry.CONTENT_URI, null, null, null, null);
+        cursor = getActivity().getContentResolver().query(Contract.SponsorsEntry.CONTENT_URI, null, null, null, null);
         sponsorsCursorAdapter = new SponsorsCursorAdapter(getContext(), cursor);
 
         gridView.setAdapter(sponsorsCursorAdapter);

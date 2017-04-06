@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -25,8 +24,9 @@ import xyz.electron.eventcalendar.provider.Contract;
 
 public class FetchDataService extends IntentService {
 
-    public static final String PREFS_NAME = "MyPrefsFile";
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    public static final String SHARED_PREFERENCES_NAME = "EventCalendarPref";
+    public static final String FETCH_DATASERVICE_DESTROYED_BROADCAST
+            = "EventCalendar_FetchDataService_Destroyed";
     SharedPreferences mSettings;
 
 
@@ -40,7 +40,7 @@ public class FetchDataService extends IntentService {
 
     @Override
     public void onCreate() {
-        mSettings = getSharedPreferences(PREFS_NAME, 0);
+        mSettings = getSharedPreferences(SHARED_PREFERENCES_NAME, 0);
         super.onCreate();
     }
 
@@ -138,14 +138,13 @@ public class FetchDataService extends IntentService {
         }
         Log.d("test", "onHandleIntent: " + about.toString());
 
-        // TODO: 17-03-17 cleanup the unused code
         // eventSchedule
         JSONArray schedule = null;
         try {
             schedule = respo.getJSONArray("eventSchedule");
             // delete old records from content provider
             int mRowsDeleted = 0;
-            mRowsDeleted = getContentResolver().delete(Contract.SchEntry.CONTENT_URI,
+            mRowsDeleted = getContentResolver().delete(Contract.ScheduleEntry.CONTENT_URI,
                         null, null);
             // add new records to content provider
             JSONObject item = null;
@@ -154,9 +153,9 @@ public class FetchDataService extends IntentService {
                 ContentValues mContentValues = new ContentValues();
                 Uri mNewUri;
 
-                mContentValues.put(Contract.SchEntry.COLUMN_NAME, item.toString());
+                mContentValues.put(Contract.ScheduleEntry.COLUMN_NAME, item.toString());
                 // update each item in ContentProvider
-                mNewUri = getContentResolver().insert(Contract.SchEntry.CONTENT_URI,
+                mNewUri = getContentResolver().insert(Contract.ScheduleEntry.CONTENT_URI,
                         mContentValues);
                 // Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
             }
@@ -171,7 +170,7 @@ public class FetchDataService extends IntentService {
 
             //delete old records
             int mRowsDeleted = 0;
-            mRowsDeleted = getContentResolver().delete(Contract.SpoEntry.CONTENT_URI,
+            mRowsDeleted = getContentResolver().delete(Contract.SponsorsEntry.CONTENT_URI,
                     null, null);
 
             // add new rows
@@ -183,10 +182,10 @@ public class FetchDataService extends IntentService {
                 ContentValues mContentValues = new ContentValues();
                 Uri mNewUri;
 
-                mContentValues.put(Contract.SpoEntry.COLUMN_NAME, item.toString());
+                mContentValues.put(Contract.SponsorsEntry.COLUMN_NAME, item.toString());
                 // update each item in ContentProvider
 
-                mNewUri = getContentResolver().insert(Contract.SpoEntry.CONTENT_URI,
+                mNewUri = getContentResolver().insert(Contract.SponsorsEntry.CONTENT_URI,
                         mContentValues);
                 // Log.d("test", "onHandleIntent: New URI after insert " + mNewUri);
             }
@@ -199,7 +198,7 @@ public class FetchDataService extends IntentService {
 
     private void sendMessage() {
         Log.d("sender", "Broadcasting message");
-        Intent intent = new Intent("EventCalendar-FetchDataService-Destroyed");
+        Intent intent = new Intent(FETCH_DATASERVICE_DESTROYED_BROADCAST);
         // You can also include some extra data.
 //        intent.putExtra("message", "This is my message!");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

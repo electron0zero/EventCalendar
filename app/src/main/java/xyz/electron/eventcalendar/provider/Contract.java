@@ -23,28 +23,28 @@ public class Contract {
      * A list of possible paths that will be appended to the base URI for each of the different
      * tables.
      */
-    public static final String PATH_SCH = "schedule";
-    public static final String PATH_SPO = "sponsors";
+    public static final String PATH_SCHEDULE = "schedule";
+    public static final String PATH_SPONSORS = "sponsors";
 
     /**
      * Create one class for each table that handles all information regarding the table schema and
      * the URIs related to it.
      */
 
-    public static final class SchEntry implements BaseColumns {
+    public static final class ScheduleEntry implements BaseColumns {
         // Content URI represents the base location for the table
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SCH).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SCHEDULE).build();
 
         // These are special type prefixes that specify if a URI returns a list or a specific item
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTENT_URI  + "/" + PATH_SCH;
+                "vnd.android.cursor.dir/" + CONTENT_URI  + "/" + PATH_SCHEDULE;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTENT_URI + "/" + PATH_SCH;
+                "vnd.android.cursor.item/" + CONTENT_URI + "/" + PATH_SCHEDULE;
 
         // Define the table schema
-        public static final String TABLE_NAME = "schTable";
-        public static final String COLUMN_NAME = "schEventObj";
+        public static final String TABLE_NAME = "scheduleTable";
+        public static final String COLUMN_NAME = "scheduleEventObj";
 
         // Define a function to build a URI to find a specific movie by it's identifier
         public static Uri buildSchUri(long id){
@@ -52,17 +52,17 @@ public class Contract {
         }
     }
 
-    public static final class SpoEntry implements BaseColumns{
+    public static final class SponsorsEntry implements BaseColumns{
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SPO).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SPONSORS).build();
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTENT_URI + "/" + PATH_SPO;
+                "vnd.android.cursor.dir/" + CONTENT_URI + "/" + PATH_SPONSORS;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTENT_URI + "/" + PATH_SPO;
+                "vnd.android.cursor.item/" + CONTENT_URI + "/" + PATH_SPONSORS;
 
-        public static final String TABLE_NAME = "spoTable";
-        public static final String COLUMN_NAME = "spoDataObj";
+        public static final String TABLE_NAME = "sponsorsTable";
+        public static final String COLUMN_NAME = "sponsorsDataObj";
 
         public static Uri buildSpoUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);

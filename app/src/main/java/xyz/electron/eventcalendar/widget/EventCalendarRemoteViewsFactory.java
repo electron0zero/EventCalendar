@@ -40,7 +40,7 @@ public class EventCalendarRemoteViewsFactory implements
         if (mCursor != null) {
             mCursor.close();
         }
-        mCursor = mContext.getContentResolver().query(Contract.SchEntry.CONTENT_URI, null, null, null, null);
+        mCursor = mContext.getContentResolver().query(Contract.ScheduleEntry.CONTENT_URI, null, null, null, null);
     }
 
     @Override
@@ -60,7 +60,8 @@ public class EventCalendarRemoteViewsFactory implements
         // Get the data for this position from the content provider
         String scheduleJSON = "";
         if (mCursor.moveToPosition(position)) {
-            scheduleJSON = mCursor.getString(mCursor.getColumnIndexOrThrow("schEventObj"));
+            scheduleJSON = mCursor.getString(mCursor.
+                    getColumnIndexOrThrow(Contract.ScheduleEntry.COLUMN_NAME));
         }
         Gson gson = new Gson();
         DataObj.EventScheduleBean eventScheduleBean =
