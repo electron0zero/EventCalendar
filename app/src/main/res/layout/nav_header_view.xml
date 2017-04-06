@@ -26,14 +26,16 @@
             android:layout_height="@dimen/nav_head_icon_height"
             android:contentDescription="@string/event_icon"
             android:scaleType="centerCrop"
-            android:background="@color/colorAccent"
+            android:padding="4dp"
+            android:background="@color/white"
             android:src="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/nav_head_EventName"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/nav_head_event_name_height"
-            android:background="@color/pitch_black"
+            android:textColor="@color/white"
+            android:background="@color/black"
             android:padding="@dimen/padding"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_regular" />
