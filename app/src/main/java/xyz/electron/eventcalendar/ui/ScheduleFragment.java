@@ -63,9 +63,23 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
-        // Fix the problem crated by Grid View not Being Direct child of SwipeRefreshLayout
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        // Fix the problem caused by Grid View not Being Direct child of SwipeRefreshLayout
+        // doing it on Start Ensures that our Host Activity Is
+        // created and We can get views from it
+
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
                 .findViewById(R.id.swipe_to_refresh_layout);
+
+        // handle case when we have No content in Grid View aka Empty View case
+        if (gridView.getAdapter().isEmpty()){
+            Log.e(TAG, "onStart: gridView empty");
+            swipeRefreshLayout.setEnabled(true);
+        }
 
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -89,8 +103,16 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
-
-        return rootView;
+        super.onStart();
     }
 
+    @Override
+    public void onResume() {
+        // handle case when we have No content in Grid View aka Empty View case
+        if (gridView.getAdapter().isEmpty()){
+            Log.d(TAG, "onResume: ScheduleFragment gridView empty");
+            swipeRefreshLayout.setEnabled(true);
+        }
+        super.onResume();
+    }
 }

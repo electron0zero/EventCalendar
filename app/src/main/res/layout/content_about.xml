@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/event_poster"
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/event_poster"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder" />

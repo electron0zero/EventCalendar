@@ -36,6 +36,7 @@ public class AboutFragment extends Fragment {
     String aboutJSON = null;
 
     // Views
+    View rootView;
     NestedScrollView scrollView;
     ImageView event_icon;
     ImageView event_poster;
@@ -62,7 +63,7 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: About Fragment");
 
-        View rootView = inflater.inflate(R.layout.content_about, container, false);
+        rootView = inflater.inflate(R.layout.content_about, container, false);
 
         event_icon = (ImageView) rootView.findViewById(R.id.event_icon);
         event_poster = (ImageView) rootView.findViewById(R.id.event_poster);
@@ -105,19 +106,25 @@ public class AboutFragment extends Fragment {
             event_address.setText(about.getAddress_of_event());
         }
 
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        // Fix the problem caused by Grid View not Being Direct child of SwipeRefreshLayout
+        // doing it on Start Ensures that our Host Activity Is
+        // created and We can get views from it
+
         // get The scrolling View in Fragment
         scrollView = (NestedScrollView) rootView.findViewById(R.id.about_view);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
+                .findViewById(R.id.swipe_to_refresh_layout);
 
         // enable by default so user can Refresh even when dragging the screen
         // dragging means "noScrollChange" Occurred and we are at Top already
         // and user is still trying to scroll Up
-
         swipeRefreshLayout.setEnabled(true);
-
-
-        // Fix the problem crated by Grid View not Being Direct child of SwipeRefreshLayout
-        swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
-                .findViewById(R.id.swipe_to_refresh_layout);
 
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -136,8 +143,6 @@ public class AboutFragment extends Fragment {
             }
         });
 
-
-        return rootView;
+        super.onStart();
     }
-
 }

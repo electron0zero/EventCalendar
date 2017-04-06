@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
         // get SwipeToRefresh View
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout);
         // Disable mSwipeRefreshLayout to tackle the Problem of GridView Not being The direct Child

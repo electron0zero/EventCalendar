@@ -25,6 +25,7 @@ public class SponsorsFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     // Views
     GridView gridView;
+    View rootView;
 
     public SponsorsFragment() {
         // Required empty public constructor
@@ -36,7 +37,7 @@ public class SponsorsFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: Sponsors Fragment");
 
-        View rootView = inflater.inflate(R.layout.content_sponsors, container, false);
+        rootView = inflater.inflate(R.layout.content_sponsors, container, false);
         // View adaptor thing
         gridView = (GridView) rootView.findViewById(R.id.sponsorsListView);
         View emptyView = rootView.findViewById(R.id.empty_sponsors);
@@ -47,7 +48,15 @@ public class SponsorsFragment extends Fragment {
 
         gridView.setAdapter(sponsorsCursorAdapter);
 
-        // Fix the problem crated by Grid View not Being Direct child of SwipeRefreshLayout
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        // Fix the problem caused by Grid View not Being Direct child of SwipeRefreshLayout
+        // doing it on Start Ensures that our Host Activity Is
+        // created and We can get views from it
+
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
                 .findViewById(R.id.swipe_to_refresh_layout);
 
@@ -73,8 +82,16 @@ public class SponsorsFragment extends Fragment {
             }
         });
 
-        return rootView;
+        super.onStart();
     }
 
-
+    @Override
+    public void onResume() {
+        // handle case when we have No content in Grid View aka Empty View case
+        if (gridView.getAdapter().isEmpty()){
+            Log.d(TAG, "onResume: SponsorsFragment gridView empty");
+            swipeRefreshLayout.setEnabled(true);
+        }
+        super.onResume();
+    }
 }
