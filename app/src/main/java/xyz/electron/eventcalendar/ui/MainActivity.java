@@ -45,6 +45,8 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.awareness.fence.LocationFence;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallbacks;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
@@ -104,11 +106,11 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(R.string.title_fragment_schedule);
         setSupportActionBar(toolbar);
 
-        if(CURRENT_FRAGMENT == 1){
+        if (CURRENT_FRAGMENT == 1) {
             fragmentClass = ScheduleFragment.class;
-        } else if(CURRENT_FRAGMENT == 2) {
+        } else if (CURRENT_FRAGMENT == 2) {
             fragmentClass = SponsorsFragment.class;
-        } else if(CURRENT_FRAGMENT == 3){
+        } else if (CURRENT_FRAGMENT == 3) {
             fragmentClass = AboutFragment.class;
         }
 
@@ -167,15 +169,15 @@ public class MainActivity extends AppCompatActivity
 
         initDataObj();
         initNavigationView();
-//        launchFetchDataService();
+        // Fetch data service
+        // no need to create fence here, we will one on successful data refresh
+        launchFetchDataService();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-
         // Save custom values into the bundle
         savedInstanceState.putInt(CURRENT_FRAGMENT_KEY, CURRENT_FRAGMENT);
-
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
+        // unregister Fence Broadcast so it doesn't leak
         unregisterFenceBroadcast();
         super.onPause();
     }
@@ -209,7 +212,8 @@ public class MainActivity extends AppCompatActivity
             mSwipeRefreshLayout.setRefreshing(false);
             initDataObj();
             initNavigationView();
-            // init Schedule List View
+            // create Fence when reloading
+            createFence();
         }
     };
 
@@ -336,7 +340,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private boolean checkLocationPermission() {
-        if( !hasLocationPermission() ) {
+        if (!hasLocationPermission()) {
             Log.e(TAG, "Does not have location permission granted");
             requestLocationPermission();
             return false;
@@ -376,6 +380,10 @@ public class MainActivity extends AppCompatActivity
     private void createFence() {
         if (map != null) {
             checkLocationPermission();
+
+            // Unregister Fence before Registering New Fences
+            removeFence();
+
             // show last know location
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
@@ -416,9 +424,17 @@ public class MainActivity extends AppCompatActivity
                 mGoogleApiClient,
                 new FenceUpdateRequest.Builder()
                         .removeFence(KEY_INSIDE_EVENT_VENUE)
-                        .build());
-        unregisterFenceBroadcast();
-        Log.d(TAG, "removeFence: Fence Destroyed");
+                        .build()).setResultCallback(new ResultCallbacks<Status>() {
+            @Override
+            public void onSuccess(@NonNull Status status) {
+                Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " successfully removed.");
+            }
+
+            @Override
+            public void onFailure(@NonNull Status status) {
+                Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " could NOT be removed.");
+            }
+        });
     }
 
     private void registerFenceBroadcast() {
