@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             // we have data do something with it.
-            Log.d(TAG, "onReceive: do stuff, we have new data");
+            // Log.d(TAG, "onReceive: do stuff, we have new data");
             mSwipeRefreshLayout.setRefreshing(false);
             initDataObj();
             initNavigationView();
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity
 
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                Log.i("menu_schedule", "Refresh menu item selected");
+                // Log.i("menu_schedule", "Refresh menu item selected");
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mSwipeRefreshLayout.setRefreshing(true);
                 // Start the refresh background task.
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Log.d(TAG, "onNavigationItemSelected: Menu Item Selected");
+        // Log.d(TAG, "onNavigationItemSelected: Menu Item Selected");
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         int titleId = R.string.app_name;
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         isConnected = activeNetworkInfo != null &&
                 activeNetworkInfo.isConnectedOrConnecting();
-        Log.d("menu_schedule", "isNetworkAvailable: " + isConnected);
+        // Log.d("menu_schedule", "isNetworkAvailable: " + isConnected);
         return isConnected;
     }
 
@@ -381,8 +381,8 @@ public class MainActivity extends AppCompatActivity
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
             if (mLastLocation != null) {
-                Log.d(TAG, "current Location: lat = " + String.valueOf(mLastLocation.getLatitude()));
-                Log.d(TAG, "current Location: lng = " + String.valueOf(mLastLocation.getLongitude()));
+                // Log.d(TAG, "current Location: lat = " + String.valueOf(mLastLocation.getLatitude()));
+                // Log.d(TAG, "current Location: lng = " + String.valueOf(mLastLocation.getLongitude()));
             } else {
                 Log.e(TAG, "onConnected: Last location is null");
                 Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
@@ -392,12 +392,12 @@ public class MainActivity extends AppCompatActivity
             Double lng = Double.valueOf(map.getLongitude());
             Double rad = Double.valueOf(map.getRadiusInMeters());
             Long dtime = Long.valueOf(map.getTimeForNotificationInSec()) * 1000;
-            Log.d(TAG, "=========== Fence Params ===========");
-            Log.d(TAG, "createFence: lat = " + lat.toString());
-            Log.d(TAG, "createFence: lng = " + lng.toString());
-            Log.d(TAG, "createFence: radius = " + rad.toString());
-            Log.d(TAG, "createFence: time = " + dtime.toString());
-            Log.d(TAG, "====================================");
+            // Log.d(TAG, "=========== Fence Params ===========");
+            // Log.d(TAG, "createFence: lat = " + lat.toString());
+            // Log.d(TAG, "createFence: lng = " + lng.toString());
+            // Log.d(TAG, "createFence: radius = " + rad.toString());
+            // Log.d(TAG, "createFence: time = " + dtime.toString());
+            // Log.d(TAG, "====================================");
             AwarenessFence eventFence = LocationFence.in(lat, lng, rad, dtime);
 
             Intent intent = new Intent(ACTION_FENCE);
@@ -407,7 +407,7 @@ public class MainActivity extends AppCompatActivity
             builder.addFence(KEY_INSIDE_EVENT_VENUE, eventFence, fencePendingIntent);
             registerFenceBroadcast();
             Awareness.FenceApi.updateFences(mGoogleApiClient, builder.build());
-            Log.d(TAG, "createFence: Fence Created");
+            // Log.d(TAG, "createFence: Fence Created");
 
         }
     }
@@ -420,18 +420,18 @@ public class MainActivity extends AppCompatActivity
                         .build()).setResultCallback(new ResultCallbacks<Status>() {
             @Override
             public void onSuccess(@NonNull Status status) {
-                Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " successfully removed.");
+                // Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " successfully removed.");
             }
 
             @Override
             public void onFailure(@NonNull Status status) {
-                Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " could NOT be removed.");
+                // Log.i(TAG, "Fence " + KEY_INSIDE_EVENT_VENUE + " could NOT be removed.");
             }
         });
     }
 
     private void registerFenceBroadcast() {
-        Log.d(TAG, "registerFenceBroadcast: Registered Fence Broadcast");
+        // Log.d(TAG, "registerFenceBroadcast: Registered Fence Broadcast");
         mEventFenceBroadcastReceiver = new EventFenceBroadcastReceiver();
         registerReceiver(mEventFenceBroadcastReceiver, new IntentFilter(ACTION_FENCE));
 
@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity
         try {
             unregisterReceiver(mEventFenceBroadcastReceiver);
             mEventFenceBroadcastReceiver = null;
-            Log.d(TAG, "unregisterFenceBroadcast: fence broadcast unregistered");
+            // Log.d(TAG, "unregisterFenceBroadcast: fence broadcast unregistered");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
@@ -514,18 +514,18 @@ public class MainActivity extends AppCompatActivity
     // Google API Callbacks
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d(TAG, "onConnected: API connected");
+        // Log.d(TAG, "onConnected: API connected");
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         removeFence();
-        Log.d(TAG, "onConnectionSuspended: API connection suspended");
+        // Log.d(TAG, "onConnectionSuspended: API connection suspended");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed: API connection failed");
+        // Log.d(TAG, "onConnectionFailed: API connection failed");
     }
 
     // Awareness API Fence Broadcast receiver
@@ -539,7 +539,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (TextUtils.equals(KEY_INSIDE_EVENT_VENUE, fenceState.getFenceKey())) {
                     if (fenceState.getCurrentState() == FenceState.TRUE) {
-                        Log.d(TAG, "Fence API Broadcast received");
+                        // Log.d(TAG, "Fence API Broadcast received");
                         if (metadata != null && map != null) {
                             createNotification(1337, metadata.getEvent_name(), map.getNotificationMessage());
                         }

@@ -39,7 +39,7 @@ public class SponsorsFragment extends Fragment implements LoaderCallbacks<Cursor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: Sponsors Fragment");
+        // Log.d(TAG, "onCreateView: Sponsors Fragment");
 
         rootView = inflater.inflate(R.layout.content_sponsors, container, false);
         // View adaptor thing
@@ -85,9 +85,9 @@ public class SponsorsFragment extends Fragment implements LoaderCallbacks<Cursor
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
-                Log.e(TAG, "onScroll: Enable State " + enable);
+                // Log.e(TAG, "onScroll: Enable State " + enable);
                 if (gridView.getAdapter().isEmpty()) {
-                    Log.e(TAG, "onStart: gridView empty");
+                    // Log.e(TAG, "onStart: gridView empty");
                     swipeRefreshLayout.setEnabled(true);
                 }else {
                     swipeRefreshLayout.setEnabled(enable);

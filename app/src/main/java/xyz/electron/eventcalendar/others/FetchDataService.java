@@ -103,7 +103,7 @@ public class FetchDataService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("test", "onHandleIntent: " + metadata.toString());
+        // Log.d("test", "onHandleIntent: " + metadata.toString());
 
         // eventMap
         JSONObject map = null;
@@ -119,7 +119,7 @@ public class FetchDataService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("test", "onHandleIntent: " + map.toString());
+        // Log.d("test", "onHandleIntent: " + map.toString());
 
         // eventAbout
         JSONObject about = null;
@@ -136,7 +136,7 @@ public class FetchDataService extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("test", "onHandleIntent: " + about.toString());
+        // Log.d("test", "onHandleIntent: " + about.toString());
 
         // eventSchedule
         JSONArray schedule = null;
@@ -197,7 +197,7 @@ public class FetchDataService extends IntentService {
     }
 
     private void sendMessage() {
-        Log.d("sender", "Broadcasting message");
+        // Log.d("sender", "Broadcasting message");
         Intent intent = new Intent(FETCH_DATASERVICE_DESTROYED_BROADCAST);
         // You can also include some extra data.
 //        intent.putExtra("message", "This is my message!");

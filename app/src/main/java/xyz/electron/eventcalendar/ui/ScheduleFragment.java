@@ -41,7 +41,7 @@ public class ScheduleFragment extends Fragment implements LoaderCallbacks<Cursor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: Schedule Fragment");
+        // Log.d(TAG, "onCreateView: Schedule Fragment");
 
         View rootView = inflater.inflate(R.layout.content_schedule, container, false);
         // View adaptor thing

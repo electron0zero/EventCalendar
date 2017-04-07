@@ -59,7 +59,7 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: About Fragment");
+        // Log.d(TAG, "onCreateView: About Fragment");
 
         rootView = inflater.inflate(R.layout.content_about, container, false);
 
