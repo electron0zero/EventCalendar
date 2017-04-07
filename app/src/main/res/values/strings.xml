@@ -39,5 +39,13 @@
     <!--Google Awareness API KEY-->
     <string name="awareness_api_key" templateMergeStrategy="preserve"
         translatable="false">YOUR_AWARENESS_API_KEY</string>
-
+    <string name="error_no_map_data">No Map Data</string>
+    <string name="error_maps_no_app">No Activity Found to Open Maps, Install a App that can Open Maps</string>
+    <string name="error_no_last_location">Can not get last known location,</string>
+    <string name="error_no_internet">Can not Refresh, Check Internet Connection and Try Again</string>
+    <string name="log_no_permission">Does not have location permission granted</string>
+    <string name="log_null_location">onConnected: Last location is null</string>
+    <string name="log_no_location_permission">Location permission denied.</string>
+    <string name="log_unregister_receiver">onPause: Attempted to unregister a unregistered receiver</string>
+    <!--8209820704-->
 </resources>

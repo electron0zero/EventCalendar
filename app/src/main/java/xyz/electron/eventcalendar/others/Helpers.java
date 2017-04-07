@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import xyz.electron.eventcalendar.R;
+
 public class Helpers {
 
     //helper function to open urls
@@ -46,8 +48,7 @@ public class Helpers {
         } catch (ActivityNotFoundException e){
             e.printStackTrace();
 
-            Toast.makeText(context, "No Activity Found to Open Maps," +
-                    " Install a App that can Open Maps", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.error_maps_no_app, Toast.LENGTH_LONG).show();
         }
     }
 

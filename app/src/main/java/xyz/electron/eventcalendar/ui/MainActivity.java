@@ -276,9 +276,9 @@ public class MainActivity extends AppCompatActivity
             // Open Maps on new activity
             String zoom = "20";
             if (map != null) {
-                mapThis(map.getLatitude(), map.getLongitude(), zoom, getApplicationContext());
+                mapThis(map.getLatitude(), map.getLongitude(), zoom, this);
             } else {
-                Toast.makeText(this, "No Map Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_no_map_data, Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.nav_about) {
             fragmentClass = AboutFragment.class;
@@ -315,8 +315,7 @@ public class MainActivity extends AppCompatActivity
             mSwipeRefreshLayout.setRefreshing(true);
             startService(i);
         } else {
-            Toast.makeText(this, "Can not Refresh, " +
-                    "Check Internet Connection and Try Again", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_LONG).show();
             mSwipeRefreshLayout.setRefreshing(false);
 //            Log.v("Main", "You are not online!!!!");
         }
@@ -334,7 +333,7 @@ public class MainActivity extends AppCompatActivity
 
     private boolean checkLocationPermission() {
         if (!hasLocationPermission()) {
-            Log.e(TAG, "Does not have location permission granted");
+            Log.e(TAG, getString(R.string.log_no_permission));
             requestLocationPermission();
             return false;
         }
@@ -364,7 +363,7 @@ public class MainActivity extends AppCompatActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //granted
                 } else {
-                    Log.e(TAG, "Location permission denied.");
+                    Log.e(TAG, getString(R.string.log_no_location_permission));
                 }
             }
         }
@@ -384,8 +383,8 @@ public class MainActivity extends AppCompatActivity
                 // Log.d(TAG, "current Location: lat = " + String.valueOf(mLastLocation.getLatitude()));
                 // Log.d(TAG, "current Location: lng = " + String.valueOf(mLastLocation.getLongitude()));
             } else {
-                Log.e(TAG, "onConnected: Last location is null");
-                Toast.makeText(this, "Can not get last known location,", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, getString(R.string.log_null_location));
+                Toast.makeText(this, R.string.error_no_last_location, Toast.LENGTH_SHORT).show();
             }
             // fence registration stuff
             Double lat = Double.valueOf(map.getLatitude());
@@ -445,7 +444,7 @@ public class MainActivity extends AppCompatActivity
             // Log.d(TAG, "unregisterFenceBroadcast: fence broadcast unregistered");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            Log.e(TAG, "onPause: Attempted to unregister a unregistered receiver");
+            Log.e(TAG, getString(R.string.log_unregister_receiver));
         }
     }
 

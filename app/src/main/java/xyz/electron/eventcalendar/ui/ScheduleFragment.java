@@ -33,11 +33,6 @@ public class ScheduleFragment extends Fragment implements LoaderCallbacks<Cursor
     // Views
     GridView gridView;
 
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

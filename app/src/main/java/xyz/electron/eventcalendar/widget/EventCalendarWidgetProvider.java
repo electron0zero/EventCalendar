@@ -62,15 +62,6 @@ public class EventCalendarWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
-//        final String action = intent.getAction();
-//        if (action.equals(CLICK_ACTION)) {
-//            final String symbol = intent.getStringExtra(DetailGraphActivity.SELECTED_SYMBOL);
-//
-//            Intent i = new Intent(ctx, DetailGraphActivity.class);
-//            i.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-//            i.putExtra(DetailGraphActivity.SELECTED_SYMBOL, symbol);
-//            ctx.startActivity(i);
-//        }
         super.onReceive(ctx, intent);
     }
 
