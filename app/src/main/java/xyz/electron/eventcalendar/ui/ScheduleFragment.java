@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +21,14 @@ import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.ScheduleCursorAdapter;
 import xyz.electron.eventcalendar.provider.Contract;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
     private final String TAG = "ScheduleFragment";
+    // Defines the id of the loader for later reference
+    // A unique identifier for this loader. Can be whatever you want.
+    public static final int SCHEDULE_LOADER_ID = 2;
+    CursorLoader cursorLoader;
+    ScheduleCursorAdapter scheduleCursorAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     // Views
     GridView gridView;
@@ -41,27 +49,21 @@ public class ScheduleFragment extends Fragment {
         View emptyView = rootView.findViewById(R.id.empty_schedule);
         gridView.setEmptyView(emptyView);
 
-        Cursor cursor = getActivity().getContentResolver().query(Contract.ScheduleEntry.CONTENT_URI, null, null, null, null);
-        ScheduleCursorAdapter scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), cursor);
-        scheduleCursorAdapter.notifyDataSetChanged();
-
+        scheduleCursorAdapter = new ScheduleCursorAdapter(getActivity(), null);
         gridView.setAdapter(scheduleCursorAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 //open details activity
-                Cursor cur = (Cursor) adapter.getItemAtPosition(position);
-                cur.moveToPosition(position);
-
-                String eventObjJSON = cur.getString(cur.
-                        getColumnIndexOrThrow(Contract.ScheduleEntry.COLUMN_NAME));
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("eventObjJSON", eventObjJSON);
+                intent.putExtra("position", position);
                 startActivity(intent);
-                // Toast.makeText(MainActivity.this, position + " Meooooow " + id, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Initialize the loader with a special ID and the defined callbacks from above
+        getLoaderManager().initLoader(SCHEDULE_LOADER_ID, null, this);
 
         return rootView;
     }
@@ -76,7 +78,7 @@ public class ScheduleFragment extends Fragment {
                 .findViewById(R.id.swipe_to_refresh_layout);
 
         // handle case when we have No content in Grid View aka Empty View case
-        if (gridView.getAdapter().isEmpty()){
+        if (gridView.getAdapter().isEmpty()) {
             Log.e(TAG, "onStart: gridView empty");
             swipeRefreshLayout.setEnabled(true);
         }
@@ -90,7 +92,7 @@ public class ScheduleFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 boolean enable = false;
-                if(gridView != null && gridView.getChildCount() > 0){
+                if (gridView != null && gridView.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = gridView.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible
@@ -109,10 +111,28 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onResume() {
         // handle case when we have No content in Grid View aka Empty View case
-        if (gridView.getAdapter().isEmpty()){
+        if (gridView.getAdapter().isEmpty()) {
             Log.d(TAG, "onResume: ScheduleFragment gridView empty");
             swipeRefreshLayout.setEnabled(true);
         }
         super.onResume();
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+        cursorLoader = new CursorLoader(getContext(),
+                Contract.ScheduleEntry.CONTENT_URI, null, null, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        scheduleCursorAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        scheduleCursorAdapter.swapCursor(null);
+    }
+
 }

@@ -1,6 +1,8 @@
 package xyz.electron.eventcalendar.ui;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -19,6 +21,7 @@ import java.util.List;
 import xyz.electron.eventcalendar.others.DataObj;
 import xyz.electron.eventcalendar.R;
 import xyz.electron.eventcalendar.adapters.ActivitySponsorsAdapter;
+import xyz.electron.eventcalendar.provider.Contract;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -33,7 +36,17 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
-        String eventObjJSON = intent.getStringExtra("eventObjJSON");
+        int position = intent.getIntExtra("position", 0);
+
+        final ContentResolver resolver = getContentResolver();
+        Cursor cursor = resolver.query(
+                Contract.ScheduleEntry.CONTENT_URI, null, null, null, null);
+
+        assert cursor != null;
+        cursor.moveToPosition(position);
+
+        String eventObjJSON = cursor.getString(cursor.
+                getColumnIndexOrThrow(Contract.ScheduleEntry.COLUMN_NAME));
 
         //convert it to DataObj.EventScheduleBean via GSON
         Gson gson = new Gson();

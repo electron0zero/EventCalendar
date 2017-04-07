@@ -171,11 +171,6 @@ public class MainActivity extends AppCompatActivity
         initDataObj();
         initNavigationView();
 
-        // No Saved State, Let's Fetch data
-        if(savedInstanceState == null){
-            // Fetch data service
-             launchFetchDataService();
-        }
     }
 
     @Override
