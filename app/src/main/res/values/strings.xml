@@ -34,5 +34,10 @@
     <!--URL of JSON Data file-->
     <string name="data_json_file_url">https://api.myjson.com/bins/nedbz</string>
 
+    <!--TODO: PUT YOUR Awareness API KEY (https://developers.google.com/awareness/)-->
+    <!--Get your KEY from : https://developers.google.com/awareness/android-api/get-started#add_your_api_key-->
+    <!--Google Awareness API KEY-->
+    <string name="awareness_api_key" templateMergeStrategy="preserve"
+        translatable="false">YOUR_AWARENESS_API_KEY</string>
 
 </resources>

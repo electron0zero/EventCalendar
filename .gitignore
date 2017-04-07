@@ -41,3 +41,6 @@ project.properties
 ##Gradle-based build
 .gradle
 build/
+
+## API_KEYS file
+API_KEYS.txt
