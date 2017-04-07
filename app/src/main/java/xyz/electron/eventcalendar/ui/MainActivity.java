@@ -133,10 +133,6 @@ public class MainActivity extends AppCompatActivity
 
         // get SwipeToRefresh View
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh_layout);
-        // Disable mSwipeRefreshLayout to tackle the Problem of GridView Not being The direct Child
-        // Hence We can not Scroll Back up in GridViews
-        // We will enable it in Respective Fragments
-        mSwipeRefreshLayout.setEnabled(false);
 
         // Setup refresh listener which triggers new data loading
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -170,7 +166,6 @@ public class MainActivity extends AppCompatActivity
 
         initDataObj();
         initNavigationView();
-
     }
 
     @Override
@@ -254,9 +249,8 @@ public class MainActivity extends AppCompatActivity
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mSwipeRefreshLayout.setRefreshing(true);
                 // Start the refresh background task.
-                // This method calls setRefreshing(false) when it's finished.
+                // call setRefreshing(false) when we get data
                 launchFetchDataService();
-                //mSwipeRefreshLayout.setRefreshing(false);
                 return true;
         }
 

@@ -122,11 +122,14 @@ public class AboutFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
                 .findViewById(R.id.swipe_to_refresh_layout);
 
-        // enable by default so user can Refresh even when dragging the screen
+        // Enable by default so user can Refresh even when dragging the screen
         // dragging means "noScrollChange" Occurred and we are at Top already
         // and user is still trying to scroll Up
         swipeRefreshLayout.setEnabled(true);
 
+        // Disable mSwipeRefreshLayout when scrolling and not on TOp to tackle the
+        // Problem of GridView Not being The direct Child of SwipeRefreshLayout.
+        // Hence We can not Scroll Back up in GridViews
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {

@@ -65,6 +65,9 @@ public class SponsorsFragment extends Fragment implements LoaderCallbacks<Cursor
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity()
                 .findViewById(R.id.swipe_to_refresh_layout);
 
+        // Disable mSwipeRefreshLayout when scrolling and not on TOp to tackle the
+        // Problem of GridView Not being The direct Child of SwipeRefreshLayout.
+        // Hence We can not Scroll Back up in GridViews
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -82,22 +85,17 @@ public class SponsorsFragment extends Fragment implements LoaderCallbacks<Cursor
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
-                // Log.d(TAG, "onScroll: Enable SwipeToRefreshLayout : " + enable);
-                swipeRefreshLayout.setEnabled(enable);
+                Log.e(TAG, "onScroll: Enable State " + enable);
+                if (gridView.getAdapter().isEmpty()) {
+                    Log.e(TAG, "onStart: gridView empty");
+                    swipeRefreshLayout.setEnabled(true);
+                }else {
+                    swipeRefreshLayout.setEnabled(enable);
+                }
             }
         });
 
         super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        // handle case when we have No content in Grid View aka Empty View case
-        if (gridView.getAdapter().isEmpty()) {
-            Log.d(TAG, "onResume: SponsorsFragment gridView empty");
-            swipeRefreshLayout.setEnabled(true);
-        }
-        super.onResume();
     }
 
     @Override
