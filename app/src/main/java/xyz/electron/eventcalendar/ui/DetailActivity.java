@@ -93,9 +93,6 @@ public class DetailActivity extends AppCompatActivity {
         // Sponsors List View
         List<DataObj.EventScheduleBean.ActivitySponsorsBean> activitySponsors
                 = eventScheduleBean.getActivitySponsors();
-        Log.d("test", "onCreate: details spo " + activitySponsors.size());
-        Log.d("test", "onCreate: spo " + activitySponsors.get(0).getImage());
-        Log.d("test", "onCreate: spo " + activitySponsors.get(1).getImage());
         ActivitySponsorsAdapter activitySponsorsAdapter
                 = new ActivitySponsorsAdapter(this, activitySponsors);
 

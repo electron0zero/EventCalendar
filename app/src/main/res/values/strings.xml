@@ -9,9 +9,6 @@
     <string name="title_fragment_sponsors">Sponsors</string>
     <string name="title_fragment_about">About</string>
 
-    <!--URL of JSON Data file-->
-    <string name="data_json_file_url">https://api.myjson.com/bins/1dy0sz</string>
-
     <!--Strings used in UI-->
     <string name="event_sponsors">Event Sponsors</string>
     <string name="registration">Registration</string>
@@ -34,6 +31,8 @@
     <string name="refresh">Refresh</string>
     <string name="empty_view_message">Nothing to Show \n Swipe Down to Refresh</string>
 
-    <!---->
+    <!--URL of JSON Data file-->
+    <string name="data_json_file_url">https://api.myjson.com/bins/nedbz</string>
+
 
 </resources>
