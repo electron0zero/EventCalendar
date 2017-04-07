@@ -38,9 +38,12 @@ project.properties
 *.ipr
 *.iws
 
-##Gradle-based build
+# Gradle-based build
 .gradle
 build/
 
-## API_KEYS file
+# Android Capture files
+captures/
+
+# API_KEYS file
 API_KEYS.txt
