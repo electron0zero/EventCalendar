@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/logo.png">
+<img src="docs/logo.png" height=200>
 </p>
 
 # Event Calendar
@@ -8,9 +8,11 @@
 # Description
 This app aims to provide a boilerplate app for building a simple and robust app as a calendar for
 your event.
+
 Using the provided JSON file (which can be hosted on your server along with Assets for the
 event) Event Organizers can manage the content of the App and update it without releasing an
 update.
+
 After looking at Google I/O app we had inspiration for building the similar app for our university’s
 Techno-cultural fest. But ran into few hurdles like Time and Resources Required to build a
 production-ready app that can be used as an Event calendar, an app in which Event organiser
@@ -69,42 +71,21 @@ buildTypes {
     targetSdkVersion 25
 
 ## Screenshots
-
-## Phone
 <p align="center">
-<img src="Screenshots/p1.png" width="200">
-<img src="Screenshots/p2.png" width="200">
-<img src="Screenshots/p3.png" width="200">
-<img src="Screenshots/p4.png" width="200">
-<img src="Screenshots/p5.png" width="200">
-<img src="Screenshots/p6.png" width="200">
-<img src="Screenshots/p7.png" width="200">
-<img src="Screenshots/p8.png" width="200">
-</p>
-<p align="center">
-<img src="Screenshots/pl1.png" width="400">
-<img src="Screenshots/pl2.png" width="400">
-<img src="Screenshots/pl3.png" width="400">
-<img src="Screenshots/pl4.png" width="400">
-<img src="Screenshots/pl5.png" width="400">
-<img src="Screenshots/pl6.png" width="400">
+<img src="Screenshots/1.png" width="400">
+<img src="Screenshots/2.png" width="400">
+<img src="Screenshots/3.png" width="400">
+<img src="Screenshots/4.png" width="400">
+<img src="Screenshots/4.png" width="400">
+<img src="Screenshots/6.png" width="400">
+<img src="Screenshots/7.png" width="400">
+<img src="Screenshots/8.png" width="400">
+<img src="Screenshots/9.png" width="400">
+<img src="Screenshots/10.png" width="400">
+<img src="Screenshots/11.png" width="400">
 </p>
 
-## Tablet
-<p align="center">
-<img src="Screenshots/t1.png" width="300">
-<img src="Screenshots/t2.png" width="300">
-<img src="Screenshots/t3.png" width="300">
-<img src="Screenshots/t4.png" width="300">
-<img src="Screenshots/t5.png" width="300">
-<img src="Screenshots/t6.png" width="300">
-<img src="Screenshots/t7.png" width="300">
-</p>
-<p align="center">
-<img src="Screenshots/tl1.png" width="500">
-<img src="Screenshots/tl2.png" width="500">
-<img src="Screenshots/tl3.png" width="500">
-</p>
+see `Screenshots` folder for more
 
 # Contributing
 You are encouraged to file bug reports(issues) and make pull requests
